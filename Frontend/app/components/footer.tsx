@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className = "flex flex-col bg-[#111111] text-white space-y-5">
+    <footer className = "flex flex-col bg-[#111111] text-white space-y-2">
       <div className = "h-[5px] bg-[linear-gradient(to_right,_#6DABE3_0%,_#6DABE3_11.11%,_#FF1100_11.11%,_#FF1100_22.22%,_#0E9729_22.22%,_#0E9729_33.33%,_#D6DE00_33.33%,_#D6DE00_44.44%,_#EC7705_44.44%,_#EC7705_55.55%,_#1CABA5_55.55%,_#1CABA5_66.66%,_#E87086_66.66%,_#E87086_77.77%,_#AD82CC_77.77%,_#AD82CC_88.88%,_#58206A_88.88%,_#58206A_100%)]"/>
       <div className = "flex flex-row justify-end px-5">
         <div className = "flex flex-row">
@@ -14,7 +14,7 @@ export default function Footer() {
           </a>
         </div>
       </div>
-      <p className = "text-[#808080]"> © 2009 - {new Date().getFullYear()} Starlight Dance & Musical Theatre School. </p>
+      <p className = "text-[#808080] py-2"> © 2009 - {new Date().getFullYear()} Starlight Dance & Musical Theatre School. </p>
     </footer>
   );
 }
