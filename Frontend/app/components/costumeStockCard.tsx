@@ -6,7 +6,6 @@ interface costume {
     colour: string;
     size: string;
     quantity: number;
-    status: string;
     locationCode: string;
     lastUpdated: string;
     notes: string;
@@ -14,7 +13,7 @@ interface costume {
     cost: string;
 }
 
-export default function costumeCard({costumeId, name, group, category, colour, size, quantity, status, locationCode, lastUpdated, notes, inStock, cost} : costume) {
+export default function costumeCard({costumeId, name, group, category, colour, size, quantity, locationCode, lastUpdated, notes, inStock, cost} : costume) {
 
     return (
         <main className = "flex flex-row bg-[#323232] items-center space-x-5 w-400 justify-between rounded px-10">
