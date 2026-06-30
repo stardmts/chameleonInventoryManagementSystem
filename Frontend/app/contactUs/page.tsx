@@ -2,7 +2,7 @@ import NavBar from "../components/navigationBar";
 import Footer from "../components/footer";
 import ContactUs from "../components/contactUs";
 
-export default function Home() {
+export default function ContactUsPage() {
   return (
     <div>
       <header>

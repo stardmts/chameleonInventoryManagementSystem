@@ -1,15 +1,15 @@
 import StaffNavBar from "../components/staffNavigationBar";
-import LandingPage from "../components/landingPage";
+import Admin from "../components/admin";
 import Footer from "../components/footer";
 
-export default function StaffLandingPage() {
+export default function AdminPage() {
   return (
     <div>
       <header>
         <StaffNavBar />
       </header>
       <div>
-        <LandingPage />
+        <Admin />
       </div>
       <footer>
         <Footer />
