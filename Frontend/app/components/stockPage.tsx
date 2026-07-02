@@ -3,9 +3,12 @@
 import CostumeCard from "./costumeStockCard";
 import PropCard from "./propStockCard";
 import ToolCard from "./toolStockCard";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function StockPage() {
+    
+    const router = useRouter();
 
     const [search, setSearch ] = useState('');
 
@@ -22,9 +25,10 @@ export default function StockPage() {
                     <button className = "bg-[#323232] border-4 border-[#6dabe3] p-2 text-white rounded-full hover:bg-[#6dabe3]"> Costumes </button> {/*Filter to only costumes*/}
                     <button className = "bg-[#323232] border-4 border-[#ff1200] p-2 text-white rounded-full hover:bg-[#ff1200]"> Props </button> {/*Filter to only props*/}
                     <button className = "bg-[#323232] border-4 border-[#e97187] p-2 text-white rounded-full hover:bg-[#e97187]"> Tools </button> {/*Filter to only tools*/}
+                    <button onClick = {() => router.push('/addStock')} className = "bg-[#323232] border-4 border-[#d6de00] p-2 text-white rounded-full hover:bg-[#d6de00]"> Add new item </button> {/*bring up an add new item*/}
                 </div>
             </div>
-            <div className = "flex flex-col items-center space-y-2 overflow-y-auto items-center bg-[#323232] h-190 w-431 text-white rounded px-10 py-5">
+            <div className = "flex flex-col items-center space-y-2 overflow-y-auto bg-[#323232] h-190 w-431 text-white rounded px-5 py-5">
                 <CostumeCard key = '5003' costumeId = "5007" name = "red tutu" group = "red tutus" category = "tutus" colour = "red" size = "child small" quantity = {20} locationCode = "abcdef" lastUpdated = "01/07/2026" notes = "" inStock = {2} imageURL = "../costumeImages/5007.jpg" cost = "£10.00" />              
                 <CostumeCard key = '5004' costumeId = "5008" name = "red tutu" group = "red tutus" category = "tutus" colour = "red" size = "child medium" quantity = {15} locationCode = "abcdef" lastUpdated = "01/07/2026" notes = "" inStock = {13} imageURL = "../costumeImages/5007.jpg" cost = "£10.00" />
                 <PropCard key = '0002' propId = "0001" name = "Wonka Bar" variant = "Brown" quantity = {15} locationCode = "Zone 4" cost = "£3.00" imageURL = "../propImages/0001.webp" />

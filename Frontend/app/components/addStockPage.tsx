@@ -1,20 +1,22 @@
 "use client";
 
 import { useState } from 'react';
-import StaffHomePage from './staffHomePage';
 import StockPage from './stockPage';
-import TransactionPage from './transactionPage';
+import AddStock from './addStock';
+import { useRouter } from "next/navigation";
 
-export default function LandingPage() {
+export default function AddStockPage() {
 
   const [display, setDisplay ] = useState('');
+
+  const router = useRouter();
 
   const renderContent = () => {
     switch (display) {
         case 'QR code scanner':
         return ;
         case 'Transaction Log':
-        return <TransactionPage />;
+        return ;
         case 'Stock':
         return <StockPage />;
         case 'Users':
@@ -22,7 +24,7 @@ export default function LandingPage() {
         case 'Account':
         return ;
         default:
-        return <StaffHomePage />;
+        return <AddStock />;
         }
     };
 
@@ -30,7 +32,7 @@ export default function LandingPage() {
     <main className = "flex flex-row bg-[#262626] w-full">
       <div className = "flex flex-col justify-between bg-[#111111] h-auto w-45 border-r-2 border-white">
         <div className = "flex flex-col">
-          <button onClick = {() => setDisplay('')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> DashBoard </button>
+          <button onClick = {() => router.push('/staffLandingPage')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> DashBoard </button>
           <button onClick = {() => setDisplay('QR code scanner')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> QR code scanner </button>
           <button onClick = {() => setDisplay('Transaction Log')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Transaction Log </button>
           <button onClick = {() => setDisplay('Stock')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Stock </button>

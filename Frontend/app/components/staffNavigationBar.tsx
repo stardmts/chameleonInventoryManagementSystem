@@ -19,7 +19,6 @@ export default function NavBar() {
         </div>
         <div className = "flex flex-row space-x-5">
           <a href = '/staffLandingPage' className = "text-white text-1xl hover:underline"> Home </a>
-          <a href = '/' className = "text-white text-1xl hover:underline"> QR code scanner </a>
           <a href = '/' className = "text-white text-1xl hover:underline"> Sign out </a>
         </div>
       </div>
