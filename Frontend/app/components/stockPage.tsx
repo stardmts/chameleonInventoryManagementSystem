@@ -1,8 +1,8 @@
 "use client";
 
-import CostumeCard from "./costumeStockCard";
-import PropCard from "./propStockCard";
-import ToolCard from "./toolStockCard";
+import CostumeCard from "./cards/costumeStockCard";
+import PropCard from "./cards/propStockCard";
+import ToolCard from "./cards/toolStockCard";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 

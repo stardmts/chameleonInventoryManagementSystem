@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import TransactionCard from "./transactionCard";
+import TransactionCard from "./cards/transactionCard";
 
 export default function TransactionPage() {
 

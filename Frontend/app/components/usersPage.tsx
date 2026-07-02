@@ -1,6 +1,6 @@
 "use client";
 
-import UserCard from "./usersCard";
+import UserCard from "./cards/usersCard";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 

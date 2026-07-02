@@ -1,7 +1,7 @@
 "use client";
 
-import NoticeCard from './noticeCard';
-import DeadlineCard from './deadlineCard';
+import NoticeCard from './cards/noticeCard';
+import DeadlineCard from './cards/deadlineCard';
 
 export default function StaffHomePage() {
 
