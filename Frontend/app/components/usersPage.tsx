@@ -13,7 +13,7 @@ export default function UsersPage() {
     return (
         <main className = "flex flex-col items-center space-y-5 bg-[#323232]">
             <header className = "text-center bg-[#484848] w-full p-0.75 border-b-2 text-white text-2xl border-white">
-                All stock:
+                All users:
             </header>
             <div className = "flex flex-row items-center justify-between w-full px-10">
                 <div>  
