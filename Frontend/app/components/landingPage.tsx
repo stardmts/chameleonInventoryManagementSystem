@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import StaffHomePage from './staffHomePage';
+import StockPage from './stockPage';
 
 export default function LandingPage() {
 
@@ -14,7 +15,7 @@ export default function LandingPage() {
         case 'Transaction Log':
         return ;
         case 'Stock':
-        return ;
+        return <StockPage />;
         case 'Users':
         return ;
         case 'Account':
@@ -25,21 +26,15 @@ export default function LandingPage() {
     };
 
   return (
-
     <main className = "flex flex-row bg-[#262626] w-full">
-
       <div className = "flex flex-col justify-between bg-[#111111] h-auto w-45 border-r-2 border-white">
-
         <div className = "flex flex-col">
-
-          <button onClick = {() => setDisplay('')} className = "w-44 h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> DashBoard </button>
-          <button onClick = {() => setDisplay('QR code scanner')} className = "w-44 h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> QR code scanner </button>
-          <button onClick = {() => setDisplay('Transaction Log')} className = "w-44 h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Transaction Log </button>
-          <button onClick = {() => setDisplay('Stock')} className = "w-44 h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Stock </button>
-          <button onClick = {() => setDisplay('Users')} className = "w-44 h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Users </button>
-
+          <button onClick = {() => setDisplay('')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> DashBoard </button>
+          <button onClick = {() => setDisplay('QR code scanner')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> QR code scanner </button>
+          <button onClick = {() => setDisplay('Transaction Log')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Transaction Log </button>
+          <button onClick = {() => setDisplay('Stock')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Stock </button>
+          <button onClick = {() => setDisplay('Users')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Users </button>
         </div>
-
         <button onClick={() => setDisplay('Account')} className="group flex h-10 w-10 items-center justify-center rounded-md transition-colors hover:bg-[#bfbfbf]/20">
           <svg 
             className="h-8 w-8 text-white transition-colors group-hover:text-[#bfbfbf]" 
@@ -51,22 +46,14 @@ export default function LandingPage() {
             strokeLinecap="round" 
             strokeLinejoin="round"
           >
-            <circle cx="12" cy="7" r="4" />
-          
+            <circle cx="12" cy="7" r="4" />          
             <path d="M5.5 21a8.5 8.5 0 0 1 11-7.5" />
-
             <circle cx="19" cy="19" r="2" />
             <path d="M19 16v1m0 4v1m-3-3h1m4 0h1" />
           </svg>
         </button>
-
       </div>
-
       {renderContent()}
-
-    </main>
-    
+    </main>   
   );
 }
-
-{/* <input type = "text" value = {search} onChange = {(e) => setSearch(e.target.value)} placeholder = "Search the catalogue..." className = "text-white text-left bg-[#323232] w-100 px-2 py-1 rounded-full border-b-2 border-white"/> */}
