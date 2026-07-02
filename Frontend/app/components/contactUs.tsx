@@ -39,7 +39,7 @@ export default function ContactUs() {
             </div>
             <div className = "flex flex-row justify-around">
                 <div className = "flex flex-row space-x-10">
-                    <img src = "" alt = "nadine heashot" className = "text-white"/>
+                    <img src = "../staffPhotos/nadine_davies.avif" alt = "nadine heashot" className = "border-5 border-[#b1322d] shadow-2xl rounded-[25]"/>
                     <div className = "flex flex-col space-y-2">
                         <div>
                             <header className = "text-white font-bold text-2xl">
@@ -56,7 +56,7 @@ export default function ContactUs() {
                     </div>
                 </div>
                 <div className = "flex flex-row space-x-10">
-                    <img src = "" alt = "heidi heashot" className = "text-white"/>
+                    <img src = "../staffPhotos/heidi_agan.avif" alt = "heidi heashot" className = "border-5 border-[#4a97fc] shadow-2xl rounded-[25]"/>
                     <div className = "flex flex-col space-y-2">
                         <div>
                             <header className = "text-white font-bold text-2xl">

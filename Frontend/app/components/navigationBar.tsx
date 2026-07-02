@@ -17,7 +17,7 @@ export default function NavBar() {
             <img src = "/logos/CHAMELEON_LOGO.svg" className = "h-20" />
           </a>
         </div>
-        <div className = "flex flex-row space-x-2">
+        <div className = "flex flex-row space-x-5">
           <a href = '/' className = "text-white text-1xl hover:underline"> Home </a>
           <a href = '/signIn' className = "text-white text-1xl hover:underline"> Sign in </a>
         </div>

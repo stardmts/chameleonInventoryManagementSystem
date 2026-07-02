@@ -4,6 +4,7 @@ import { useState } from 'react';
 import StaffHomePage from './staffHomePage';
 import StockPage from './stockPage';
 import TransactionPage from './transactionPage';
+import UsersPage from './usersPage';
 
 export default function LandingPage() {
 
@@ -18,7 +19,7 @@ export default function LandingPage() {
         case 'Stock':
         return <StockPage />;
         case 'Users':
-        return ;
+        return <UsersPage />;
         case 'Account':
         return ;
         default:

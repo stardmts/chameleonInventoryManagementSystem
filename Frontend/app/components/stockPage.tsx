@@ -25,7 +25,8 @@ export default function StockPage() {
                     <button className = "bg-[#323232] border-4 border-[#6dabe3] p-2 text-white rounded-full hover:bg-[#6dabe3]"> Costumes </button> {/*Filter to only costumes*/}
                     <button className = "bg-[#323232] border-4 border-[#ff1200] p-2 text-white rounded-full hover:bg-[#ff1200]"> Props </button> {/*Filter to only props*/}
                     <button className = "bg-[#323232] border-4 border-[#e97187] p-2 text-white rounded-full hover:bg-[#e97187]"> Tools </button> {/*Filter to only tools*/}
-                    <button onClick = {() => router.push('/addStock')} className = "bg-[#323232] border-4 border-[#d6de00] p-2 text-white rounded-full hover:bg-[#d6de00]"> Add new item </button> {/*bring up an add new item*/}
+                    <button className = "bg-[#323232] border-4 border-[#d6de00] p-2 text-white rounded-full hover:bg-[#d6de00]"> Remove filters </button> {/*display all*/}
+                    <button onClick = {() => router.push('/addStock')} className = "bg-[#323232] border-4 border-[#ec7705] p-2 text-white rounded-full hover:bg-[#ec7705]"> Add new item </button> {/*bring up an add new item*/}
                 </div>
             </div>
             <div className = "flex flex-col items-center space-y-2 overflow-y-auto bg-[#323232] h-190 w-431 text-white rounded px-5 py-5">
