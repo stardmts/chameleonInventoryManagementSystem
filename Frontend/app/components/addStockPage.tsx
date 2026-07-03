@@ -4,6 +4,8 @@ import { useState } from 'react';
 import StockPage from './stockPage';
 import AddStock from './addStock';
 import { useRouter } from "next/navigation";
+import UsersPage from './usersPage';
+import TransactionPage from './transactionPage';
 
 export default function AddStockPage() {
 
@@ -16,11 +18,11 @@ export default function AddStockPage() {
         case 'QR code scanner':
         return ;
         case 'Transaction Log':
-        return ;
+        return <TransactionPage />;
         case 'Stock':
         return <StockPage />;
         case 'Users':
-        return ;
+        return <UsersPage />;
         case 'Account':
         return ;
         default:

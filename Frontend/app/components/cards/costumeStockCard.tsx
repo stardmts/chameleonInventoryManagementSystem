@@ -12,6 +12,7 @@ interface costume {
     inStock: number;
     cost: string;
     imageURL: string;
+    qrString: string;
 }
 
 export default function CostumeCard({costumeId, name, group, category, colour, size, quantity, locationCode, lastUpdated, notes, inStock, cost, imageURL

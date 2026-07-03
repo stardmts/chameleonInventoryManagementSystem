@@ -20,16 +20,11 @@ export default function HomePage() {
         </p>
       </div>
       <header className = "text-white font-bold text-2xl">
-        Our services
+        View the chameleon website:
       </header>
-      <div className = "flex flex-row justify-center space-x-5" id = "Service links">
-        <a href = "https://www.starlightdance.net/chameleon" target="_blank" rel="noopener noreferrer">
-          <img src = "icons/costumeHire.svg" className = "h-52.5 w-87.5" />
-        </a>
-        <a href = "https://www.starlightdance.net" target="_blank" rel="noopener noreferrer">
-          <img src = "icons/propHire.svg" className = "h-52.5 w-87.5" />
-        </a>  
-      </div>
+      <a href = "https://www.starlightdance.net/chameleon" target="_blank" rel="noopener noreferrer">
+        <img src = "logos/CHAMELEON_LOGO_COLOUR.svg" className = "h-52.5 w-87.5 rounded-[25] bg-[#484848] p-4 hover:bg-[#323232] shadow-2xl" />
+      </a>
     </main>
   );
 }

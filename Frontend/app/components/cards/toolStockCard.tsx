@@ -8,6 +8,7 @@ interface tool {
     ownedBy: string;
     category: string;
     imageURL: string;
+    qrString: string;
 }
 
 export default function ToolCard({toolId, name, quantity, location, condition, assignedTo, ownedBy, category, imageURL} : tool) {
