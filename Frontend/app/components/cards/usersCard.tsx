@@ -19,7 +19,7 @@ export default function UserCard({userId, userName, userRole} : user) {
                 <p className = "text-white text-2xl items-center">
                     {userName} | {userRole}
                 </p>
-                <button onClick = {() => router.push('/removeUser')} className = "bg-[#484848] border-4 border-[#ff1200] p-2 text-white rounded-full hover:bg-[#ff1200]"> Remove user</button>
+                <button onClick = {() => router.push('/removeUser')} className = "bg-[#484848] border-4 border-[#ff1200] p-2 text-white rounded-full hover:bg-[#ff1200]"> Remove user </button>
             </div>
         </main>
     );

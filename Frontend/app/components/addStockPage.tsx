@@ -6,6 +6,8 @@ import AddStock from './addStock';
 import { useRouter } from "next/navigation";
 import UsersPage from './usersPage';
 import TransactionPage from './transactionPage';
+import UserSettings from './userSettings';
+import QrScanner from './qrScanner';
 
 export default function AddStockPage() {
 
@@ -16,7 +18,7 @@ export default function AddStockPage() {
   const renderContent = () => {
     switch (display) {
         case 'QR code scanner':
-        return ;
+        return <QrScanner />;
         case 'Transaction Log':
         return <TransactionPage />;
         case 'Stock':
@@ -24,7 +26,7 @@ export default function AddStockPage() {
         case 'Users':
         return <UsersPage />;
         case 'Account':
-        return ;
+        return <UserSettings />;
         default:
         return <AddStock />;
         }
@@ -40,7 +42,7 @@ export default function AddStockPage() {
           <button onClick = {() => setDisplay('Stock')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Stock </button>
           <button onClick = {() => setDisplay('Users')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Users </button>
         </div>
-        <button onClick={() => setDisplay('Account')} className="group flex h-10 w-10 items-center justify-center rounded-md transition-colors hover:bg-[#bfbfbf]/20">
+        <button onClick={() => setDisplay('Account')} className = "group flex h-10 w-10 items-center justify-center rounded-md transition-colors hover:bg-[#bfbfbf]/20">
           <svg 
             className="h-8 w-8 text-white transition-colors group-hover:text-[#bfbfbf]" 
             xmlns="http://w3.org" 

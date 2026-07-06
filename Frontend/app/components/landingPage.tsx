@@ -5,6 +5,8 @@ import StaffHomePage from './staffHomePage';
 import StockPage from './stockPage';
 import TransactionPage from './transactionPage';
 import UsersPage from './usersPage';
+import QrScanner from './qrScanner';
+import UserSettings from './userSettings';
 
 export default function LandingPage() {
 
@@ -13,7 +15,7 @@ export default function LandingPage() {
   const renderContent = () => {
     switch (display) {
         case 'QR code scanner':
-        return ;
+        return <QrScanner />;
         case 'Transaction Log':
         return <TransactionPage />;
         case 'Stock':
@@ -21,7 +23,7 @@ export default function LandingPage() {
         case 'Users':
         return <UsersPage />;
         case 'Account':
-        return ;
+        return <UserSettings />;
         default:
         return <StaffHomePage />;
         }

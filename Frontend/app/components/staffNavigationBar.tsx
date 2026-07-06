@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
-export default function NavBar() {
+export default function StaffNavBar() {
 
   const router = useRouter();
 

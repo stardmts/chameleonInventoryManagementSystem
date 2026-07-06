@@ -13,7 +13,7 @@ interface costume {
     cost: string;
 }
 
-export default function costumeCard({costumeId, name, group, category, colour, size, quantity, locationCode, lastUpdated, notes, inStock, cost} : costume) {
+export default function IndividualCard({costumeId, name, group, category, colour, size, quantity, locationCode, lastUpdated, notes, inStock, cost} : costume) {
 
     return (
         <main className = "flex flex-col bg-[#323232] items-center w-200 space-y-5 rounded py-5">            
