@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Select from 'react-select';
 import AddCostume from './addCostume';
-import AddProp from './addTool';
+import AddProp from './addProp';
 import AddTool from './addTool';
 
 
@@ -25,7 +25,7 @@ export default function AddStock() {
         };
 
     return (
-        <main className = "flex flex-col w-full h-full items-center space-y-5 py-3">
+        <main className = "flex flex-col w-full h-full items-center space-y-5 p-10">
             <header className = "text-white text-2xl">
                 Choose the type of item your adding.
             </header>
