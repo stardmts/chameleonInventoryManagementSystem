@@ -25,7 +25,7 @@ export default function AddStock() {
         };
 
     return (
-        <main className = "flex flex-col w-full h-full items-center space-y-5 p-10">
+        <main className = "flex flex-col w-full min-h-screen items-center space-y-5 p-10">
             <header className = "text-white text-2xl">
                 Choose the type of item your adding.
             </header>
