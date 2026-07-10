@@ -23,7 +23,6 @@ export default function SignIn() {
         <button className = "bg-[#484848] px-4 w-20 py-0.5 rounded text-white"> Login </button>
         <div className = "flex flex-col space-y-1">
             <button onClick={() => router.push('/forgottenPassword')} className = "text-[#76b8ff] text-left w-85 hover:underline"> forgotten password? request password reset </button>
-            <button onClick={() => router.push('/newUser')} className = "text-[#76b8ff]  text-left w-85 hover:underline"> New user? request access </button>
         </div>
       </div>
       <div className = "flex flex-col justify-center items-center h-full bg-[#323232] space-y-5 p-4 lg:p-8 rounded-[10]">
