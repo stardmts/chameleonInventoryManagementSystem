@@ -8,6 +8,7 @@ import UsersPage from './usersPage';
 import TransactionPage from './transactionPage';
 import UserSettings from './userSettings';
 import QrScanner from './qrScanner';
+import StaffHomePage from './staffHomePage';
 
 export default function AddStockPage() {
 
@@ -17,6 +18,8 @@ export default function AddStockPage() {
 
   const renderContent = () => {
     switch (display) {
+        case 'Dashboard':
+        return <StaffHomePage />;
         case 'QR code scanner':
         return <QrScanner />;
         case 'Transaction Log':
@@ -34,15 +37,15 @@ export default function AddStockPage() {
 
   return (
     <main className = "flex flex-row bg-[#262626] w-full">
-      <div className = "flex flex-col justify-between bg-[#111111] h-auto w-45 border-r-2 border-white">
+      <div className = "hidden lg:block flex flex-col justify-between bg-[#111111] h-auto w-45 border-r-2 border-white">
         <div className = "flex flex-col">
-          <button onClick = {() => router.push('/staffLandingPage')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> DashBoard </button>
+          <button onClick = {() => setDisplay('')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> DashBoard </button>
           <button onClick = {() => setDisplay('QR code scanner')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> QR code scanner </button>
           <button onClick = {() => setDisplay('Transaction Log')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Transaction Log </button>
           <button onClick = {() => setDisplay('Stock')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Stock </button>
           <button onClick = {() => setDisplay('Users')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Users </button>
         </div>
-        <button onClick={() => setDisplay('Account')} className = "group flex h-10 w-10 items-center justify-center rounded-md transition-colors hover:bg-[#bfbfbf]/20">
+        <button onClick={() => setDisplay('Account')} className="group flex h-10 w-10 items-center justify-bottom rounded-md transition-colors hover:bg-[#bfbfbf]/20">
           <svg 
             className="h-8 w-8 text-white transition-colors group-hover:text-[#bfbfbf]" 
             xmlns="http://w3.org" 

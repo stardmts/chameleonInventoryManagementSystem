@@ -7,10 +7,11 @@ interface notice {
 
 export default function NoticeCard({noticeId, noticeBody, sender, noticeDate}:notice) {
     return (
-        <main className = "flex flex-row bg-[#484848] items-center w-171 justify-between rounded px-10 py-5 text-white text-1xl shadow-2xl">
-            <h2> Notice {noticeId}: </h2>
-            <p> {noticeBody}, </p>
-            <p> {noticeDate} </p>
+        <main className = "flex flex-col lg:flex-row border-b-2 border-white rounded-[15] bg-[#484848] items-center lg:justify-between w-full lg:w-171 px-1 lg:px-5 py-1 lg:py-5 text-white text-sm lg:text-xl shadow-2xl">
+            <div className = "flex flex-col space-y-2 lg:flex-row lg:space-x-2">
+                <h2> Notice {noticeId}: {noticeDate} </h2>
+                <p> {noticeBody} </p>
+            </div>
         </main>
     );
 }

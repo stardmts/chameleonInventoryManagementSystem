@@ -4,6 +4,7 @@ import StockPage from './stockPage';
 import UsersPage from './usersPage';
 import { useState } from 'react';
 import IndividualCard from './cards/individualCard';
+import UserSettings from './userSettings';
 
 export default function QrScanner() {
 
@@ -22,8 +23,6 @@ export default function QrScanner() {
 
     const renderContent = () => {
         switch (display) {
-            case 'QR code scanner':
-            return <QrScanner />;
             case 'Transaction Log':
             return <TransactionPage />;
             case 'Stock':
@@ -31,7 +30,7 @@ export default function QrScanner() {
             case 'Users':
             return <UsersPage />;
             case 'Account':
-            return ;
+            return <UserSettings />;
             case 'Individual':
             return (
                 <main className = "flex flex-col w-full min-h-screen items-center py-5 space-y-5">
@@ -41,10 +40,10 @@ export default function QrScanner() {
             ); {/* get information from the Id set and create and display the individual card */}
             default:
             return (
-                <main className = "flex flex-col w-full min-h-screen items-center p-5 space-y-5">
+                <main className = "flex bg-[#323232] flex-col w-full min-h-screen items-center p-5 space-y-5">
                     <header className = "text-white text-2xl"> Scan a QR code: </header>
-                    <div className = "flex flex-col bg-[#323232] rounded-[30] w-[500] h-[500] shadow-2xl border-b-4 border-white">
-                        <Scanner onScan = {handleScan} onError = {(err) => console.error(err)} allowMultiple = {false} scanDelay = {300} constraints={{facingMode: 'environment'}} formats = {['qr_code']} />
+                    <div className = "flex flex-col bg-[#484848] rounded-[30] w-1/1 lg:w-[500] lg:h-[500] shadow-2xl border-b-4 border-white">
+                        <Scanner onScan = {handleScan} allowMultiple = {false} scanDelay = {300} constraints={{facingMode: 'environment'}} formats = {['qr_code']} />
                     </div>
                 </main>
             );

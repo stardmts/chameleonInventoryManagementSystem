@@ -7,31 +7,34 @@ import TransactionPage from './transactionPage';
 import UsersPage from './usersPage';
 import QrScanner from './qrScanner';
 import UserSettings from './userSettings';
+import { useRouter } from "next/navigation";
 
 export default function LandingPage() {
 
   const [display, setDisplay ] = useState('');
 
+  const router = useRouter();
+
   const renderContent = () => {
     switch (display) {
-        case 'QR code scanner':
-        return <QrScanner />;
-        case 'Transaction Log':
-        return <TransactionPage />;
-        case 'Stock':
-        return <StockPage />;
-        case 'Users':
-        return <UsersPage />;
-        case 'Account':
-        return <UserSettings />;
-        default:
-        return <StaffHomePage />;
-        }
-    };
+      case 'QR code scanner':
+      return <QrScanner />;
+      case 'Transaction Log':
+      return <TransactionPage />;
+      case 'Stock':
+      return <StockPage />;
+      case 'Users':
+      return <UsersPage />;
+      case 'Account':
+      return <UserSettings />;
+      default:
+      return <StaffHomePage />;
+      }
+  };
 
   return (
     <main className = "flex flex-row bg-[#262626] w-full">
-      <div className = "flex flex-col justify-between bg-[#111111] h-auto w-45 border-r-2 border-white">
+      <div className = "hidden lg:block flex flex-col justify-between bg-[#111111] h-auto w-45 border-r-2 border-white">
         <div className = "flex flex-col">
           <button onClick = {() => setDisplay('')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> DashBoard </button>
           <button onClick = {() => setDisplay('QR code scanner')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> QR code scanner </button>
@@ -39,7 +42,7 @@ export default function LandingPage() {
           <button onClick = {() => setDisplay('Stock')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Stock </button>
           <button onClick = {() => setDisplay('Users')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Users </button>
         </div>
-        <button onClick={() => setDisplay('Account')} className="group flex h-10 w-10 items-center justify-center rounded-md transition-colors hover:bg-[#bfbfbf]/20">
+        <button onClick={() => setDisplay('Account')} className="group flex h-10 w-10 items-center justify-bottom rounded-md transition-colors hover:bg-[#bfbfbf]/20">
           <svg 
             className="h-8 w-8 text-white transition-colors group-hover:text-[#bfbfbf]" 
             xmlns="http://w3.org" 

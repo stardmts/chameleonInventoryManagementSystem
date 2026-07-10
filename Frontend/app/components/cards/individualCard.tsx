@@ -9,49 +9,52 @@ interface costume {
     locationCode: string;
     lastUpdated: string;
     notes: string;
-    inStock: string;
+    inStock: number;
     cost: string;
+    imageURL: string;
+    qrString: string;
 }
 
-export default function IndividualCard({costumeId, name, group, category, colour, size, quantity, locationCode, lastUpdated, notes, inStock, cost} : costume) {
+export default function IndividualCard({costumeId, name, group, category, colour, size, quantity, locationCode, lastUpdated, notes, inStock, cost, imageURL
+} : costume) {
 
     return (
-        <main className = "flex flex-col bg-[#323232] items-center w-200 space-y-5 rounded py-5">            
-            <div className = "flex flex-row justify-between p-5">              
-                <img src = "./icons/social_mail.svg" className = "h-100 w-75 bg-white"/>
+        <main className = "flex flex-col bg-[#323232] w-full lg:w-200 space-y-5 rounded p-5 border-2 border-white rounded-xl">            
+            <div className = "flex flex-row space-x-5 lg:items-center lg:justify-center">              
+                <img src = {imageURL} className = "h-75 w-56.25 lg:h-100 lg:w-75 rounded-xl"/>
                 <div>
-                    <p className = "text-white text-1xl">
-                        {costumeId}
+                    <p className = "text-white text-sm lg:text-xl">
+                        ID: {costumeId}
                         <br />
-                        {name}
+                        Name: {name}
                         <br />
-                        {colour}
+                        Colour: {colour}
                         <br />
-                        {size}
+                        Size: {size}
                         <br />
-                        {quantity}
+                        Quantity: {quantity}
                         <br />
-                        {category}
+                        Category: {category}
                         <br />
-                        {group}
+                        Group: {group}
                         <br />
-                        {inStock}
+                        In stock: {inStock}
                         <br />
-                        {cost}
+                        Cost: {cost}
                         <br />
-                        {lastUpdated}
+                        Last updated: {lastUpdated}
                         <br />
-                        {locationCode}
+                        Location: {locationCode}
                         <br />
-                        {notes}
+                        Notes: {notes}
                     </p>
                 </div>
             </div>
-            <div className = "flex flex-col space-y-2">
-                <button className = "text-white text-2xl bg-[#6ab51c] rounded h-15 w-100"> Sign stock out. </button>
-                <button className = "text-white text-2xl bg-[#6ab51c] rounded h-15 w-100"> Sign stock in. </button>
-                <button className = "text-white text-2xl bg-[#6ab51c] rounded h-15 w-100"> Add/remove stock. </button>
-                <button className = "text-white text-2xl bg-[#6ab51c] rounded h-15 w-100"> Update stock information. </button>
+            <div className = "flex flex-col w-full text-white text-sm lg:text-2xl space-y-2">
+                <button className = "bg-[#484848] rounded-xl shadow-2xl border-b-2 border-white w-full lg:h-15 lg:w-100"> Sign stock out. </button>
+                <button className = "bg-[#484848] rounded-xl shadow-2xl border-b-2 border-white w-full lg:h-15 lg:w-100"> Sign stock in. </button>
+                <button className = "bg-[#484848] rounded-xl shadow-2xl border-b-2 border-white w-full lg:h-15 lg:w-100"> Remove stock. </button>
+                <button className = "bg-[#484848] rounded-xl shadow-2xl border-b-2 border-white w-full lg:h-15 lg:w-100"> Update stock information. </button>
             </div>     
         </main>
     );

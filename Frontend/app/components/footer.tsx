@@ -13,16 +13,16 @@ export default function Footer() {
         <button onClick={() => router.push('/contactUs')} className = "text-2xl text-white font-bold hover:underline"> Contact us </button>
         <div className = "flex flex-row">
           <a href = "https://www.instagram.com/chameleoncostumehire?igsh=MXgyeDF1Y3puYmdhbg==" target="_blank" rel="noopener noreferrer" className = "group relative block h-15 w-15 rounded-xl overflow-hidden">  
-            <img src = "/icons/social_icon_insta.svg" className = "h-15 w-15 absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0"/>
-            <img src = "/icons/social_icon_insta_alt.svg" className = "h-15 w-15 absolute inset-0 object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            <img src = "/icons/social_icon_insta.svg" className = "h-15 w-15 absolute inset-0 w-full h-full object-cover transition-opacity duration-300 lg:group-hover:opacity-0"/>
+            <img src = "/icons/social_icon_insta_alt.svg" className = "h-15 w-15 absolute inset-0 object-cover opacity-0 transition-opacity duration-300 lg:group-hover:opacity-100" />
           </a>
           <a href = "https://www.facebook.com/profile.php?id=100063476953756" target="_blank" rel="noopener noreferrer" className = "group relative block h-15 w-15 rounded-xl overflow-hidden">
-            <img src = "/icons/social_icon_fb.svg" className = "h-15 w-15 absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0"/>
-            <img src = "/icons/social_icon_fb_alt.svg" className = "h-15 w-15 absolute inset-0 object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            <img src = "/icons/social_icon_fb.svg" className = "h-15 w-15 absolute inset-0 w-full h-full object-cover transition-opacity duration-300 lg:group-hover:opacity-0"/>
+            <img src = "/icons/social_icon_fb_alt.svg" className = "h-15 w-15 absolute inset-0 object-cover opacity-0 transition-opacity duration-300 lg:group-hover:opacity-100" />
           </a>
         </div>
       </div>
-      <p className = "text-[#808080] py-2"> © 2009 - {new Date().getFullYear()} Starlight Dance & Musical Theatre School. </p>
+      <p className = "text-[#808080] text-sm py-2"> © 2009 - {new Date().getFullYear()} Starlight Dance & Musical Theatre School. </p>
     </footer>
   );
 }

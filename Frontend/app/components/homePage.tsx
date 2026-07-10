@@ -1,8 +1,7 @@
 export default function HomePage() {
   return (
-    <main className = "flex flex-col bg-[#262626] px-20 py-5 space-y-5">
-      <img src = "/logos/CHAMELEON_LOGO_COLOUR.svg" height={100} width={300} />
-      <div className = "flex flex-col space-y-5 text-section text-white">
+    <main className = "flex flex-col min-h-screen bg-[#262626] justify-center px-5 py-5 lg:px-20 space-y-2 lg:space-y-5">
+      <div className = "flex flex-col space-y-5 text-section text-white text-sm lg:text-2xl">
         <p>
           Chameleon Dancewear and Costume Hire has been a staple of the Kettering town centre for over two decades. It was the go to shop for fancy dress hire and dance schools, with students getting their dancewear from there for many years. The business was sold in 2019 when the previous owner decided that, due to the pressures of the internet and adjusting consumer trends, it was time to close the business.
         </p>
@@ -19,11 +18,11 @@ export default function HomePage() {
           In 2024 Chameleon moved to its new larger premises in Kettering and look to develop a larger and wider selection of costumes and services to offer its customers, as well as creating an innovative approach to dance school show hire with its show room and meeting facilities.
         </p>
       </div>
-      <header className = "text-white font-bold text-2xl">
+      <header className = "text-white font-bold text-sm lg:text-2xl">
         View the chameleon website:
       </header>
       <a href = "https://www.starlightdance.net/chameleon" target="_blank" rel="noopener noreferrer">
-        <img src = "logos/CHAMELEON_LOGO_COLOUR.svg" className = "h-52.5 w-87.5 rounded-[25] bg-[#484848] p-4 hover:bg-[#323232] shadow-2xl" />
+        <img src = "logos/CHAMELEON_LOGO.svg" className = "h-26.25 lg:h-52.5 lg:w-87.5 rounded-[25] bg-[#484848] p-4 hover:bg-[#323232] shadow-2xl" />
       </a>
     </main>
   );
