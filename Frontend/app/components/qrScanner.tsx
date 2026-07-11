@@ -40,9 +40,9 @@ export default function QrScanner() {
             ); {/* get information from the Id set and create and display the individual card */}
             default:
             return (
-                <main className = "flex bg-[#323232] flex-col w-full min-h-screen items-center p-5 space-y-5">
+                <main className = "flex flex-col w-full min-h-screen items-center p-5 space-y-5 z-15">
                     <header className = "text-white text-2xl"> Scan a QR code: </header>
-                    <div className = "flex flex-col bg-[#484848] rounded-[30] w-1/1 lg:w-[500] lg:h-[500] shadow-2xl border-b-4 border-white">
+                    <div className = "flex flex-col bg-[#484848] w-1/1 lg:w-[500] lg:h-[500] shadow-2xl">
                         <Scanner onScan = {handleScan} allowMultiple = {false} scanDelay = {300} constraints={{facingMode: 'environment'}} formats = {['qr_code']} />
                     </div>
                 </main>

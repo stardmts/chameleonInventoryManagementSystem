@@ -10,9 +10,6 @@ export default function NavBar() {
     <nav className = "flex flex-col lg:w-full bg-[#111111]">
       <div className = "flex flex-row px-5 lg:px-10 py-2 items-center justify-between">
         <div className = "flex flex-row space-x-2 lg:space-x-5">
-          <a href = "https://www.starlightdance.net" target="_blank" rel="noopener noreferrer">
-            <img src = "/logos/STARLIGHT_LOGO.png" className = "h-10 lg:h-25" />
-          </a>
           <a href = "https://www.starlightdance.net/chameleon" target="_blank" rel="noopener noreferrer">
             <img src = "/logos/CHAMELEON_LOGO.svg" className = "h-10 lg:h-25" />
           </a>

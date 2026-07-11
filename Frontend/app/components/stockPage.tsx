@@ -27,7 +27,6 @@ export default function StockPage() {
                         <button className = "bg-[#323232] border-2 lg:border-4 border-[#ff1200] p-1 lg:p-2 rounded-full transition-colors touch-manipulation active:bg-[#ff1200] [@media(hover:hover)]:hover:bg-[#ff1200]"> Props </button> {/*Filter to only props*/}
                         <button className = "bg-[#323232] border-2 lg:border-4 border-[#e97187] p-1 lg:p-2 rounded-full transition-colors touch-manipulation active:bg-[#e97187] [@media(hover:hover)]:hover:bg-[#e97187]"> Tools </button> {/*Filter to only tools*/}
                         <button className = "bg-[#323232] border-2 lg:border-4 border-[#d6de00] p-1 lg:p-2 rounded-full transition-colors touch-manipulation active:bg-[#d6de00] [@media(hover:hover)]:hover:bg-[#d6de00]"> Remove filters </button> {/*display all*/}
-                        <button onClick = {() => router.push('/addStock')} className = "bg-[#323232] border-2 lg:border-4 border-[#ec7705] p-1 lg:p-2 rounded-full transition-colors touch-manipulation active:bg-[#ec7705] [@media(hover:hover)]:hover:bg-[#ec7705]"> Add new item </button> {/*bring up an add new item*/}
                     </div>
                 </div>
                 <div className = "flex flex-col items-center space-y-2 overflow-y-auto h-auto lg:h-190 w-full lg:w-431 text-white rounded px-5 py-5">

@@ -6,7 +6,7 @@ import DeadlineCard from './cards/deadlineCard';
 export default function StaffHomePage() {
 
     return (
-            <div className = "flex flex-col py-4 px-3 space-y-3 items-center min-h-screen w-full lg:flex-row lg:justify-around">  
+            <div className = "flex flex-col py-4 px-3 space-y-3 items-center min-h-screen w-full lg:flex-row lg:justify-around">
                 <div className = "flex flex-col overflow-y-auto items-center bg-[#323232] border-2 border-white h-90 w-full lg:h-175 lg:w-175 text-white rounded space-y-2">
                     <header className = "text-center bg-[#484848] w-full lg:w-175 p-1 border-b-2 text-sm lg:text-2xl border-white">
                         Notice board:
