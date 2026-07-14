@@ -19,7 +19,7 @@ export default function StockPage() {
                     All stock:
                 </header>
                 <div className = "flex flex-col space-y-2 lg:flex-row justify-center lg:justify-between w-full text-sm lg:text-xl">
-                    <div>  
+                    <div className = "px-2">  
                         <input type = "text" value = {search} onChange = {(e) => setSearch(e.target.value)} placeholder = "Search the catalogue..." className = "text-white text-left bg-[#484848] w-full lg:w-100 p-2 rounded-full border-b-2 border-white"/>
                     </div>  
                     <div className = "flex flex-row w-full text-sm lg:text-xl text-white space-x-2 justify-center">

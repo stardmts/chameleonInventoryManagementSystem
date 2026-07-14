@@ -25,6 +25,8 @@ export default function QrScanner() {
         switch (display) {
             case 'Transaction Log':
             return <TransactionPage />;
+            case 'qrScanner':
+            return <QrScanner />;
             case 'Stock':
             return <StockPage />;
             case 'Users':
@@ -34,7 +36,7 @@ export default function QrScanner() {
             case 'Individual':
             return (
                 <main className = "flex flex-col w-full min-h-screen items-center py-5 space-y-5">
-                    <button className = "text-white"> Scan again </button>
+                    <button onClick = {() => setDisplay('qrScanner')} className = "text-white p-1 border-b-2 border-[#484848]"> Scan again </button>
                     {/*individual card goes here*/}
                 </main>
             ); {/* get information from the Id set and create and display the individual card */}

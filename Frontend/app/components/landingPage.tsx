@@ -8,6 +8,7 @@ import UsersPage from './usersPage';
 import QrScanner from './qrScanner';
 import UserSettings from './userSettings';
 import { useRouter } from "next/navigation";
+import AddStockPage from './addStockPage';
 
 export default function LandingPage() {
 
@@ -29,6 +30,8 @@ export default function LandingPage() {
       return <UsersPage />;
       case 'Account':
       return <UserSettings />;
+      case 'add Stock':
+      return <AddStockPage />;
       default:
       return <StaffHomePage />;
       }
@@ -42,6 +45,7 @@ export default function LandingPage() {
           <button onClick = {() => setDisplay('QR code scanner')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> QR code scanner </button>
           <button onClick = {() => setDisplay('Transaction Log')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Transaction Log </button>
           <button onClick = {() => setDisplay('Stock')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Stock </button>
+          <button onClick = {() => setDisplay('add Stock')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Add stock </button>
           <button onClick = {() => setDisplay('Users')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Users </button>
         </div>
         <button onClick={() => setDisplay('Account')} className="group flex h-10 w-10 items-center justify-bottom rounded-md transition-colors hover:bg-[#bfbfbf]/20">

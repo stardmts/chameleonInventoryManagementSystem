@@ -38,9 +38,9 @@ export default function UserCard({userId, userEmail, userFName, userSName, userR
             { remove && (
                     <div className = "flex flex-col w-full">
                         <header className = "text-white"> Are you sure? </header>
-                        <div className = "flex w-full flex-row space-x-2">
-                            <button onClick = {() => removeUser(userId)} className = "bg-[#0e9729] p-1 w-full"> Yes </button>
-                            <button onClick = {() => setRemove(!remove)} className = "bg-[#ff1200] p-1 w-full"> No </button>
+                        <div className = "flex flex-row space-x-2">
+                            <button onClick = {() => removeUser(userId)} className = "w-full bg-[#0e9729] p-1 w-full rounded-xl"> Yes </button>
+                            <button onClick = {() => setRemove(!remove)} className = "w-full bg-[#ff1200] p-1 w-full rounded-xl"> No </button>
                         </div>
                     </div>
                 )
