@@ -16,12 +16,21 @@ export default function UserCard({userId, userEmail, userFName, userSName, userR
     const removeUser = (userToRemove: string) => {
 
     }
+
+    const updatePermission = () => {
+        if (userRole === "ADMIN") {
+            {/*set user to USER*/}
+        }
+        {/*Else set user to ADMIN*/}
+    }
     
     const [remove, setRemove] = useState(false);
 
+    const [admin, setAdmin] = useState(false);
+
     return (
         <main className = "flex flex-row border-b-2 border-white rounded-xl bg-[#484848] items-center w-full justify-between px-2 py-2 space-x-5 text-wrap shadow-2xl">
-            { !remove && (
+            { !remove && !admin && (
                     <> 
                         <p className = "text-white text-sm lg:text-2xl items-center">
                             {userId}
@@ -30,7 +39,8 @@ export default function UserCard({userId, userEmail, userFName, userSName, userR
                             <p className = "text-white text-sm lg:text-2xl items-center">
                                 {userFName} {userSName} | {userEmail} | {userRole}
                             </p>
-                            <button onClick = {() => setRemove(!remove)} className = "bg-[#484848] border-2 lg:border-4 border-[#ff1200] p-2 text-white text-sm lg:text-xl rounded-full transition-colors touch-manipulation active:bg-[#ff1200] [@media(hover:hover)]:hover:bg-[#ff1200]"> Remove user </button>
+                            <button onClick = {() => {setRemove(!remove); removeUser(userId)}} className = "bg-[#484848] border-2 lg:border-4 border-[#ff1200] p-2 text-white text-sm lg:text-xl rounded-full transition-colors touch-manipulation active:bg-[#ff1200] [@media(hover:hover)]:hover:bg-[#ff1200]"> Remove user </button>
+                            <button onClick = {() => {setAdmin(!admin); updatePermission()}} className = "bg-[#484848] border-2 lg:border-4 border-[#ff1200] p-2 text-white text-sm lg:text-xl rounded-full transition-colors touch-manipulation active:bg-[#ff1200] [@media(hover:hover)]:hover:bg-[#ff1200]"> Make user {userRole === "ADMIN" ? "User" : "Admin"} </button>
                         </div>
                     </>  
                 )
@@ -45,6 +55,17 @@ export default function UserCard({userId, userEmail, userFName, userSName, userR
                     </div>
                 )
             }
+            { admin && (
+                    <div className = "flex flex-col w-full">
+                        <header className = "text-white"> Are you sure? </header>
+                        <div className = "flex flex-row space-x-2">
+                            <button onClick = {() => removeUser(userId)} className = "w-full bg-[#0e9729] p-1 w-full rounded-xl"> Yes </button>
+                            <button onClick = {() => setRemove(!admin)} className = "w-full bg-[#ff1200] p-1 w-full rounded-xl"> No </button>
+                        </div>
+                    </div>
+                )
+            }
         </main>
+
     );
 }
