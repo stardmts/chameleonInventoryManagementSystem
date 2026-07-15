@@ -21,9 +21,9 @@ public enum costumeColours {
 
     PURPLE,
 
-    WHITE,
-
     GREY,
+
+    WHITE,
 
     BLACK,
 }
