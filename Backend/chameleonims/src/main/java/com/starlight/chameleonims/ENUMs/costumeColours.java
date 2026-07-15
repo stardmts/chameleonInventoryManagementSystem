@@ -17,9 +17,9 @@ public enum costumeColours {
 
     BLUE,
 
-    PURPLE,
-
     PINK,
+
+    PURPLE,
 
     WHITE,
 
