@@ -1,5 +1,5 @@
 interface costume {
-    costumeId: string;
+    costumeId: number;
     name: string;
     group: string;
     category: string;
