@@ -1,6 +1,6 @@
 package com.starlight.chameleonims.ENUMs;
 
-public enum toolCategories {
+public enum ToolCategory {
     TOOL,
 
     TECH

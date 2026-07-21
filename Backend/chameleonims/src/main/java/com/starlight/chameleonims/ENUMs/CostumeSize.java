@@ -1,6 +1,6 @@
 package com.starlight.chameleonims.ENUMs;
 
-public enum costumeSizes {
+public enum CostumeSize {
     XSC,
 
     SC,
@@ -131,11 +131,11 @@ public enum costumeSizes {
     
     private final String displayLabel;
 
-    private costumeSizes(String displayLabel) {
+    private CostumeSize(String displayLabel) {
         this.displayLabel = displayLabel;
     }
 
-    private costumeSizes() {
+    private CostumeSize() {
         this.displayLabel = this.name(); 
     }
 

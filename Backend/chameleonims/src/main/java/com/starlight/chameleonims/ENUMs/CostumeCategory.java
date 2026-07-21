@@ -1,6 +1,6 @@
 package com.starlight.chameleonims.ENUMs;
 
-public enum costumeCategories {
+public enum CostumeCategory {
     BASICS("Basics"),
 
     LYRICAL("Lyrical"),
@@ -27,7 +27,7 @@ public enum costumeCategories {
 
     private final String displayLabel;
 
-    private costumeCategories(String displayLabel) {
+    private CostumeCategory(String displayLabel) {
         this.displayLabel = displayLabel;
     }
 

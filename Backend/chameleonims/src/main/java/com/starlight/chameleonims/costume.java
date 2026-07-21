@@ -3,9 +3,9 @@ package com.starlight.chameleonims;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import com.starlight.chameleonims.ENUMs.costumeCategories;
-import com.starlight.chameleonims.ENUMs.costumeColours;
-import com.starlight.chameleonims.ENUMs.costumeSizes;
+import com.starlight.chameleonims.ENUMs.CostumeCategory;
+import com.starlight.chameleonims.ENUMs.CostumeColour;
+import com.starlight.chameleonims.ENUMs.CostumeSize;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,7 +17,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "costumes")
 
-public class costume {
+public class Costume {
     
     @Id
     @Column(name = "costumeId")
@@ -31,15 +31,15 @@ public class costume {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "category")
-    private costumeCategories category;
+    private CostumeCategory category;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "colour")
-    private costumeColours colour;
+    private CostumeColour colour;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "size")
-    private costumeSizes size;
+    private CostumeSize size;
 
     @Column(name = "quantity")
     private Integer quantity;
@@ -56,16 +56,13 @@ public class costume {
     @Column(name = "cost")
     private BigDecimal cost;
 
-    @Column(name = "notes")
-    private String notes;
-
     @Column(name = "imageUrl")
     private String imageUrl;
 
     @Column(name = "qrString")
     private String qrString;
 
-    public costume(Long costumeId, String name, String group, costumeCategories category, costumeColours colour, costumeSizes size, Integer quantity, Integer inStock, String locationCode, LocalDateTime lastUpdated, BigDecimal cost, String notes, String imageUrl, String qrString) {
+    public Costume(Long costumeId, String name, String group, CostumeCategory category, CostumeColour colour, CostumeSize size, Integer quantity, Integer inStock, String locationCode, LocalDateTime lastUpdated, BigDecimal cost, String imageUrl, String qrString) {
         this.costumeId = costumeId;
         this.name = name;
         this.group = group;
@@ -77,7 +74,6 @@ public class costume {
         this.locationCode = locationCode;
         this.lastUpdated = lastUpdated;
         this.cost = cost;
-        this.notes = notes;
         this.imageUrl = imageUrl;
         this.qrString = qrString;
     }
@@ -106,27 +102,27 @@ public class costume {
         this.group = group;
     }
 
-    public costumeCategories getCategory() {
+    public CostumeCategory getCategory() {
         return category;
     }
 
-    public void setCategory(costumeCategories category) {
+    public void setCategory(CostumeCategory category) {
         this.category = category;
     }
 
-    public costumeColours getColour() {
+    public CostumeColour getColour() {
         return colour;
     }
 
-    public void setColour(costumeColours colour) {
+    public void setColour(CostumeColour colour) {
         this.colour = colour;
     }
 
-    public costumeSizes getSize() {
+    public CostumeSize getSize() {
         return size;
     }
 
-    public void setSize(costumeSizes size) {
+    public void setSize(CostumeSize size) {
         this.size = size;
     }
 
@@ -168,14 +164,6 @@ public class costume {
 
     public void setCost(BigDecimal cost) {
         this.cost = cost;
-    }
-
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
     }
 
     public String getImageUrl() {

@@ -1,6 +1,6 @@
 package com.starlight.chameleonims.ENUMs;
 
-public enum UserRoles {
+public enum UserRole {
     ADMIN,
 
     USER
