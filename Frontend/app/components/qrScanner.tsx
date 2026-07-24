@@ -55,6 +55,7 @@ export default function QrScanner() {
     return (
         <>
             {renderContent()}
+            <IndividualCard key = "1" costumeId = {5007} name = "red tutu" group = "red tutus" category = "tutus" colour = "red" size = "child small" quantity = {20} locationCode = "abcdef" lastUpdated = "01/07/2026" inStock = {2} imageURL = "5007" cost = "£10.00" qrString=""/>
         </>
     );
 }

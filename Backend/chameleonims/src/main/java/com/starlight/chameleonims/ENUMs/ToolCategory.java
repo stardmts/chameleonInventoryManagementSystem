@@ -1,4 +1,4 @@
-package com.starlight.chameleonims.ENUMs;
+package com.starlight.chameleonims.ENUMS;
 
 public enum ToolCategory {
     TOOL,

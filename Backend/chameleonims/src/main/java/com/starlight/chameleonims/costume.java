@@ -3,9 +3,9 @@ package com.starlight.chameleonims;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import com.starlight.chameleonims.ENUMs.CostumeCategory;
-import com.starlight.chameleonims.ENUMs.CostumeColour;
-import com.starlight.chameleonims.ENUMs.CostumeSize;
+import com.starlight.chameleonims.ENUMS.CostumeCategory;
+import com.starlight.chameleonims.ENUMS.CostumeColour;
+import com.starlight.chameleonims.ENUMS.CostumeSize;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -61,6 +61,8 @@ public class Costume {
 
     @Column(name = "qrString")
     private String qrString;
+
+    public Costume () {}
 
     public Costume(Long costumeId, String name, String group, CostumeCategory category, CostumeColour colour, CostumeSize size, Integer quantity, Integer inStock, String locationCode, LocalDateTime lastUpdated, BigDecimal cost, String imageUrl, String qrString) {
         this.costumeId = costumeId;

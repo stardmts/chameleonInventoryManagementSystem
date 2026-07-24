@@ -13,7 +13,6 @@ export default function AddCostume() {
     const [size, setSize] = useState(''); {/*drop down*/}
     const [quantity, setQuantity] = useState('');
     const [locationCode, setLocationCode] = useState('');
-    const [notes, setNotes] = useState('');
     const [cost, setCost] = useState('');
     const qrRef = useRef(null);
 
@@ -71,11 +70,7 @@ export default function AddCostume() {
                 <div className = "flex flex-col space-y-0">
                     <header className = "text-white text-sm lg:text-xl"> Enter the costume locationCode </header>
                     <input type = "text" value = {locationCode} onChange = {(e) => setLocationCode(e.target.value)} placeholder = "Enter the locationCode..." className = "bg-[#484848] w-full p-2 rounded-full border-b-2 border-white"/>
-                </div>    
-                <div className = "flex flex-col space-y-0">
-                    <header className = "text-white text-sm lg:text-xl"> Enter the costume notes </header>
-                    <input type = "text" value = {notes} onChange = {(e) => setNotes(e.target.value)} placeholder = "Type notes here..." className = "bg-[#484848] w-full p-2 rounded-full border-b-2 border-white"/>
-                </div>    
+                </div>   
                 <div className = "flex flex-col space-y-0">
                     <header className = "text-white text-sm lg:text-xl"> Enter the costume cost </header>
                     <input type = "text" value = {cost} onChange = {(e) => setCost(e.target.value)} placeholder = "Enter the cost per unit..." className = "bg-[#484848] w-full p-2 rounded-full border-b-2 border-white"/>

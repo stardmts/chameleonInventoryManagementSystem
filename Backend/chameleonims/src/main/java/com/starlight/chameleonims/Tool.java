@@ -1,9 +1,14 @@
 package com.starlight.chameleonims;
 
-import jakarta.persistence.*;
+import com.starlight.chameleonims.ENUMS.Condition;
+import com.starlight.chameleonims.ENUMS.ToolCategory;
 
-import com.starlight.chameleonims.ENUMs.ToolCategory;
-import com.starlight.chameleonims.ENUMs.Condition;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tools")

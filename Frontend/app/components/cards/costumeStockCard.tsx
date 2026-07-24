@@ -8,19 +8,20 @@ interface costume {
     quantity: number;
     locationCode: string;
     lastUpdated: string;
-    notes: string;
     inStock: number;
     cost: string;
     imageURL: string;
     qrString: string;
 }
 
-export default function CostumeCard({costumeId, name, group, category, colour, size, quantity, locationCode, lastUpdated, notes, inStock, cost, imageURL
+export default function CostumeCard({costumeId, name, group, category, colour, size, quantity, locationCode, lastUpdated, inStock, cost, imageURL
 } : costume) {
+
+    const imgSrc = `costumeImages/${imageURL}.avif`;
 
     return (
         <main className = "flex flex-row border-b-2 border-white rounded-xl bg-[#484848] items-center w-full px-2 py-2 space-x-5 text-wrap shadow-2xl">
-            <img src = {imageURL} className = "h-20 w-20 lg:h-40 lg:w-40 rounded"/>
+            <img src = {imgSrc} className = "h-20 w-20 lg:h-40 lg:w-40 rounded"/>
             <p className = "text-white text-sm lg:text-2xl w-full items-center">
                 {costumeId} | {name} | colour: {colour} | size: {size} | total quantity: {quantity} | currently in stock: {inStock} | category: {category}
             </p>

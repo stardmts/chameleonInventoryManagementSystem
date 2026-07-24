@@ -1,6 +1,6 @@
 package com.starlight.chameleonims;
 
-import com.starlight.chameleonims.ENUMs.UserRole;
+import com.starlight.chameleonims.ENUMS.UserRole;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
