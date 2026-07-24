@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import { QRCodeCanvas } from 'qrcode.react';
 
 export default function AddCostume() {
 
@@ -14,13 +15,31 @@ export default function AddCostume() {
     const [locationCode, setLocationCode] = useState('');
     const [notes, setNotes] = useState('');
     const [cost, setCost] = useState('');
+    const qrRef = useRef(null);
 
     {/*group is optional. image, inStock, lastUpdated are auto generated*/}
+
+    {/*
+        QR CODE generation
+        
+        let qrBase64String = '';
+
+        // 2. Extract the generated QR code canvas and convert it to a image string
+        if (qrRef.current) {
+            const canvas = qrRef.current.querySelector('canvas');
+            if (canvas) {
+                qrBase64String = canvas.toDataURL('image/png');
+            }
+        }
+    */}
 
     return (
         <main className = "flex flex-col p-5 rounded-xl">
             <div className = "flex flex-col bg-[#323232] px-10 py-5 rounded-xl w-full lg:w-auto space-y-2 text-white text-left border-4 border-[#6dabe3]">
                 <header className = "lg:hidden text-xl text-white"> Add Costume: </header>
+                <div ref={qrRef} style={{ display: 'none' }}>
+                    {id && <QRCodeCanvas value={id} size={250} />}
+                </div>
                 <div className = "flex flex-col space-y-0">
                     <header className = "text-white text-sm lg:text-xl"> Enter the costume id </header>
                     <input type = "text" value = {id} onChange = {(e) => setId(e.target.value)} placeholder = "Enter the costume id..." className = "bg-[#484848] w-full p-2 rounded-full border-b-2 border-white"/>
@@ -36,12 +55,12 @@ export default function AddCostume() {
                 <div className = "flex flex-col space-y-0">
                     <header className = "text-white text-sm lg:text-xl"> Enter the costume category </header>
                     <input type = "text" value = {category} onChange = {(e) => setCategory(e.target.value)} placeholder = "Enter the costume category..." className = "bg-[#484848] w-full p-2 rounded-full border-b-2 border-white"/>
-                <div className = "flex flex-col space-y-0">          
                 </div>
+                <div className = "flex flex-col space-y-0">          
                     <header className = "text-white text-sm lg:text-xl"> Enter the costume colour </header>
                     <input type = "text" value = {colour} onChange = {(e) => setColour(e.target.value)} placeholder = "Enter the costume colour..." className = "bg-[#484848] w-full p-2 rounded-full border-b-2 border-white"/>
-                <div className = "flex flex-col space-y-0">   
                 </div>
+                <div className = "flex flex-col space-y-0">   
                     <header className = "text-white text-sm lg:text-xl"> Enter the costume size </header>
                     <input type = "text" value = {size} onChange = {(e) => setSize(e.target.value)} placeholder = "Enter the costume size..." className = "bg-[#484848] w-full p-2 rounded-full border-b-2 border-white"/>
                 </div>    

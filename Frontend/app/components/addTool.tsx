@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import { QRCodeCanvas } from 'qrcode.react';
 
 export default function AddTool() {
 
@@ -12,13 +13,31 @@ export default function AddTool() {
     const [assignedTo, setAssignedTo] = useState('');
     const [ownedBy, setOwnedBy] = useState('');
     const [category, setCategory] = useState('');
+    const qrRef = useRef(null);
 
     {/*image, qr are auto generated*/}
+
+    {/*
+        QR CODE generation
+        
+        let qrBase64String = '';
+
+        // 2. Extract the generated QR code canvas and convert it to a image string
+        if (qrRef.current) {
+            const canvas = qrRef.current.querySelector('canvas');
+            if (canvas) {
+                qrBase64String = canvas.toDataURL('image/png');
+            }
+        }
+    */}
 
     return (
         <main className = "flex flex-col p-5 rounded-xl">
             <div className = "flex flex-col bg-[#323232] px-10 py-5 rounded-xl w-full lg:w-auto space-y-2 text-white text-left border-4 border-[#e97187]">
                 <header className = "lg:hidden text-xl text-white"> Add Tool/Tech: </header>
+                <div ref={qrRef} style={{ display: 'none' }}>
+                    {id && <QRCodeCanvas value={id} size={250} />}
+                </div>
                 <div className = "flex flex-col space-y-0">
                     <header className = "text-white text-sm lg:text-xl"> Enter the tool/tech 's id </header>
                     <input type = "text" value = {id} onChange = {(e) => setId(e.target.value)} placeholder = "Enter the costume id..." className = "text-white text-left bg-[#484848] w-full p-2 rounded-full border-b-2 border-white"/>
