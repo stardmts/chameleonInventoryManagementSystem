@@ -13,7 +13,7 @@ interface tool {
 
 export default function ToolCard({toolId, name, quantity, location, condition, assignedTo, ownedBy, category, imageURL} : tool) {
 
-    const imgSrc = `costumeImages/${imageURL}.avif`;
+    const imgSrc = `toolImages/${imageURL}.avif`;
 
     return (
         <main className = "flex flex-row border-b-2 border-white rounded-xl bg-[#484848] items-center w-full px-2 py-2 space-x-5 text-wrap shadow-2xl">

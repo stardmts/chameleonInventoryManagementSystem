@@ -1,10 +1,21 @@
 package com.starlight.chameleonims;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
+import com.starlight.chameleonims.ENUMS.OrderStatus;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "orders")
 public class Order {
     
     @Id
@@ -20,20 +31,22 @@ public class Order {
     @Column(name = "endDate")
     private LocalDateTime endDate;
 
-    @Column(name = "costumeId")
-    private Long costumeId;
+    @JdbcTypeCode(SqlTypes.ARRAY)
+    @Column(name = "loansId", columnDefinition = "bigint[]") 
+    private List<Long> loanIds = new ArrayList<>();
 
-    @Column(name = "quantity")
-    private Integer quantity;
+    @Column(name = "status")
+    private OrderStatus status;
+
     public Order () {}
 
-    public Order(Long orderId, String userEmailAddress, LocalDateTime startDate, LocalDateTime endDate, Long costumeId, Integer quantity) {
+    public Order (Long orderId, String userEmailAddress, LocalDateTime startDate, LocalDateTime endDate, List<Long> loanIds, OrderStatus status) {
         this.orderId = orderId;
         this.userEmailAddress = userEmailAddress;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.costumeId = costumeId;
-        this.quantity = quantity;
+        this.loanIds = loanIds;
+        this.status = status;
     }
 
     public Long getOrderId() {
@@ -68,20 +81,19 @@ public class Order {
         this.endDate = endDate;
     }
 
-    public Long getCostumeId() {
-        return costumeId;
+    public List<Long> getLoans() {
+        return loanIds;
     }
 
-    public void setCostumeId(Long costumeId) {
-        this.costumeId = costumeId;
+    public void setLoans(List<Long> loanIds) {
+        this.loanIds = loanIds;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public OrderStatus getStatus() {
+        return status;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setStatus(OrderStatus status) {
+        this.status = status;
     }
-
 }
