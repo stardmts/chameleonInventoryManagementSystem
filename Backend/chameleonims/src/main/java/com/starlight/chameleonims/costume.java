@@ -2,6 +2,8 @@ package com.starlight.chameleonims;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.starlight.chameleonims.ENUMS.CostumeCategory;
 import com.starlight.chameleonims.ENUMS.CostumeColour;
@@ -35,7 +37,7 @@ public class Costume {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "colour")
-    private CostumeColour colour;
+    private List<CostumeColour> colour = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     @Column(name = "size")
@@ -64,7 +66,7 @@ public class Costume {
 
     public Costume () {}
 
-    public Costume(Long costumeId, String name, String group, CostumeCategory category, CostumeColour colour, CostumeSize size, Integer quantity, Integer inStock, String locationCode, LocalDateTime lastUpdated, BigDecimal cost, String imageUrl, String qrString) {
+    public Costume(Long costumeId, String name, String group, CostumeCategory category, List<CostumeColour> colour, CostumeSize size, Integer quantity, Integer inStock, String locationCode, LocalDateTime lastUpdated, BigDecimal cost, String imageUrl, String qrString) {
         this.costumeId = costumeId;
         this.name = name;
         this.group = group;
@@ -112,11 +114,11 @@ public class Costume {
         this.category = category;
     }
 
-    public CostumeColour getColour() {
+    public List<CostumeColour> getColour() {
         return colour;
     }
 
-    public void setColour(CostumeColour colour) {
+    public void setColour(List<CostumeColour> colour) {
         this.colour = colour;
     }
 

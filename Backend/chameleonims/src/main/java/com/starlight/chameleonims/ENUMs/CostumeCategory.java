@@ -22,6 +22,12 @@ public enum CostumeCategory {
     ACCESSORIES("Accessories"),
     
     HATS("Hats"),
+
+    FILM("Film"),
+
+    MUSICALS("Musicals"),
+
+    DRESSES("Dresses"),
     
     SHOES("Shoes");
 

@@ -1,6 +1,7 @@
 package com.starlight.chameleonims.ENUMS;
 
 public enum CostumeColour {
+
     GOLD,
 
     SILVER,
@@ -26,4 +27,5 @@ public enum CostumeColour {
     WHITE,
 
     BLACK,
+
 }

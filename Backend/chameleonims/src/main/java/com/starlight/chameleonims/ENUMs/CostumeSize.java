@@ -39,9 +39,14 @@ public enum CostumeSize {
     
     SIZE_140CMS("140cm"),
     
+    SIZE_150CMS("150cm"),
+    
     SIZE_152CMS("152cm"),
+
+    SIZE_160CMS("160cm"),
     
     SIZE_164CMS("164cm"),
+    
     
     SIZE_00,
     
