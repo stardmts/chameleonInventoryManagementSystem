@@ -34,6 +34,12 @@ public class CostumeController {
         return costumeRepository.findAllAsc();
     }
 
+    @GetMapping("/group/{groupId}")
+    public List<Costume> getCostumesByGroup(@PathVariable String groupId) 
+    {
+        return costumeRepository.findByGroupId(groupId);
+    }
+
     @GetMapping("/{costumeId}")
     public Costume getCostumeById(@PathVariable String costumeId)
     {
