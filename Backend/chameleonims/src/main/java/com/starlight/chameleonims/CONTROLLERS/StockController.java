@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.starlight.chameleonims.DTOS.StockDisplay;
 import com.starlight.chameleonims.REPOSITORIES.CostumeRepository;
 import com.starlight.chameleonims.REPOSITORIES.PropRepository;
-import com.starlight.chameleonims.REPOSITORIES.ToolRepository;
 
 
 @RestController
@@ -20,8 +19,6 @@ public class StockController {
 
     private PropRepository propRepository;
 
-    private ToolRepository toolRepository;
-
     @GetMapping
     public StockDisplay getAllStock() 
     {
@@ -29,7 +26,6 @@ public class StockController {
 
         stockDisplay.setCostumes(costumeRepository.findAll());
         stockDisplay.setProps(propRepository.findAll());
-        stockDisplay.setTools(toolRepository.findAll());
 
         return stockDisplay;
     }

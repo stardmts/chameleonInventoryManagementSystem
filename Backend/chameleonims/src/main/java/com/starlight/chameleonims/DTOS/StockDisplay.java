@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.starlight.chameleonims.Costume;
 import com.starlight.chameleonims.Prop;
-import com.starlight.chameleonims.Tool;
 
 public class StockDisplay {
 
@@ -12,14 +11,11 @@ public class StockDisplay {
 
     private List<Prop> props;
 
-    private List<Tool> tools;
-
     public StockDisplay () {}
 
-    public StockDisplay(List<Costume> costumes, List<Prop> props, List<Tool> tools) {
+    public StockDisplay(List<Costume> costumes, List<Prop> props) {
         this.costumes = costumes;
         this.props = props;
-        this.tools = tools;
     }
 
     public List<Costume> getCostumes() { 
@@ -35,13 +31,7 @@ public class StockDisplay {
     }
 
     public void setProps(List<Prop> props) { 
-        this.props = props; }
-
-    public List<Tool> getTools() { return tools; 
-
+        this.props = props; 
     }
 
-    public void setTools(List<Tool> tools) { 
-        this.tools = tools; 
-    }
 }
