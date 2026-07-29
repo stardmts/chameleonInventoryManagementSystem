@@ -11,10 +11,10 @@ public class Loan {
     
     @Id
     @Column(name = "orderId")
-    private Long loanId;
+    private String loanId;
     
     @Column(name = "order")
-    private Long orderId;
+    private String orderId;
 
     @Column(name = "startDate")
     private LocalDateTime startDate;
@@ -33,7 +33,7 @@ public class Loan {
 
     public Loan () {}
 
-    public Loan (Long loanId, Long orderId, LocalDateTime startDate, LocalDateTime endDate, Long costumeId, Integer quantity, LoanStatus status) {
+    public Loan (String loanId, String orderId, LocalDateTime startDate, LocalDateTime endDate, Long costumeId, Integer quantity, LoanStatus status) {
         this.loanId = loanId;
         this.orderId = orderId;
         this.startDate = startDate;
@@ -43,19 +43,19 @@ public class Loan {
         this.status = status;
     }
 
-    public Long getLoanId() {
+    public String getLoanId() {
         return loanId;
     }
 
-    public void setLoanId(Long loanId) {
+    public void setLoanId(String loanId) {
         this.loanId = loanId;
     }
 
-    public Long getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Long orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 

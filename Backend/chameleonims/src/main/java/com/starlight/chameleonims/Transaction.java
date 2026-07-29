@@ -13,7 +13,7 @@ public class Transaction {
     
     @Id
     @Column(name = "transactionId")
-    private Long transactionId;
+    private String transactionId;
 
     @Column(name = "transactionBody")
     private String transactionBody;
@@ -26,18 +26,18 @@ public class Transaction {
 
     public Transaction () {}
 
-    public Transaction (Long transactionId, String transactionBody, LocalDateTime transactionDate, String user) {
+    public Transaction (String transactionId, String transactionBody, LocalDateTime transactionDate, String user) {
         this.transactionId = transactionId;
         this.transactionBody = transactionBody;
         this.transactionDate = transactionDate;
         this.user = user;
     }
 
-    public Long getTransactionId() {
+    public String getTransactionId() {
         return transactionId;
     }
 
-    public void setTransactionId(Long transactionId) {
+    public void setTransactionId(String transactionId) {
         this.transactionId = transactionId;
     }
 

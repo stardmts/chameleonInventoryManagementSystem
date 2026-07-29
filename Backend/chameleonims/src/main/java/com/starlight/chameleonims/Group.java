@@ -11,7 +11,7 @@ public class Group {
     
     @Id
     @Column(name = "groupId")
-    private Long groupId;
+    private String groupId;
 
     @Column(name = "groupName")
     private String groupName;
@@ -21,17 +21,17 @@ public class Group {
 
     public Group () {}
 
-    public Group (Long groupId, String groupName, String qrString) {
+    public Group (String groupId, String groupName, String qrString) {
         this.groupId = groupId;
         this.groupName = groupName;
         this.qrString = qrString;
     }
 
-    public Long getGroupId() {
+    public String getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(Long groupId) {
+    public void setGroupId(String groupId) {
         this.groupId = groupId;
     }
 

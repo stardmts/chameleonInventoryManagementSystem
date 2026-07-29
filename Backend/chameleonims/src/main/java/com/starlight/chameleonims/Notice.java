@@ -2,7 +2,10 @@ package com.starlight.chameleonims;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "notices")
@@ -10,7 +13,7 @@ public class Notice {
     
     @Id
     @Column(name = "noticeId")
-    private Long noticeId;
+    private String noticeId;
 
     @Column(name = "noticeBody")
     private String noticeBody;
@@ -23,18 +26,18 @@ public class Notice {
 
     public Notice () {}
 
-    public Notice (Long noticeId, String noticeBody, LocalDateTime noticeDate, String sender) {
+    public Notice (String noticeId, String noticeBody, LocalDateTime noticeDate, String sender) {
         this.noticeId = noticeId;
         this.noticeBody = noticeBody;
         this.noticeDate = noticeDate;
         this.sender = sender;
     }
 
-    public Long getNoticeId() {
+    public String getNoticeId() {
         return noticeId;
     }
 
-    public void setNoticeId(Long noticeId) {
+    public void setNoticeId(String noticeId) {
         this.noticeId = noticeId;
     }
 

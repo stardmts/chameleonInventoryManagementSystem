@@ -16,7 +16,7 @@ public class Tool {
     
     @Id
     @Column(name = "toolId")
-    private Long toolId;
+    private String toolId;
 
     @Column(name = "name")
     private String name;
@@ -49,7 +49,7 @@ public class Tool {
 
     public Tool () {}
 
-    public Tool (Long toolId, String name, Integer quantity, String location, Condition condition, String assignedTo, String ownedBy, ToolCategory category, String imageUrl, String qrString) {
+    public Tool (String toolId, String name, Integer quantity, String location, Condition condition, String assignedTo, String ownedBy, ToolCategory category, String imageUrl, String qrString) {
         this.toolId = toolId;
         this.name = name;
         this.quantity = quantity;
@@ -62,11 +62,11 @@ public class Tool {
         this.qrString = qrString;
     }
 
-    public Long getToolId() {
+    public String getToolId() {
         return toolId;
     }
 
-    public void setToolId(Long toolId) {
+    public void setToolId(String toolId) {
         this.toolId = toolId;
     }
 

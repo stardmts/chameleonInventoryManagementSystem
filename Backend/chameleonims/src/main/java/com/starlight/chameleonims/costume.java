@@ -23,7 +23,7 @@ public class Costume {
     
     @Id
     @Column(name = "costumeId")
-    private Long costumeId;
+    private String costumeId;
     
     @Column(name = "name")
     private String name;
@@ -66,7 +66,7 @@ public class Costume {
 
     public Costume () {}
 
-    public Costume(Long costumeId, String name, String group, CostumeCategory category, List<CostumeColour> colour, CostumeSize size, Integer quantity, Integer inStock, String locationCode, LocalDateTime lastUpdated, BigDecimal cost, String imageUrl, String qrString) {
+    public Costume(String costumeId, String name, String group, CostumeCategory category, List<CostumeColour> colour, CostumeSize size, Integer quantity, Integer inStock, String locationCode, LocalDateTime lastUpdated, BigDecimal cost, String imageUrl, String qrString) {
         this.costumeId = costumeId;
         this.name = name;
         this.group = group;
@@ -82,11 +82,11 @@ public class Costume {
         this.qrString = qrString;
     }
 
-    public Long getCostumeId() {
+    public String getCostumeId() {
         return costumeId;
     }
 
-    public void setCostumeId(Long costumeId) {
+    public void setCostumeId(String costumeId) {
         this.costumeId = costumeId;
     }
 

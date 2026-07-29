@@ -20,7 +20,7 @@ public class Order {
     
     @Id
     @Column(name = "orderId")
-    private Long orderId;
+    private String orderId;
     
     @Column(name = "userEmailAddress")
     private String userEmailAddress;
@@ -33,14 +33,14 @@ public class Order {
 
     @JdbcTypeCode(SqlTypes.ARRAY)
     @Column(name = "loansId", columnDefinition = "bigint[]") 
-    private List<Long> loanIds = new ArrayList<>();
+    private List<String> loanIds = new ArrayList<>();
 
     @Column(name = "status")
     private OrderStatus status;
 
     public Order () {}
 
-    public Order (Long orderId, String userEmailAddress, LocalDateTime startDate, LocalDateTime endDate, List<Long> loanIds, OrderStatus status) {
+    public Order (String orderId, String userEmailAddress, LocalDateTime startDate, LocalDateTime endDate, List<String> loanIds, OrderStatus status) {
         this.orderId = orderId;
         this.userEmailAddress = userEmailAddress;
         this.startDate = startDate;
@@ -49,11 +49,11 @@ public class Order {
         this.status = status;
     }
 
-    public Long getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Long orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 
@@ -81,11 +81,11 @@ public class Order {
         this.endDate = endDate;
     }
 
-    public List<Long> getLoans() {
+    public List<String> getLoans() {
         return loanIds;
     }
 
-    public void setLoans(List<Long> loanIds) {
+    public void setLoans(List<String> loanIds) {
         this.loanIds = loanIds;
     }
 

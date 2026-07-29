@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 public class User {
 
     @Column(name = "userId")
-    private Long userId;
+    private String userId;
 
     @Column(name = "firstName")
     private String firstName;
@@ -33,7 +33,7 @@ public class User {
 
     public User () {}
 
-    public User (Long userId, String firstName, String secondName, String userEmail, UserRole userRole, String passwordHash) {
+    public User (String userId, String firstName, String secondName, String userEmail, UserRole userRole, String passwordHash) {
         this.userId = userId;
         this.firstName = firstName;
         this.secondName = secondName;
@@ -42,11 +42,11 @@ public class User {
         this.passwordHash = passwordHash;
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

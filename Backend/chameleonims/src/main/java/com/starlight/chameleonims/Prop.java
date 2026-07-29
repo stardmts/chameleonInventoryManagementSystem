@@ -2,7 +2,10 @@ package com.starlight.chameleonims;
 
 import java.math.BigDecimal;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "props")
@@ -11,7 +14,7 @@ public class Prop {
 
     @Id
     @Column(name = "propId")
-    private Long propId;
+    private String propId;
 
     @Column(name = "name")
     private String name;
@@ -39,7 +42,7 @@ public class Prop {
 
     public Prop () {}
 
-    public Prop (Long propId, String name, String variant, Integer quantity, String locationCode, BigDecimal cost, Integer inStock, String imageUrl, String qrString) {
+    public Prop (String propId, String name, String variant, Integer quantity, String locationCode, BigDecimal cost, Integer inStock, String imageUrl, String qrString) {
         this.propId = propId;
         this.name = name;
         this.variant = variant;
@@ -51,11 +54,11 @@ public class Prop {
         this.qrString = qrString;
     }
 
-    public Long getPropId() {
+    public String getPropId() {
         return propId;
     }
 
-    public void setPropId(Long propId) {
+    public void setPropId(String propId) {
         this.propId = propId;
     }
 
