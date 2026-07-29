@@ -1,6 +1,5 @@
 HELP.md
 target/
-.gitinore
 .mvn/wrapper/maven-wrapper.properties
 !**/src/main/**/target/
 !**/src/test/**/target/
