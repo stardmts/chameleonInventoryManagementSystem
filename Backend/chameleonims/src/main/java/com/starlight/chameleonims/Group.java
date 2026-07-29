@@ -16,14 +16,22 @@ public class Group {
     @Column(name = "groupName")
     private String groupName;
 
+    @Column(name = "groupQuantity")
+    private Integer groupQuantity;
+
+    @Column(name = "imageUrl")
+    private String imageUrl;
+
     @Column(name = "qrString")
     private String qrString;
 
     public Group () {}
 
-    public Group (String groupId, String groupName, String qrString) {
+    public Group (String groupId, String groupName, Integer groupQuantity, String imageUrl, String qrString) {
         this.groupId = groupId;
         this.groupName = groupName;
+        this.groupQuantity = groupQuantity;
+        this.imageUrl = imageUrl;
         this.qrString = qrString;
     }
 
@@ -41,6 +49,22 @@ public class Group {
 
     public void setGroupName(String groupName) {
         this.groupName = groupName;
+    }
+
+    public Integer getGroupQuantity() {
+        return groupQuantity;
+    }
+
+    public void setGroupQuantity(Integer groupQuantity) {
+        this.groupQuantity = groupQuantity;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getQrString() {
