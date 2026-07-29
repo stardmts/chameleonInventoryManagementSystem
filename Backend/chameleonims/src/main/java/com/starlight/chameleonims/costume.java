@@ -33,7 +33,7 @@ public class Costume {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "category")
-    private CostumeCategory category;
+    private List<CostumeCategory> category = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     @Column(name = "colour")
@@ -66,7 +66,7 @@ public class Costume {
 
     public Costume () {}
 
-    public Costume(String costumeId, String name, String group, CostumeCategory category, List<CostumeColour> colour, CostumeSize size, Integer quantity, Integer inStock, String locationCode, LocalDateTime lastUpdated, BigDecimal cost, String imageUrl, String qrString) {
+    public Costume(String costumeId, String name, String group, List<CostumeCategory> category, List<CostumeColour> colour, CostumeSize size, Integer quantity, Integer inStock, String locationCode, LocalDateTime lastUpdated, BigDecimal cost, String imageUrl, String qrString) {
         this.costumeId = costumeId;
         this.name = name;
         this.group = group;
@@ -106,11 +106,11 @@ public class Costume {
         this.group = group;
     }
 
-    public CostumeCategory getCategory() {
+    public List<CostumeCategory> getCategory() {
         return category;
     }
 
-    public void setCategory(CostumeCategory category) {
+    public void setCategory(List<CostumeCategory> category) {
         this.category = category;
     }
 
