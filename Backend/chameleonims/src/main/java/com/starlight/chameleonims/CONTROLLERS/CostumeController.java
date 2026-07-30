@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.starlight.chameleonims.Costume;
-import com.starlight.chameleonims.DTOS.AvailabilityCheck;
-import com.starlight.chameleonims.DTOS.CostumeAvailability;
 import com.starlight.chameleonims.REPOSITORIES.CostumeRepository;
 
 
@@ -87,14 +84,6 @@ public class CostumeController {
         costumeRepository.save(toUpdate);
 
         return ResponseEntity.ok("Costume updated successfully");
-    }
- 
-
-    @GetMapping("/CheckAvailability")
-    public List<CostumeAvailability> checkAvailability(@ModelAttribute AvailabilityCheck availabilityCheck) 
-    {
-        /* Make find returns within x-y and find loans within x-y for each Id stored in given Group, for each do Available = totalStock - loanQuantity + returnQuantity, where loan and return quantity are totals of all loans or returns individual quantity summed */
-        return null;
     }
 
 }
