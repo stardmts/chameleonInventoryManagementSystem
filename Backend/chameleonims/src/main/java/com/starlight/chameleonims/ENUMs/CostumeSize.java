@@ -29,6 +29,8 @@ public enum CostumeSize {
     THREE_TO_FOUR_YEARS("3-4 Years"),
     
     FIVE_TO_SIX_YEARS("5-6 Years"),
+
+    SIX_TO_EIGHT_YEARS("6-8 Years"),
     
     SEVEN_TO_EIGHT_YEARS("7-8 Years"),
     

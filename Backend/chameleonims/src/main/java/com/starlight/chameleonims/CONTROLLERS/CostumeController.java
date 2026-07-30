@@ -22,7 +22,7 @@ import com.starlight.chameleonims.REPOSITORIES.CostumeRepository;
 
 
 @RestController
-@RequestMapping("/api/costumes")
+@RequestMapping("/api/Costumes")
 @CrossOrigin(origins = "http://localhost:3000")
 public class CostumeController {
 
@@ -34,7 +34,7 @@ public class CostumeController {
         return costumeRepository.findAllAsc();
     }
 
-    @GetMapping("/group/{groupId}")
+    @GetMapping("/Group/{groupId}")
     public List<Costume> getCostumesByGroup(@PathVariable String groupId) 
     {
         return costumeRepository.findByGroupId(groupId);
@@ -46,7 +46,7 @@ public class CostumeController {
         return costumeRepository.findById(costumeId).orElse(null);
     }
     
-    @DeleteMapping("/delete/{costumeId}")
+    @DeleteMapping("/Delete/{costumeId}")
     public ResponseEntity<?> deleteCostumeById(@PathVariable String costumeId) 
     {
         if (!costumeRepository.existsById(costumeId)) {
@@ -58,13 +58,13 @@ public class CostumeController {
         return ResponseEntity.ok("Costume deleted");
     }
 
-    @PostMapping("/addCostume")
+    @PostMapping("/AddCostume")
     public Costume createCostume(@RequestBody Costume costume) 
     {
         return costumeRepository.save(costume);
     }
 
-    @PatchMapping("/update/{costumeId}")
+    @PatchMapping("/Update/{costumeId}")
     public ResponseEntity<?> updateCostumeById(@PathVariable String costumeId, @RequestBody Costume incomingUpdates)
     {
         Costume toUpdate = costumeRepository.findById(costumeId).orElseThrow(() -> new RuntimeException("Costume not found"));
@@ -88,7 +88,7 @@ public class CostumeController {
     }
  
 
-    @GetMapping("/checkAvailability")
+    @GetMapping("/CheckAvailability")
     public List<CostumeAvailability> checkAvailability(@ModelAttribute AvailabilityCheck availabilityCheck) 
     {
         /* Make find returns within x-y and find loans within x-y for each Id stored in given Group, for each do Available = totalStock - loanQuantity + returnQuantity, where loan and return quantity are totals of all loans or returns individual quantity summed */

@@ -32,7 +32,7 @@ public class Order {
     private LocalDateTime endDate;
 
     @JdbcTypeCode(SqlTypes.ARRAY)
-    @Column(name = "loansId", columnDefinition = "bigint[]") 
+    @Column(name = "loans") 
     private List<String> loanIds = new ArrayList<>();
 
     @Column(name = "status")
