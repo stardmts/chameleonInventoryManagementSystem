@@ -8,6 +8,6 @@ import com.starlight.chameleonims.Tool;
 
 public interface ToolRepository extends JpaRepository <Tool, String>{
 
-    List<Tool> findAllAsc();
+    List<Tool> findAllByOrderByToolIdAsc();
     
 }

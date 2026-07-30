@@ -8,6 +8,6 @@ import com.starlight.chameleonims.User;
 
 public interface UserRepository extends JpaRepository <User, String> {
 
-    List<User> findAllByUserRole();
+    List<User> findAllByOrderByUserRole();
     
 }

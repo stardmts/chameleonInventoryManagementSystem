@@ -12,13 +12,13 @@ import jakarta.persistence.Table;
 public class Notice {
     
     @Id
-    @Column(name = "noticeId")
+    @Column(name = "notice_id")
     private String noticeId;
 
-    @Column(name = "noticeBody")
+    @Column(name = "notice_body")
     private String noticeBody;
 
-    @Column(name = "noticeDate")
+    @Column(name = "notice_date")
     private LocalDateTime noticeDate;
 
     @Column(name = "sender")

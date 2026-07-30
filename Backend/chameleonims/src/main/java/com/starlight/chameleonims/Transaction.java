@@ -12,13 +12,13 @@ import jakarta.persistence.Table;
 public class Transaction {
     
     @Id
-    @Column(name = "transactionId")
+    @Column(name = "transaction_id")
     private String transactionId;
 
-    @Column(name = "transactionBody")
+    @Column(name = "transaction_body")
     private String transactionBody;
 
-    @Column(name = "transactionDate")
+    @Column(name = "transaction_date")
     private LocalDateTime transactionDate;
 
     @Column(name = "user")

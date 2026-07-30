@@ -8,6 +8,6 @@ import com.starlight.chameleonims.Transaction;
 
 public interface TransactionRepository extends JpaRepository <Transaction, String> {
 
-    List<Transaction> findAllAsc();
+    List<Transaction> findAllByOrderByTransactionIdAsc();
     
 }

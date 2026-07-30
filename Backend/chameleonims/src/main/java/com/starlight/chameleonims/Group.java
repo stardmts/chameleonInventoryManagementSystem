@@ -10,19 +10,19 @@ import jakarta.persistence.Table;
 public class Group {
     
     @Id
-    @Column(name = "groupId")
+    @Column(name = "group_id")
     private String groupId;
 
-    @Column(name = "groupName")
+    @Column(name = "group_name")
     private String groupName;
 
-    @Column(name = "groupQuantity")
+    @Column(name = "group_quantity")
     private Integer groupQuantity;
 
-    @Column(name = "imageUrl")
+    @Column(name = "image_url")
     private String imageUrl;
 
-    @Column(name = "qrString")
+    @Column(name = "qr_string")
     private String qrString;
 
     public Group () {}

@@ -5,24 +5,28 @@ import java.time.LocalDateTime;
 import com.starlight.chameleonims.ENUMS.LoanStatus;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "loans")
 public class Loan {
     
     @Id
-    @Column(name = "orderId")
+    @Column(name = "loan_id")
     private String loanId;
     
-    @Column(name = "order")
+    @Column(name = "order_id")
     private String orderId;
 
-    @Column(name = "startDate")
+    @Column(name = "start_date")
     private LocalDateTime startDate;
 
-    @Column(name = "endDate")
+    @Column(name = "end_date")
     private LocalDateTime endDate;
 
-    @Column(name = "costumeId")
+    @Column(name = "costume_id")
     private Long costumeId;
 
     @Column(name = "quantity")

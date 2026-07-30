@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 public class Prop {
 
     @Id
-    @Column(name = "propId")
+    @Column(name = "prop_id")
     private String propId;
 
     @Column(name = "name")
@@ -25,19 +25,19 @@ public class Prop {
     @Column(name = "quantity")
     private Integer quantity;
 
-    @Column(name = "locationCode")
+    @Column(name = "location_code")
     private String locationCode;
 
     @Column(name = "cost")
     private BigDecimal cost;
 
-    @Column(name = "inStock")
+    @Column(name = "in_Stock")
     private Integer inStock;
 
-    @Column(name = "imageUrl")
+    @Column(name = "image_url")
     private String imageUrl;
 
-    @Column(name = "qrString")
+    @Column(name = "qr_String")
     private String qrString;
 
     public Prop () {}

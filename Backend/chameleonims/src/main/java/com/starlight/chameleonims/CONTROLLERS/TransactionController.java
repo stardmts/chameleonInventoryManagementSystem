@@ -2,6 +2,7 @@ package com.starlight.chameleonims.CONTROLLERS;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,12 +22,13 @@ import com.starlight.chameleonims.Transaction;
 @CrossOrigin(origins = "http://localhost:3000")
 public class TransactionController {
 
+    @Autowired
     private TransactionRepository transactionRepository;
 
     @GetMapping
     public List<Transaction> getAllTransactions() 
     {
-        return transactionRepository.findAllAsc();
+        return transactionRepository.findAllByOrderByTransactionIdAsc();
     }
     
     @DeleteMapping("/Delete/{transactionId}")

@@ -2,6 +2,7 @@ package com.starlight.chameleonims.CONTROLLERS;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,12 +23,13 @@ import com.starlight.chameleonims.REPOSITORIES.LoanRepository;
 @CrossOrigin(origins = "http://localhost:3000")
 public class LoanController {
 
+    @Autowired
     private LoanRepository loanRepository;
 
     @GetMapping
     public List<Loan> getAllLoans() 
     {
-        return loanRepository.findAllAsc();
+        return loanRepository.findAllByOrderByLoanIdAsc();
     }
 
     @GetMapping("/{loanId}")

@@ -8,6 +8,6 @@ import com.starlight.chameleonims.Order;
 
 public interface OrderRepository extends JpaRepository<Order, String> {
 
-    List<Order> findAllAsc();
+    List<Order> findAllByOrderByOrderIdAsc();
 
 }

@@ -2,6 +2,7 @@ package com.starlight.chameleonims.CONTROLLERS;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,18 +27,19 @@ import com.starlight.chameleonims.REPOSITORIES.CostumeRepository;
 @CrossOrigin(origins = "http://localhost:3000")
 public class CostumeController {
 
+    @Autowired
     private CostumeRepository costumeRepository;
 
     @GetMapping
     public List<Costume> getAllCostumes() 
     {
-        return costumeRepository.findAllAsc();
+        return costumeRepository.findAllByOrderByCostumeIdAsc();
     }
 
     @GetMapping("/Group/{groupId}")
     public List<Costume> getCostumesByGroup(@PathVariable String groupId) 
     {
-        return costumeRepository.findByGroupId(groupId);
+        return costumeRepository.findByGroup(groupId);
     }
 
     @GetMapping("/{costumeId}")

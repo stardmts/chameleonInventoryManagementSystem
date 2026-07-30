@@ -8,6 +8,6 @@ import com.starlight.chameleonims.Notice;
 
 public interface NoticeRepository extends JpaRepository <Notice, String>{
 
-    List<Notice> findAllAsc();
+    List<Notice> findAllByOrderByNoticeIdAsc();
     
 }

@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 public class Tool {
     
     @Id
-    @Column(name = "toolId")
+    @Column(name = "tool_id")
     private String toolId;
 
     @Column(name = "name")
@@ -31,20 +31,20 @@ public class Tool {
     @Column(name = "condition")
     private Condition condition;
 
-    @Column(name = "assignedTo")
+    @Column(name = "assigned_to")
     private String assignedTo;
 
-    @Column(name = "ownedBy")
+    @Column(name = "owned_by")
     private String ownedBy;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "category")
     private ToolCategory category;
 
-    @Column(name = "imageUrl")
+    @Column(name = "image_url")
     private String imageUrl;
 
-    @Column(name = "qrString")
+    @Column(name = "qr_string")
     private String qrString;
 
     public Tool () {}

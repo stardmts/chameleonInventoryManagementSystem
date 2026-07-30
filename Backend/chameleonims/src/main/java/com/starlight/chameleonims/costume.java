@@ -9,11 +9,14 @@ import com.starlight.chameleonims.ENUMS.CostumeCategory;
 import com.starlight.chameleonims.ENUMS.CostumeColour;
 import com.starlight.chameleonims.ENUMS.CostumeSize;
 
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
@@ -22,19 +25,23 @@ import jakarta.persistence.Table;
 public class Costume {
     
     @Id
-    @Column(name = "costumeId")
+    @Column(name = "costume_id")
     private String costumeId;
     
     @Column(name = "name")
     private String name;
 
-    @Column(name = "group")
+    @Column(name = "\"group\"")
     private String group;
 
+    @ElementCollection(targetClass = CostumeCategory.class)
+    @CollectionTable(name = "costume_categories", joinColumns = @JoinColumn(name = "costume_id"))
     @Enumerated(EnumType.STRING)
     @Column(name = "category")
     private List<CostumeCategory> category = new ArrayList<>();
 
+    @ElementCollection(targetClass = CostumeColour.class)
+    @CollectionTable(name = "costume_colours", joinColumns = @JoinColumn(name = "costume_id"))
     @Enumerated(EnumType.STRING)
     @Column(name = "colour")
     private List<CostumeColour> colour = new ArrayList<>();
@@ -46,22 +53,22 @@ public class Costume {
     @Column(name = "quantity")
     private Integer quantity;
 
-    @Column(name = "inStock")
+    @Column(name = "in_stock")
     private Integer inStock;
 
-    @Column(name = "locationCode")
+    @Column(name = "location_code")
     private String locationCode;
 
-    @Column(name = "lastUpdated")
+    @Column(name = "last_updated")
     private LocalDateTime lastUpdated;
 
     @Column(name = "cost")
     private BigDecimal cost;
 
-    @Column(name = "imageUrl")
+    @Column(name = "image_url")
     private String imageUrl;
 
-    @Column(name = "qrString")
+    @Column(name = "qr_string")
     private String qrString;
 
     public Costume () {}

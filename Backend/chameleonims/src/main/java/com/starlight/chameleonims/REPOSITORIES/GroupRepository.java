@@ -8,6 +8,6 @@ import com.starlight.chameleonims.Group;
 
 public interface GroupRepository extends JpaRepository <Group, String>{
 
-    List<Group> findAllAsc();
+    List<Group> findAllByOrderByGroupIdAsc();
     
 }

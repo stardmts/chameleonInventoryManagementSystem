@@ -6,29 +6,31 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
 public class User {
 
-    @Column(name = "userId")
+    @Id
+    @Column(name = "user_id")
     private String userId;
 
-    @Column(name = "firstName")
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "secondName")
+    @Column(name = "second_name")
     private String secondName;
 
-    @Column(name = "userEmail")
+    @Column(name = "user_email")
     private String userEmail;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "userRole")
+    @Column(name = "user_role")
     private UserRole userRole;
 
-    @Column(name = "passwordHash")
+    @Column(name = "password_hash")
     private String passwordHash;
 
     public User () {}

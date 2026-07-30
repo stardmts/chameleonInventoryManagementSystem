@@ -4,14 +4,16 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-
 import com.starlight.chameleonims.ENUMS.OrderStatus;
 
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,22 +21,24 @@ import jakarta.persistence.Table;
 public class Order {
     
     @Id
-    @Column(name = "orderId")
+    @Column(name = "order_id")
     private String orderId;
     
-    @Column(name = "userEmailAddress")
+    @Column(name = "user_email_address")
     private String userEmailAddress;
 
-    @Column(name = "startDate")
+    @Column(name = "start_date")
     private LocalDateTime startDate;
 
-    @Column(name = "endDate")
+    @Column(name = "end_date")
     private LocalDateTime endDate;
 
-    @JdbcTypeCode(SqlTypes.ARRAY)
-    @Column(name = "loans") 
+    @ElementCollection(targetClass = String.class)
+    @CollectionTable(name = "loan_ids", joinColumns = @JoinColumn(name = "order_id"))
+    @Column(name = "loan_id") 
     private List<String> loanIds = new ArrayList<>();
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private OrderStatus status;
 
@@ -81,11 +85,11 @@ public class Order {
         this.endDate = endDate;
     }
 
-    public List<String> getLoans() {
+    public List<String> getLoanIds() {
         return loanIds;
     }
 
-    public void setLoans(List<String> loanIds) {
+    public void setLoanIds(List<String> loanIds) {
         this.loanIds = loanIds;
     }
 

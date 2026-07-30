@@ -2,6 +2,7 @@ package com.starlight.chameleonims.CONTROLLERS;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,12 +23,13 @@ import com.starlight.chameleonims.REPOSITORIES.OrderRepository;
 @CrossOrigin(origins = "http://localhost:3000")
 public class OrderController {
 
+    @Autowired
     private OrderRepository orderRepository;
 
     @GetMapping
     public List<Order> getAllOrders() 
     {
-        return orderRepository.findAllAsc();
+        return orderRepository.findAllByOrderByOrderIdAsc();
     }
 
     @GetMapping("/{orderId}")
@@ -62,7 +64,7 @@ public class OrderController {
         if (incomingUpdates.getUserEmailAddress() != null) toUpdate.setUserEmailAddress(incomingUpdates.getUserEmailAddress());
         if (incomingUpdates.getStartDate() != null) toUpdate.setStartDate(incomingUpdates.getStartDate());
         if (incomingUpdates.getEndDate() != null) toUpdate.setEndDate(incomingUpdates.getEndDate());
-        if (incomingUpdates.getLoans() != null) toUpdate.setLoans(incomingUpdates.getLoans());
+        if (incomingUpdates.getLoanIds() != null) toUpdate.setLoanIds(incomingUpdates.getLoanIds());
         if (incomingUpdates.getStatus() != null) toUpdate.setStatus(incomingUpdates.getStatus());
         
         orderRepository.save(toUpdate);
