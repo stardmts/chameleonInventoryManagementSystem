@@ -29,7 +29,7 @@ export default function StockPage() {
                         <button className = "bg-[#323232] border-2 lg:border-4 border-[#d6de00] p-1 lg:p-2 rounded-full transition-colors touch-manipulation active:bg-[#d6de00] [@media(hover:hover)]:hover:bg-[#d6de00]"> Remove filters </button> {/*display all*/}
                     </div>
                 </div>
-                <div className = "flex flex-col items-center space-y-2 overflow-y-auto h-auto lg:h-190 w-full lg:w-431 text-white rounded px-5 py-5">
+                <div className = "flex flex-col items-center space-y-2 overflow-y-auto h-auto lg:h-190 w-full text-white rounded px-5 py-5">
                     <CostumeCard key = '5003' costumeId = {5007} name = "red tutu" group = "red tutus" category = "tutus" colour = "red" size = "child small" quantity = {20} locationCode = "abcdef" lastUpdated = "01/07/2026" inStock = {2} imageURL = "5007" cost = "£10.00" qrString=""/>              
                     <CostumeCard key = '5004' costumeId = {5008} name = "red tutu" group = "red tutus" category = "tutus" colour = "red" size = "child medium" quantity = {15} locationCode = "abcdef" lastUpdated = "01/07/2026" inStock = {13} imageURL = "5007" cost = "£10.00" qrString=""/>
                     <PropCard key = '0002' propId = "0001" name = "Wonka Bar" variant = "Brown" quantity = {15} locationCode = "Zone 4" cost = "£3.00" imageURL = "0001" qrString=""/>

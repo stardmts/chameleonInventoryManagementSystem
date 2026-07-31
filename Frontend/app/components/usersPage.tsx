@@ -30,7 +30,7 @@ export default function UsersPage() {
                             <button onClick = {() => setDisplay('addUser')} className = "bg-[#323232] border-2 lg:border-4 border-[#e97187] p-2 text-white text-sm lg:text-xl rounded-full transition-colors touch-manipulation active:bg-[#e97187] [@media(hover:hover)]:hover:bg-[#e97187]"> Add user </button> {/*remove user page*/}
                         </div>
                     </div>
-                    <div className = "flex flex-col items-center space-y-2 overflow-y-auto bg-[#323232] lg:h-190 w-full lg:w-431 text-white rounded px-2 lg:p-5">
+                    <div className = "flex flex-col items-center space-y-2 overflow-y-auto bg-[#323232] w-full text-white rounded px-2 lg:p-5">
                         <UserCard key = "1" userId = "0001" userEmail = "elliothardywork@gmail.com" userFName = "Elliot" userSName = "Hardy" userRole = "ADMINISTRATOR"/>
                     </div>
                 </main>   
