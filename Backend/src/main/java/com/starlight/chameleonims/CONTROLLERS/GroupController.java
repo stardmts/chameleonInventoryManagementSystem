@@ -19,10 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.starlight.chameleonims.DTOS.AvailabilityCheck;
 import com.starlight.chameleonims.DTOS.CostumeAvailability;
+import com.starlight.chameleonims.ENUMS.CostumeCategory;
+import com.starlight.chameleonims.ENUMS.CostumeColour;
+import com.starlight.chameleonims.ENUMS.CostumeSize;
 import com.starlight.chameleonims.Group;
 import com.starlight.chameleonims.REPOSITORIES.GroupRepository;
 import com.starlight.chameleonims.REPOSITORIES.TransactionRepository;
 import com.starlight.chameleonims.Transaction;
+
 
 @RestController
 @RequestMapping("/api/Groups")
@@ -35,15 +39,29 @@ public class GroupController {
     @Autowired
     private GroupRepository groupRepository;
 
-    
-
     @GetMapping
     public List<Group> getAllGroups() 
     {
         return groupRepository.findAllByOrderByGroupIdAsc();
     }
 
-    //api for getting groups on colour, size, and category for filering. /Filter/{category} /Filter/{colour} /Filter/{size}
+    @GetMapping("/Filter/Colour{costumeColour}")
+    public List<Group> getGroupsbyColour(@PathVariable CostumeColour costumeColour)
+    {
+        return groupRepository.findAllGroupsByColour(costumeColour);
+    }
+
+    @GetMapping("/Filter/Size{costumeSize}")
+    public List<Group> getGroupsBySize(@PathVariable CostumeSize costumeSize)
+    {
+        return groupRepository.findAllGroupsBySize(costumeSize);
+    }
+
+    @GetMapping("/Filter/Category{costumeCategory}")
+    public List<Group> getGroupsByCategory(@PathVariable CostumeCategory costumeCategory)
+    {
+        return groupRepository.findAllGroupsByCategory(costumeCategory);
+    }
 
     @GetMapping("/{groupId}")
     public Group getAllGroups(@PathVariable String groupId) 
@@ -110,6 +128,13 @@ public class GroupController {
 
         return groupRepository.save(group);
     }
+
+    @GetMapping("/Search/{searchString}")
+    public List<Group> getGroupsBySearch(@PathVariable String searchString) 
+    {
+        return groupRepository.findByNameContainingIgnoreCase(searchString);
+    }
+    
 
     @GetMapping("/CheckAvailability")
     public List<CostumeAvailability> checkAvailability(@ModelAttribute AvailabilityCheck availabilityCheck) 

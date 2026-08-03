@@ -9,6 +9,7 @@ import com.starlight.chameleonims.Costume;
 public interface CostumeRepository extends JpaRepository <Costume, String> {
 
     List<Costume> findAllByOrderByCostumeIdAsc();
+
     List<Costume> findByGroup(String group);
     
 }
