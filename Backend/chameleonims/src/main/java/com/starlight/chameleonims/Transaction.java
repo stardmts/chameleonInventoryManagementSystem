@@ -21,7 +21,7 @@ public class Transaction {
     @Column(name = "transaction_date")
     private LocalDateTime transactionDate;
 
-    @Column(name = "user")
+    @Column(name = "user_id")
     private String user;
 
     public Transaction () {}

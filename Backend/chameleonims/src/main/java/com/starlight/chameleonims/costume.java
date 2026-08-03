@@ -31,7 +31,7 @@ public class Costume {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "\"group\"")
+    @Column(name = "group_id")
     private String group;
 
     @ElementCollection(targetClass = CostumeCategory.class)

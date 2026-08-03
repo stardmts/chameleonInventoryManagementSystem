@@ -6,6 +6,8 @@ import com.starlight.chameleonims.ENUMS.LoanStatus;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -27,17 +29,18 @@ public class Loan {
     private LocalDateTime endDate;
 
     @Column(name = "costume_id")
-    private Long costumeId;
+    private String costumeId;
 
     @Column(name = "quantity")
     private Integer quantity;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private LoanStatus status;
 
     public Loan () {}
 
-    public Loan (String loanId, String orderId, LocalDateTime startDate, LocalDateTime endDate, Long costumeId, Integer quantity, LoanStatus status) {
+    public Loan (String loanId, String orderId, LocalDateTime startDate, LocalDateTime endDate, String costumeId, Integer quantity, LoanStatus status) {
         this.loanId = loanId;
         this.orderId = orderId;
         this.startDate = startDate;
@@ -79,11 +82,11 @@ public class Loan {
         this.endDate = endDate;
     }
 
-    public Long getCostumeId() {
+    public String getCostumeId() {
         return costumeId;
     }
 
-    public void setCostumeId(Long costumeId) {
+    public void setCostumeId(String costumeId) {
         this.costumeId = costumeId;
     }
 
