@@ -1,6 +1,8 @@
 package com.starlight.chameleonims.CONTROLLERS;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.starlight.chameleonims.REPOSITORIES.TransactionRepository;
 import com.starlight.chameleonims.REPOSITORIES.UserRepository;
+import com.starlight.chameleonims.Transaction;
 import com.starlight.chameleonims.User;
 
 
@@ -26,9 +30,11 @@ import com.starlight.chameleonims.User;
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
+    private TransactionRepository transactionRepository;
 
     @Autowired
+    private UserRepository userRepository;
+
     @GetMapping
     public List<User> getAllUsers() 
     {
@@ -50,12 +56,55 @@ public class UserController {
 
         userRepository.deleteById(userId);
 
+        String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder(6);
+            
+        for (int i = 0; i < 6; i++) {
+            int index = random.nextInt(CHARACTERS.length());
+            sb.append(CHARACTERS.charAt(index));
+        }
+
+        String result = sb.toString();
+
+        LocalDateTime date = LocalDateTime.now();
+
+        Transaction transaction = new Transaction();
+        transaction.setTransactionId(result);
+        transaction.setTransactionBody("User: " + userId + " has been deleted.");
+        transaction.setTransactionDate(date);
+        
+        transactionRepository.save(transaction);
+
         return ResponseEntity.ok("User succesfully deleted");
     }
 
     @PostMapping("/AddUser")
-    public User createUser(@RequestBody User user) {
-           return userRepository.save(user);
+    public User createUser(@RequestBody User user) 
+    {
+        String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder(6);
+            
+        for (int i = 0; i < 6; i++) {
+            int index = random.nextInt(CHARACTERS.length());
+            sb.append(CHARACTERS.charAt(index));
+        }
+
+        String result = sb.toString();
+
+        LocalDateTime date = LocalDateTime.now();
+
+        Transaction transaction = new Transaction();
+        transaction.setTransactionId(result);
+        transaction.setTransactionBody("User: " + user.getUserId() + " has been created.");
+        transaction.setTransactionDate(date);
+        
+        transactionRepository.save(transaction);
+
+        return userRepository.save(user);
     }
     
     @PatchMapping("/UpdatePassword/{userId}")

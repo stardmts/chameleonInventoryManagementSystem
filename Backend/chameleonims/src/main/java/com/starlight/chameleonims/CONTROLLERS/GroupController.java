@@ -1,6 +1,8 @@
 package com.starlight.chameleonims.CONTROLLERS;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,8 @@ import com.starlight.chameleonims.DTOS.AvailabilityCheck;
 import com.starlight.chameleonims.DTOS.CostumeAvailability;
 import com.starlight.chameleonims.Group;
 import com.starlight.chameleonims.REPOSITORIES.GroupRepository;
+import com.starlight.chameleonims.REPOSITORIES.TransactionRepository;
+import com.starlight.chameleonims.Transaction;
 
 @RestController
 @RequestMapping("/api/Groups")
@@ -26,7 +30,12 @@ import com.starlight.chameleonims.REPOSITORIES.GroupRepository;
 public class GroupController {
 
     @Autowired
+    private TransactionRepository transactionRepository;
+
+    @Autowired
     private GroupRepository groupRepository;
+
+    
 
     @GetMapping
     public List<Group> getAllGroups() 
@@ -51,12 +60,55 @@ public class GroupController {
 
         groupRepository.deleteById(groupId);
 
+        String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder(6);
+            
+        for (int i = 0; i < 6; i++) {
+            int index = random.nextInt(CHARACTERS.length());
+            sb.append(CHARACTERS.charAt(index));
+        }
+
+        String result = sb.toString();
+
+        LocalDateTime date = LocalDateTime.now();
+
+        Transaction transaction = new Transaction();
+        transaction.setTransactionId(result);
+        transaction.setTransactionBody("Group: " + groupId + " has been deleted.");
+        transaction.setTransactionDate(date);
+        
+        transactionRepository.save(transaction);
+
         return ResponseEntity.ok("Group succesfully deleted");
     }
 
     @PostMapping("/AddGroup")
-    public Group createGroup(@RequestBody Group group) {
-           return groupRepository.save(group);
+    public Group createGroup(@RequestBody Group group) 
+    {
+        String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder(6);
+            
+        for (int i = 0; i < 6; i++) {
+            int index = random.nextInt(CHARACTERS.length());
+            sb.append(CHARACTERS.charAt(index));
+        }
+
+        String result = sb.toString();
+
+        LocalDateTime date = LocalDateTime.now();
+
+        Transaction transaction = new Transaction();
+        transaction.setTransactionId(result);
+        transaction.setTransactionBody("Group: " + group.getGroupName() + " has been created.");
+        transaction.setTransactionDate(date);
+        
+        transactionRepository.save(transaction);
+
+        return groupRepository.save(group);
     }
 
     @GetMapping("/CheckAvailability")

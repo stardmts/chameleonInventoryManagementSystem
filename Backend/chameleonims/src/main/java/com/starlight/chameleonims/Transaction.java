@@ -21,16 +21,12 @@ public class Transaction {
     @Column(name = "transaction_date")
     private LocalDateTime transactionDate;
 
-    @Column(name = "user_id")
-    private String user;
-
     public Transaction () {}
 
-    public Transaction (String transactionId, String transactionBody, LocalDateTime transactionDate, String user) {
+    public Transaction (String transactionId, String transactionBody, LocalDateTime transactionDate) {
         this.transactionId = transactionId;
         this.transactionBody = transactionBody;
         this.transactionDate = transactionDate;
-        this.user = user;
     }
 
     public String getTransactionId() {
@@ -55,13 +51,5 @@ public class Transaction {
 
     public void setTransactionDate(LocalDateTime transactionDate) {
         this.transactionDate = transactionDate;
-    }
-
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
     }
 }

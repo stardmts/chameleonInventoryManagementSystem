@@ -1,6 +1,8 @@
 package com.starlight.chameleonims.CONTROLLERS;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.starlight.chameleonims.Order;
 import com.starlight.chameleonims.REPOSITORIES.OrderRepository;
+import com.starlight.chameleonims.REPOSITORIES.TransactionRepository;
+import com.starlight.chameleonims.Transaction;
 
 @RestController
 @RequestMapping("/api/Orders")
@@ -25,6 +29,9 @@ public class OrderController {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private TransactionRepository transactionRepository;
 
     @GetMapping
     public List<Order> getAllOrders() 
@@ -47,12 +54,55 @@ public class OrderController {
 
         orderRepository.deleteById(orderId);
 
+        String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder(6);
+            
+        for (int i = 0; i < 6; i++) {
+            int index = random.nextInt(CHARACTERS.length());
+            sb.append(CHARACTERS.charAt(index));
+        }
+
+        String result = sb.toString();
+
+        LocalDateTime date = LocalDateTime.now();
+
+        Transaction transaction = new Transaction();
+        transaction.setTransactionId(result);
+        transaction.setTransactionBody("Order: " + orderId + " has been deleted.");
+        transaction.setTransactionDate(date);
+        
+        transactionRepository.save(transaction);
+
         return ResponseEntity.ok("Order succesfully deleted");
     }
 
     @PostMapping("/AddOrder")
-    public Order createOrder(@RequestBody Order order) {
-           return orderRepository.save(order);
+    public Order createOrder(@RequestBody Order order) 
+    {
+        String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder(6);
+            
+        for (int i = 0; i < 6; i++) {
+            int index = random.nextInt(CHARACTERS.length());
+            sb.append(CHARACTERS.charAt(index));
+        }
+
+        String result = sb.toString();
+
+        LocalDateTime date = LocalDateTime.now();
+
+        Transaction transaction = new Transaction();
+        transaction.setTransactionId(result);
+        transaction.setTransactionBody("Order: " + order.getOrderId() + " has been created.");
+        transaction.setTransactionDate(date);
+        
+        transactionRepository.save(transaction);
+        
+        return orderRepository.save(order);
     }
 
     @PatchMapping("/Update/{orderId}")
@@ -68,6 +118,27 @@ public class OrderController {
         if (incomingUpdates.getStatus() != null) toUpdate.setStatus(incomingUpdates.getStatus());
         
         orderRepository.save(toUpdate);
+
+        String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder(6);
+            
+        for (int i = 0; i < 6; i++) {
+            int index = random.nextInt(CHARACTERS.length());
+            sb.append(CHARACTERS.charAt(index));
+        }
+
+        String result = sb.toString();
+
+        LocalDateTime date = LocalDateTime.now();
+
+        Transaction transaction = new Transaction();
+        transaction.setTransactionId(result);
+        transaction.setTransactionBody("Order: " + orderId + " has been updated.");
+        transaction.setTransactionDate(date);
+        
+        transactionRepository.save(transaction);
 
         return ResponseEntity.ok("Order updated successfully");
     }

@@ -1,6 +1,8 @@
 package com.starlight.chameleonims.CONTROLLERS;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,12 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.starlight.chameleonims.Prop;
 import com.starlight.chameleonims.REPOSITORIES.PropRepository;
+import com.starlight.chameleonims.REPOSITORIES.TransactionRepository;
+import com.starlight.chameleonims.Transaction;
 
 
 @RestController
 @RequestMapping("/api/Props")
 @CrossOrigin(origins = "http://localhost:3000")
 public class PropController {
+
+    @Autowired
+    private TransactionRepository transactionRepository;
 
     @Autowired
     private PropRepository propRepository;
@@ -46,6 +53,27 @@ public class PropController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Prop doesnt exist");
         }
 
+        String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder(6);
+            
+        for (int i = 0; i < 6; i++) {
+            int index = random.nextInt(CHARACTERS.length());
+            sb.append(CHARACTERS.charAt(index));
+        }
+
+        String result = sb.toString();
+
+        LocalDateTime date = LocalDateTime.now();
+
+        Transaction transaction = new Transaction();
+        transaction.setTransactionId(result);
+        transaction.setTransactionBody("Prop: " + propId + " has been deleted.");
+        transaction.setTransactionDate(date);
+        
+        transactionRepository.save(transaction);
+
         propRepository.deleteById(propId);
 
         return ResponseEntity.ok("Prop deleted");
@@ -54,6 +82,27 @@ public class PropController {
     @PostMapping("/AddProp")
     public Prop createProp(@RequestBody Prop prop) 
     {
+        String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder(6);
+            
+        for (int i = 0; i < 6; i++) {
+            int index = random.nextInt(CHARACTERS.length());
+            sb.append(CHARACTERS.charAt(index));
+        }
+
+        String result = sb.toString();
+
+        LocalDateTime date = LocalDateTime.now();
+
+        Transaction transaction = new Transaction();
+        transaction.setTransactionId(result);
+        transaction.setTransactionBody("Prop: " + prop.getPropId() + " has been deleted.");
+        transaction.setTransactionDate(date);
+        
+        transactionRepository.save(transaction);
+
         return propRepository.save(prop);
     }
 
@@ -72,6 +121,27 @@ public class PropController {
         if (incomingUpdates.getQrString() != null) toUpdate.setQrString(incomingUpdates.getQrString());
 
         propRepository.save(toUpdate);
+
+        String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder(6);
+            
+        for (int i = 0; i < 6; i++) {
+            int index = random.nextInt(CHARACTERS.length());
+            sb.append(CHARACTERS.charAt(index));
+        }
+
+        String result = sb.toString();
+
+        LocalDateTime date = LocalDateTime.now();
+
+        Transaction transaction = new Transaction();
+        transaction.setTransactionId(result);
+        transaction.setTransactionBody("Prop: " + propId + " has been updated.");
+        transaction.setTransactionDate(date);
+        
+        transactionRepository.save(transaction);
 
         return ResponseEntity.ok("Prop updated successfully");
     }

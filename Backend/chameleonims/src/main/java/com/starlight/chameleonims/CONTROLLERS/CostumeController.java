@@ -1,6 +1,8 @@
 package com.starlight.chameleonims.CONTROLLERS;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,12 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.starlight.chameleonims.Costume;
 import com.starlight.chameleonims.REPOSITORIES.CostumeRepository;
+import com.starlight.chameleonims.REPOSITORIES.TransactionRepository;
+import com.starlight.chameleonims.Transaction;
 
 
 @RestController
 @RequestMapping("/api/Costumes")
 @CrossOrigin(origins = "http://localhost:3000")
 public class CostumeController {
+
+    @Autowired
+    private TransactionRepository transactionRepository;
 
     @Autowired
     private CostumeRepository costumeRepository;
@@ -52,6 +59,27 @@ public class CostumeController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Costume doesnt exist");
         }
 
+        String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder(6);
+            
+        for (int i = 0; i < 6; i++) {
+            int index = random.nextInt(CHARACTERS.length());
+            sb.append(CHARACTERS.charAt(index));
+        }
+
+        String result = sb.toString();
+
+        LocalDateTime date = LocalDateTime.now();
+
+        Transaction transaction = new Transaction();
+        transaction.setTransactionId(result);
+        transaction.setTransactionBody("Costume: " + costumeId + " has been deleted.");
+        transaction.setTransactionDate(date);
+        
+        transactionRepository.save(transaction);
+
         costumeRepository.deleteById(costumeId);
 
         return ResponseEntity.ok("Costume deleted");
@@ -60,6 +88,27 @@ public class CostumeController {
     @PostMapping("/AddCostume")
     public Costume createCostume(@RequestBody Costume costume) 
     {
+        String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder(6);
+            
+        for (int i = 0; i < 6; i++) {
+            int index = random.nextInt(CHARACTERS.length());
+            sb.append(CHARACTERS.charAt(index));
+        }
+
+        String result = sb.toString();
+
+        LocalDateTime date = LocalDateTime.now();
+
+        Transaction transaction = new Transaction();
+        transaction.setTransactionId(result);
+        transaction.setTransactionBody("Costume: " + costume.getCostumeId() + " has been created.");
+        transaction.setTransactionDate(date);
+        
+        transactionRepository.save(transaction);
+
         return costumeRepository.save(costume);
     }
 
@@ -82,6 +131,28 @@ public class CostumeController {
         if (incomingUpdates.getQrString() != null) toUpdate.setQrString(incomingUpdates.getQrString());
 
         costumeRepository.save(toUpdate);
+
+        String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder(6);
+            
+        for (int i = 0; i < 6; i++) {
+            int index = random.nextInt(CHARACTERS.length());
+            sb.append(CHARACTERS.charAt(index));
+        }
+
+        String result = sb.toString();
+
+        LocalDateTime date = LocalDateTime.now();
+
+
+        Transaction transaction = new Transaction();
+        transaction.setTransactionId(result);
+        transaction.setTransactionBody("Costume: " + costumeId + " has been updated.");
+        transaction.setTransactionDate(date);
+        
+        transactionRepository.save(transaction);
 
         return ResponseEntity.ok("Costume updated successfully");
     }
