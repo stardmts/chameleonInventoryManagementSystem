@@ -8,6 +8,7 @@ import UsersPage from './usersPage';
 import TransactionPage from './transactionPage';
 import UserSettings from './userSettings';
 import QrScanner from './qrScanner';
+import OrdersPage from './ordersPage';
 
 export default function AddStockPage() {
 
@@ -23,6 +24,8 @@ export default function AddStockPage() {
         return <QrScanner />;
         case 'Transaction Log':
         return <TransactionPage />;
+        case 'Orders':
+        return <OrdersPage />
         case 'Stock':
         return <StockPage />;
         case 'Users':
@@ -80,6 +83,7 @@ export default function AddStockPage() {
                 <div className = "flex flex-col">
                   <button onClick = {() => {router.push('/staffLandingPage'); setOpen(!open)}} className = "text-white p-1"> DashBoard </button>
                   <button onClick = {() => {setDisplay('QR code scanner'); setOpen(!open)}} className = "text-white p-1 border-t-2 border-[#484848]"> QR Scanner </button>
+                  <button onClick = {() => {setDisplay('Orders'); setOpen(!open)}} className = "text-white p-1 border-t-2 border-[#484848]"> Orders </button>
                   <button onClick = {() => {setDisplay('Transaction Log'); setOpen(!open)}} className = "text-white p-1 border-t-2 border-[#484848]"> Transaction Log</button>
                   <button onClick = {() => {setDisplay('Stock'); setOpen(!open)}} className = "text-white p-1 border-t-2 border-[#484848]"> Stock </button>
                   <button onClick = {() => {router.push('/addStock'); setOpen(!open)}} className = "text-white p-1 border-t-2 border-[#484848]"> Add stock </button>

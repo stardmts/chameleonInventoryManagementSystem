@@ -9,6 +9,7 @@ import QrScanner from './qrScanner';
 import UserSettings from './userSettings';
 import { useRouter } from "next/navigation";
 import AddStockPage from './addStockPage';
+import OrdersPage from './ordersPage';
 
 export default function LandingPage() {
 
@@ -24,6 +25,8 @@ export default function LandingPage() {
       return <QrScanner />;
       case 'Transaction Log':
       return <TransactionPage />;
+      case 'Orders':
+      return <OrdersPage />
       case 'Stock':
       return <StockPage />;
       case 'Users':
@@ -43,6 +46,7 @@ export default function LandingPage() {
         <div className = "flex flex-col">
           <button onClick = {() => window.location.reload()} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> DashBoard </button>
           <button onClick = {() => setDisplay('QR code scanner')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> QR code scanner </button>
+          <button onClick = {() => setDisplay('Orders')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Orders </button>
           <button onClick = {() => setDisplay('Transaction Log')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Transaction Log </button>
           <button onClick = {() => setDisplay('Stock')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Stock </button>
           <button onClick = {() => setDisplay('add Stock')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Add stock </button>
@@ -109,6 +113,7 @@ export default function LandingPage() {
                 <button onClick = {() => window.location.reload()} className = "text-white p-1"> DashBoard </button>
                 <button onClick = {() => {setDisplay('QR code scanner'); setOpen(!open)}} className = "text-white p-1 border-t-2 border-[#484848]"> QR Scanner </button>
                 <button onClick = {() => {setDisplay('Transaction Log'); setOpen(!open)}} className = "text-white p-1 border-t-2 border-[#484848]"> Transaction Log</button>
+                <button onClick = {() => {setDisplay('Orders'); setOpen(!open)}} className = "text-white p-1 border-t-2 border-[#484848]"> Orders </button>
                 <button onClick = {() => {setDisplay('Stock'); setOpen(!open)}} className = "text-white p-1 border-t-2 border-[#484848]"> Stock </button>
                 <button onClick = {() => {router.push('/addStock'); setOpen(!open)}} className = "text-white p-1 border-t-2 border-[#484848]"> Add stock </button>
                 <button onClick = {() => {setDisplay('Users'); setOpen(!open)}} className = "text-white p-1 border-t-2 border-[#484848]"> Users </button>
