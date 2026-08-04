@@ -15,6 +15,9 @@ export default function AddTool() {
     const [category, setCategory] = useState('');
     const qrRef = useRef(null);
 
+    const [file, setFile] = useState(null);
+    const [loading, setLoading] = useState(false);
+
     {/*image, qr are auto generated*/}
 
     {/*
@@ -30,6 +33,38 @@ export default function AddTool() {
             }
         }
     */}
+
+    const handleUpload = async () => {
+        if (!file) return;
+        setLoading(true);
+
+        try {
+            const response = await fetch('', { method: 'POST' }); {/*API needs to be created and inputted here*/}
+            const { uploadUrl } = await response.json();
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const cfRes = await fetch(uploadUrl, {
+                method: 'POST',
+                body: formData,
+            });
+
+            const cfData = await cfRes.json();
+
+            const imageId = cfData.result.id; //gets the image ID to store int the Database
+            const imageUrl = cfData.result.variants[0]; 
+
+            if (cfData.success) {
+                console.log('Image hosted successfully at:', cfData.result.variants[0]);
+                alert('Upload successful!');
+            }
+        } catch (err) {
+            console.error('Upload failed:', err);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <main className = "flex flex-col p-5 rounded-xl">
@@ -72,7 +107,20 @@ export default function AddTool() {
                 </div>
                 <div className = "flex flex-col space-y-0">   
                     <button className = "text-white p-2 bg-[#484848] rounded-full touch-manipulation active:bg-[#323232] [@media(hover:hover)]:hover:hover:bg-[#262626] shadow-2xl"> Submit </button>
-                </div>        
+                </div>   
+                <div className = "flex flex-col space-y-2">
+                    <header className = "text-white text-sm lg:text-xl"> Upload the costume image </header>
+                    <div className="flex flex-col sm:flex-row gap-3">
+                    <input type="file" id="costume-image-upload" accept="image/*" className="hidden" onChange={(e) => setFile(e.target.files ? e.target.files[0] : null)} />
+                    <label htmlFor="costume-image-upload" className="cursor-pointer bg-[#484848] text-white text-center px-5 py-2 rounded-full border-b-2 border-white hover:bg-[#585858] text-sm lg:text-base inline-block" > {file ? 'Change Image' : 'Select Image'} </label>
+                    <span className="text-xs lg:text-sm text-gray-400 max-w-[200px] truncate">
+                        {file ? file.name : 'No file chosen'}
+                    </span>
+                </div>
+                    <button onClick={handleUpload} disabled={loading} className = "bg-[#484848] text-sm p-2 rounded-full border-b-2 border-white">
+                        {loading ? 'Uploading...' : 'Upload'}
+                    </button>
+                </div>    
             </div>
         </main>
     );
