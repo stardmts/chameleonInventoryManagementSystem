@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from 'react';
-import StaffHomePage from './staffHomePage';
 import StockPage from './stockPage';
 import TransactionPage from './transactionPage';
 import UsersPage from './usersPage';
@@ -27,8 +26,6 @@ export default function LandingPage() {
       return <TransactionPage />;
       case 'Orders':
       return <OrdersPage />
-      case 'Stock':
-      return <StockPage />;
       case 'Users':
       return <UsersPage />;
       case 'Account':
@@ -36,7 +33,7 @@ export default function LandingPage() {
       case 'add Stock':
       return <AddStockPage />;
       default:
-      return <StaffHomePage />;
+      return <StockPage />;
       }
   };
 
@@ -48,7 +45,6 @@ export default function LandingPage() {
           <button onClick = {() => setDisplay('QR code scanner')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> QR code scanner </button>
           <button onClick = {() => setDisplay('Orders')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Orders </button>
           <button onClick = {() => setDisplay('Transaction Log')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Transaction Log </button>
-          <button onClick = {() => setDisplay('Stock')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Stock </button>
           <button onClick = {() => setDisplay('add Stock')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Add stock </button>
           <button onClick = {() => setDisplay('Users')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Users </button>
         </div>
@@ -114,7 +110,6 @@ export default function LandingPage() {
                 <button onClick = {() => {setDisplay('QR code scanner'); setOpen(!open)}} className = "text-white p-1 border-t-2 border-[#484848]"> QR Scanner </button>
                 <button onClick = {() => {setDisplay('Transaction Log'); setOpen(!open)}} className = "text-white p-1 border-t-2 border-[#484848]"> Transaction Log</button>
                 <button onClick = {() => {setDisplay('Orders'); setOpen(!open)}} className = "text-white p-1 border-t-2 border-[#484848]"> Orders </button>
-                <button onClick = {() => {setDisplay('Stock'); setOpen(!open)}} className = "text-white p-1 border-t-2 border-[#484848]"> Stock </button>
                 <button onClick = {() => {router.push('/addStock'); setOpen(!open)}} className = "text-white p-1 border-t-2 border-[#484848]"> Add stock </button>
                 <button onClick = {() => {setDisplay('Users'); setOpen(!open)}} className = "text-white p-1 border-t-2 border-[#484848]"> Users </button>
                 <button onClick = {() => {setDisplay('Account'); setOpen(!open)}} className = "text-white p-1 border-t-2 border-[#484848]"> Settings </button>

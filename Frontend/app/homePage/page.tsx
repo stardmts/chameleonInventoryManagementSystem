@@ -2,7 +2,7 @@ import StaffNavBar from "../components/staffNavigationBar";
 import LandingPage from "../components/landingPage";
 import Footer from "../components/footer";
 
-export default function StaffLandingPage() {
+export default function HomePage() {
   return (
     <div>
       <header>

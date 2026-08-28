@@ -25,7 +25,7 @@ export default function SignIn() {
                 <label htmlFor = "username-input"> Password: </label>
                 <input className = "bg-[#484848] rounded px-2 py-2 rounded border-b-2" placeholder = "Enter your e-mail..." />
             </div>
-            <button onClick = {() => router.push('/staffLandingPage')} className = "bg-[#484848] px-4 w-20 py-0.5 rounded text-white"> Login </button> {/*devlopment use only delete when checkls are in place to verify user*/}
+            <button onClick = {() => router.push('/homePage')} className = "bg-[#484848] px-4 w-20 py-0.5 rounded text-white"> Login </button> {/*devlopment use only delete when checkls are in place to verify user*/}
             <div className = "flex flex-col space-y-1">
                 <button onClick = {() => setForgotten(!forgotten)} className = "text-[#76b8ff] text-left w-85 hover:underline"> forgotten password? request password reset </button>
             </div>

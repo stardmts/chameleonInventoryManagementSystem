@@ -10,15 +10,15 @@ interface Costume {
     costumeId: string;
     name: string;
     group: string;
-    category: string;
+    category: string[];
     colour: string[];
-    size: string[];
+    size: string;
     quantity: number;
+    inStock: number;
     locationCode: string;
     lastUpdated: string;
-    inStock: number;
-    cost: string;
-    imageURL: string;
+    cost: number;
+    imageUrl: string;
 }
 
 interface Prop {
@@ -121,7 +121,7 @@ export default function StockPage() {
                     </div>
                 </div>
                 <ul className = "flex flex-col items-center space-y-2 overflow-y-auto h-auto lg:h-190 w-full text-white rounded px-5 py-5">
-                    {costumes.map((costume) => (<CostumeCard key = {costume.costumeId} costumeId = {costume.costumeId} name = {costume.name} group = {costume.group} category = {costume.group} colour = {costume.colour} size = {costume.size} quantity = {costume.quantity} locationCode = {costume.locationCode} lastUpdated = {costume.lastUpdated} inStock = {costume.inStock} cost = {costume.cost} imageURL = {costume.imageURL}/>))}
+                    {costumes.map((costume) => (<CostumeCard key = {costume.costumeId} costumeId = {costume.costumeId} name = {costume.name} group = {costume.group} category = {costume.category} colour = {costume.colour} size = {costume.size} quantity = {costume.quantity} locationCode = {costume.locationCode} lastUpdated = {costume.lastUpdated} inStock = {costume.inStock} cost = {costume.cost} imageUrl = {costume.imageUrl}/>))}
                     {props.map((prop) => (<PropCard key = {prop.propId} propId = {prop.propId} name = {prop.name} variant = {prop.variant} quantity = {prop.quantity} locationCode = {prop.locationCode} cost = {prop.cost} imageURL = {prop.imageURL} />))}
                     {tools.map((tool) => (<ToolCard key = {tool.toolId} toolId = {tool.toolId} name = {tool.name} quantity = {tool.quantity} location = {tool.location} condition = {tool.condition} assignedTo = {tool.assignedTo} ownedBy = {tool.ownedBy} category = {tool.category} imageURL = {tool.imageURL} />))}
                 </ul>
