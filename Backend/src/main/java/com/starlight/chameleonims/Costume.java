@@ -2,21 +2,16 @@ package com.starlight.chameleonims;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.starlight.chameleonims.ENUMS.CostumeCategory;
 import com.starlight.chameleonims.ENUMS.CostumeColour;
 import com.starlight.chameleonims.ENUMS.CostumeSize;
 
-import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
@@ -34,17 +29,11 @@ public class Costume {
     @Column(name = "group_id")
     private String group;
 
-    @ElementCollection(targetClass = CostumeCategory.class)
-    @CollectionTable(name = "costume_categories", joinColumns = @JoinColumn(name = "costume_id"))
-    @Enumerated(EnumType.STRING)
-    @Column(name = "category")
-    private List<CostumeCategory> category = new ArrayList<>();
+    @Column(name = "category", columnDefinition = "text[]")
+    private CostumeCategory[] category;
 
-    @ElementCollection(targetClass = CostumeColour.class)
-    @CollectionTable(name = "costume_colours", joinColumns = @JoinColumn(name = "costume_id"))
-    @Enumerated(EnumType.STRING)
-    @Column(name = "colour")
-    private List<CostumeColour> colour = new ArrayList<>();
+    @Column(name = "colour", columnDefinition = "text[]")
+    private CostumeColour[] colour;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "size")
@@ -68,12 +57,9 @@ public class Costume {
     @Column(name = "image_url")
     private String imageUrl;
 
-    @Column(name = "qr_string")
-    private String qrString;
-
     public Costume () {}
 
-    public Costume(String costumeId, String name, String group, List<CostumeCategory> category, List<CostumeColour> colour, CostumeSize size, Integer quantity, Integer inStock, String locationCode, LocalDateTime lastUpdated, BigDecimal cost, String imageUrl, String qrString) {
+    public Costume(String costumeId, String name, String group, CostumeCategory[] category, CostumeColour[] colour, CostumeSize size, Integer quantity, Integer inStock, String locationCode, LocalDateTime lastUpdated, BigDecimal cost, String imageUrl) {
         this.costumeId = costumeId;
         this.name = name;
         this.group = group;
@@ -86,7 +72,6 @@ public class Costume {
         this.lastUpdated = lastUpdated;
         this.cost = cost;
         this.imageUrl = imageUrl;
-        this.qrString = qrString;
     }
 
     public String getCostumeId() {
@@ -113,19 +98,19 @@ public class Costume {
         this.group = group;
     }
 
-    public List<CostumeCategory> getCategory() {
+    public CostumeCategory[] getCategory() {
         return category;
     }
 
-    public void setCategory(List<CostumeCategory> category) {
+    public void setCategory(CostumeCategory[] category) {
         this.category = category;
     }
 
-    public List<CostumeColour> getColour() {
+    public CostumeColour[] getColour() {
         return colour;
     }
 
-    public void setColour(List<CostumeColour> colour) {
+    public void setColour(CostumeColour[] colour) {
         this.colour = colour;
     }
 
@@ -183,13 +168,5 @@ public class Costume {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    public String getQrString() {
-        return qrString;
-    }
-
-    public void setQrString(String qrString) {
-        this.qrString = qrString;
     }
 }

@@ -13,11 +13,11 @@ public interface GroupRepository extends JpaRepository <Group, String>{
 
     List<Group> findAllByOrderByGroupIdAsc();
 
-    List<Group> findAllGroupsBySize(CostumeSize size);
+    List<Group> findAllGroupsBySizesContaining(CostumeSize size);
 
-    List<Group> findAllGroupsByColour(CostumeColour colour);
+    List<Group> findAllGroupsByColoursContaining(CostumeColour colour);
 
-    List<Group> findAllGroupsByCategory(CostumeCategory category); 
+    List<Group> findAllGroupsByCategoriesContaining(CostumeCategory category); 
 
     List<Group> findByNameContainingIgnoreCase(String searchString);
     

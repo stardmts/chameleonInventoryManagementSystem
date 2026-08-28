@@ -48,19 +48,19 @@ public class GroupController {
     @GetMapping("/Filter/Colour{costumeColour}")
     public List<Group> getGroupsbyColour(@PathVariable CostumeColour costumeColour)
     {
-        return groupRepository.findAllGroupsByColour(costumeColour);
+        return groupRepository.findAllGroupsByColoursContaining(costumeColour);
     }
 
     @GetMapping("/Filter/Size{costumeSize}")
     public List<Group> getGroupsBySize(@PathVariable CostumeSize costumeSize)
     {
-        return groupRepository.findAllGroupsBySize(costumeSize);
+        return groupRepository.findAllGroupsBySizesContaining(costumeSize);
     }
 
     @GetMapping("/Filter/Category{costumeCategory}")
     public List<Group> getGroupsByCategory(@PathVariable CostumeCategory costumeCategory)
     {
-        return groupRepository.findAllGroupsByCategory(costumeCategory);
+        return groupRepository.findAllGroupsByCategoriesContaining(costumeCategory);
     }
 
     @GetMapping("/{groupId}")

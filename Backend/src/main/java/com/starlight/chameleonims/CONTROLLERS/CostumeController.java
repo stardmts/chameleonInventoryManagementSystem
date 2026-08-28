@@ -128,7 +128,6 @@ public class CostumeController {
         if (incomingUpdates.getLastUpdated() != null) toUpdate.setLastUpdated(incomingUpdates.getLastUpdated());
         if (incomingUpdates.getCost() != null) toUpdate.setCost(incomingUpdates.getCost());
         if (incomingUpdates.getImageUrl() != null) toUpdate.setImageUrl(incomingUpdates.getImageUrl());
-        if (incomingUpdates.getQrString() != null) toUpdate.setQrString(incomingUpdates.getQrString());
 
         costumeRepository.save(toUpdate);
 
@@ -155,6 +154,12 @@ public class CostumeController {
         transactionRepository.save(transaction);
 
         return ResponseEntity.ok("Costume updated successfully");
+    }
+
+    @GetMapping("/Search/{searchString}")
+    public List<Costume> getCostumesBySearch(@PathVariable String searchString) 
+    {
+        return costumeRepository.findByNameContainingIgnoreCase(searchString);
     }
 
 }

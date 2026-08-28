@@ -37,12 +37,9 @@ public class Prop {
     @Column(name = "image_url")
     private String imageUrl;
 
-    @Column(name = "qr_String")
-    private String qrString;
-
     public Prop () {}
 
-    public Prop (String propId, String name, String variant, Integer quantity, String locationCode, BigDecimal cost, Integer inStock, String imageUrl, String qrString) {
+    public Prop (String propId, String name, String variant, Integer quantity, String locationCode, BigDecimal cost, Integer inStock, String imageUrl) {
         this.propId = propId;
         this.name = name;
         this.variant = variant;
@@ -51,7 +48,6 @@ public class Prop {
         this.cost = cost;
         this.inStock = inStock;
         this.imageUrl = imageUrl;
-        this.qrString = qrString;
     }
 
     public String getPropId() {
@@ -118,11 +114,4 @@ public class Prop {
         this.imageUrl = imageUrl;
     }
 
-    public String getQrString() {
-        return qrString;
-    }
-
-    public void setQrString(String qrString) {
-        this.qrString = qrString;
-    }
 }

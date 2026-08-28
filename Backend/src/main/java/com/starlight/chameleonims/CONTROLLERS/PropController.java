@@ -118,7 +118,6 @@ public class PropController {
         if (incomingUpdates.getCost() != null) toUpdate.setCost(incomingUpdates.getCost());
         if (incomingUpdates.getInStock() != null) toUpdate.setInStock(incomingUpdates.getInStock());
         if (incomingUpdates.getImageUrl() != null) toUpdate.setImageUrl(incomingUpdates.getImageUrl());
-        if (incomingUpdates.getQrString() != null) toUpdate.setQrString(incomingUpdates.getQrString());
 
         propRepository.save(toUpdate);
 

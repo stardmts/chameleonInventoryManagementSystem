@@ -1,20 +1,12 @@
 package com.starlight.chameleonims;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.starlight.chameleonims.ENUMS.CostumeCategory;
 import com.starlight.chameleonims.ENUMS.CostumeColour;
 import com.starlight.chameleonims.ENUMS.CostumeSize;
 
-import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
@@ -26,46 +18,33 @@ public class Group {
     private String groupId;
 
     @Column(name = "group_name")
-    private String groupName;
+    private String name;
 
     @Column(name = "group_quantity")
     private Integer groupQuantity;
 
-    @ElementCollection(targetClass = CostumeCategory.class)
-    @CollectionTable(name = "costume_categories", joinColumns = @JoinColumn(name = "group_id"))
-    @Enumerated(EnumType.STRING)
-    @Column(name = "categories")
-    private List<CostumeCategory> categories = new ArrayList<>();
+    @Column(name = "categories", columnDefinition = "text[]")
+    private CostumeCategory[] categories;
 
-    @ElementCollection(targetClass = CostumeCategory.class)
-    @CollectionTable(name = "costume_colours", joinColumns = @JoinColumn(name = "group_id"))
-    @Enumerated(EnumType.STRING)
-    @Column(name = "colours")
-    private List<CostumeColour> colours = new ArrayList<>();
+    @Column(name = "colours", columnDefinition = "text[]")
+    private CostumeColour[] colours;
 
-    @ElementCollection(targetClass = CostumeColour.class)
-    @CollectionTable(name = "sizes", joinColumns = @JoinColumn(name = "group_id"))
-    @Enumerated(EnumType.STRING)
-    @Column(name = "sizes")
-    private List<CostumeSize> sizes = new ArrayList<>();
+    @Column(name = "sizes", columnDefinition = "text[]")
+    private CostumeSize[] sizes;
 
     @Column(name = "image_url")
     private String imageUrl;
 
-    @Column(name = "qr_string")
-    private String qrString;
-
     public Group () {}
 
-    public Group (String groupId, String groupName, Integer groupQuantity, List<CostumeCategory> categories, List<CostumeColour> colours, List<CostumeSize> sizes, String imageUrl, String qrString) {
+    public Group (String groupId, String groupName, Integer groupQuantity, CostumeCategory[] categories, CostumeColour[] colours, CostumeSize[] sizes, String imageUrl) {
         this.groupId = groupId;
-        this.groupName = groupName;
+        this.name = groupName;
         this.groupQuantity = groupQuantity;
         this.categories = categories;
         this.colours = colours;
         this.sizes = sizes;
         this.imageUrl = imageUrl;
-        this.qrString = qrString;
     }
 
     public String getGroupId() {
@@ -77,11 +56,11 @@ public class Group {
     }
 
     public String getGroupName() {
-        return groupName;
+        return name;
     }
 
     public void setGroupName(String groupName) {
-        this.groupName = groupName;
+        this.name = groupName;
     }
 
     public Integer getGroupQuantity() {
@@ -92,27 +71,27 @@ public class Group {
         this.groupQuantity = groupQuantity;
     }
 
-    public List<CostumeCategory> getGroupCategories() {
+    public CostumeCategory[] getGroupCategories() {
         return categories;
     }
 
-    public void setGroupQuantity(List<CostumeCategory> categories) {
+    public void setGroupQuantity(CostumeCategory[] categories) {
         this.categories = categories;
     }
 
-    public List<CostumeColour> getGroupColours() {
+    public CostumeColour[] getGroupColours() {
         return colours;
     }
 
-    public void setGroupColours(List<CostumeColour> colours) {
+    public void setGroupColours(CostumeColour[] colours) {
         this.colours = colours;
     }
 
-    public List<CostumeSize> getGroupSizes() {
+    public CostumeSize[] getGroupSizes() {
         return sizes;
     }
 
-    public void setGroupSizes(List<CostumeSize> sizes) {
+    public void setGroupSizes(CostumeSize[] sizes) {
         this.sizes = sizes;
     }
 
@@ -124,11 +103,4 @@ public class Group {
         this.imageUrl = imageUrl;
     }
 
-    public String getQrString() {
-        return qrString;
-    }
-
-    public void setQrString(String qrString) {
-        this.qrString = qrString;
-    }
 }

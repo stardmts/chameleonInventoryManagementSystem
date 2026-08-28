@@ -119,7 +119,6 @@ public class ToolController {
         if (incomingUpdates.getOwnedBy() != null) toUpdate.setOwnedBy(incomingUpdates.getOwnedBy());
         if (incomingUpdates.getCategory() != null) toUpdate.setCategory(incomingUpdates.getCategory());
         if (incomingUpdates.getImageUrl() != null) toUpdate.setImageUrl(incomingUpdates.getImageUrl());
-        if (incomingUpdates.getQrString() != null) toUpdate.setQrString(incomingUpdates.getQrString());
 
         toolRepository.save(toUpdate);
 

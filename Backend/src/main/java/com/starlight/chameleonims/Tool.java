@@ -44,12 +44,9 @@ public class Tool {
     @Column(name = "image_url")
     private String imageUrl;
 
-    @Column(name = "qr_string")
-    private String qrString;
-
     public Tool () {}
 
-    public Tool (String toolId, String name, Integer quantity, String location, Condition condition, String assignedTo, String ownedBy, ToolCategory category, String imageUrl, String qrString) {
+    public Tool (String toolId, String name, Integer quantity, String location, Condition condition, String assignedTo, String ownedBy, ToolCategory category, String imageUrl) {
         this.toolId = toolId;
         this.name = name;
         this.quantity = quantity;
@@ -59,7 +56,6 @@ public class Tool {
         this.ownedBy = ownedBy;
         this.category = category;
         this.imageUrl = imageUrl;
-        this.qrString = qrString;
     }
 
     public String getToolId() {
@@ -132,13 +128,5 @@ public class Tool {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    public String getQrString() {
-        return qrString;
-    }
-
-    public void setQrString(String qrString) {
-        this.qrString = qrString;
     }
 }

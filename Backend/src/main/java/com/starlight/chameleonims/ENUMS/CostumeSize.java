@@ -53,6 +53,8 @@ public enum CostumeSize {
     SIZE_0,
     
     SIZE_1,
+
+    SIZE_2,
     
     SIZE_2A("2a"),
     
