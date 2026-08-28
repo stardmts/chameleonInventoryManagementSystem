@@ -35,19 +35,16 @@ export default function AddCostume() {
         
         let qrBase64String = '';
 
-        // 2. Extract the generated QR code canvas and convert it to a image string
-        if (qrRefC.current) {
-            const canvas = qrRef.current.querySelector('canvas');
-            if (canvas) {
-                qrBase64String = canvas.toDataURL('image/png');
-            }
-        }
+        const activeRef = [qrRefC.current, qrRefG.current].find(Boolean);
 
-        if (qrRefG.current) {
-            const canvas = qrRef.current.querySelector('canvas');
-            if (canvas) {
-                qrBase64String = canvas.toDataURL('image/png');
-            }
+        let qrBase64String = '';
+
+        if (qrRefC.current) {
+        const canvas = qrRefC.current.querySelector('canvas');
+        if (canvas) {
+            qrBase64String = canvas.toDataURL('image/png');
+            // You now have the exact image string containing the costume ID!
+        }
         }
     */}
 
@@ -69,7 +66,7 @@ export default function AddCostume() {
 
             const cfData = await cfRes.json();
 
-            const imageId = cfData.result.id; //gets the image ID to store int the Database
+            const imageId = cfData.result.id;
             const imageUrl = cfData.result.variants[0]; 
 
             if (cfData.success) {
@@ -87,9 +84,6 @@ export default function AddCostume() {
         <main className = "flex flex-col p-5 rounded-xl">
             <div className = "flex flex-col bg-[#323232] px-10 py-5 rounded-xl w-full lg:w-auto space-y-2 text-white text-left border-4 border-[#6dabe3]">
                 <header className = "lg:hidden text-xl text-white"> Add Costume: </header>
-                <div ref={qrRefC} style={{ display: 'none' }}>
-                    {id && <QRCodeCanvas value={id} size={250} />}
-                </div>
                 <div className = "flex flex-col space-y-0">
                     <header className = "text-white text-sm lg:text-xl"> Enter the costume id </header>
                     <input type = "text" value = {id} onChange = {(e) => setId(e.target.value)} placeholder = "Enter the costume id..." className = "bg-[#484848] w-full p-2 rounded-full border-b-2 border-white"/>

@@ -6,7 +6,6 @@ interface prop {
     locationCode: string;
     cost: string;
     imageURL: string;
-    qrString: string;
 }
 
 export default function PropCard({propId, name, variant, quantity, locationCode, cost, imageURL} : prop) {
