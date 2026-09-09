@@ -1,28 +1,25 @@
 interface costume {
-    costumeId: number;
+    costumeId: string;
     name: string;
     group: string;
-    category: string;
-    colour: string;
+    category: string[];
+    colour: string[];
     size: string;
     quantity: number;
+    inStock: number;
     locationCode: string;
     lastUpdated: string;
-    inStock: number;
-    cost: string;
-    imageURL: string;
-    qrString: string;
+    cost: number;
+    imageUrl: string;
 }
 
-export default function IndividualCard({costumeId, name, group, category, colour, size, quantity, locationCode, lastUpdated, inStock, cost, imageURL
+export default function IndividualCard({costumeId, name, group, category, colour, size, quantity, locationCode, lastUpdated, inStock, cost, imageUrl
 } : costume) {
-
-    const imgSrc = `costumeImages/${imageURL}.avif`;
 
     return (
         <main className = "flex flex-col bg-[#323232] w-full lg:w-200 space-y-5 rounded p-5 border-2 border-white rounded-xl">            
             <div className = "flex flex-row space-x-5 lg:items-center lg:justify-center">              
-                <img src = {imgSrc} className = "h-75 w-56.25 lg:h-100 lg:w-75 rounded-xl"/>
+                <img src = {imageUrl} className = "h-75 w-56.25 lg:h-100 lg:w-75 rounded-xl"/>
                 <div>
                     <p className = "text-white text-sm lg:text-xl">
                         ID: {costumeId}

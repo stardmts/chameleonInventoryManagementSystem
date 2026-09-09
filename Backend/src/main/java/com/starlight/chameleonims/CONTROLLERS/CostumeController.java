@@ -109,6 +109,8 @@ public class CostumeController {
         
         transactionRepository.save(transaction);
 
+        costume.setLastUpdated(date);
+
         return costumeRepository.save(costume);
     }
 

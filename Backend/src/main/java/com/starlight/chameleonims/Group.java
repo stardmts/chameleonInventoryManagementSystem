@@ -6,6 +6,8 @@ import com.starlight.chameleonims.ENUMS.CostumeSize;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -23,12 +25,15 @@ public class Group {
     @Column(name = "group_quantity")
     private Integer groupQuantity;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "categories", columnDefinition = "text[]")
     private CostumeCategory[] categories;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "colours", columnDefinition = "text[]")
     private CostumeColour[] colours;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "sizes", columnDefinition = "text[]")
     private CostumeSize[] sizes;
 
@@ -75,7 +80,7 @@ public class Group {
         return categories;
     }
 
-    public void setGroupQuantity(CostumeCategory[] categories) {
+    public void setGroupCategories(CostumeCategory[] categories) {
         this.categories = categories;
     }
 

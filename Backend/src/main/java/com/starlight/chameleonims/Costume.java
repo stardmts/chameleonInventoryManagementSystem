@@ -29,9 +29,11 @@ public class Costume {
     @Column(name = "group_id")
     private String group;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "category", columnDefinition = "text[]")
     private CostumeCategory[] category;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "colour", columnDefinition = "text[]")
     private CostumeColour[] colour;
 

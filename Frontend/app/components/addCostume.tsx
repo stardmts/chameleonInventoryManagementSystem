@@ -3,6 +3,31 @@
 import { useState, useRef } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
 
+interface costume {
+    costumeId: string;
+    name: string;
+    group: string;
+    category: string[];
+    colour: string[];
+    size: string;
+    quantity: number;
+    inStock: number;
+    locationCode: string;
+    lastUpdated: string;
+    cost: number;
+    imageUrl: string;
+}
+
+interface group {
+    groupId: string;
+    groupName: string;
+    groupQuantity: number;
+    groupCategory: string[];
+    groupColour: string[];
+    groupSizes: string[];
+}
+
+
 export default function AddCostume() {
 
     const [id, setId] = useState('');
@@ -15,20 +40,15 @@ export default function AddCostume() {
     const [locationCode, setLocationCode] = useState('');
     const [cost, setCost] = useState('');
     const qrRefC = useRef(null);
+
     const [isGroup, setIsGroup] = useState(false);
 
     const [groupId, setGroupId] = useState('');
     const [groupName, setGroupName] = useState('');
-    const [groupQuantity, setGroupQuantity] = useState('');
-    const [groupCategory, setGroupCategory] = useState('');
-    const [groupColour, setGroupColour] = useState('');
-    const [groupSizes, setGroupSizes] = useState(''); //multi select drop down
     const qrRefG = useRef(null);
 
     const [file, setFile] = useState(null);
     const [loading, setLoading] = useState(false);
-
-    {/*group is optional. image, inStock, lastUpdated are auto generated*/}
 
     {/*
         QR CODE generation
@@ -48,37 +68,113 @@ export default function AddCostume() {
         }
     */}
 
-    const handleUpload = async () => {
-        if (!file) return;
-        setLoading(true);
+    const postgresTimestamp = new Date().toISOString(); 
 
-        try {
-            const response = await fetch('', { method: 'POST' }); {/*API needs to be created and inputted here*/}
-            const { uploadUrl } = await response.json();
+    {/*imageURL comes from backend after cloudflare rerturns it*/}
+    const imageUrl = "dzvvz";
 
-            const formData = new FormData();
-            formData.append('file', file);
+    const costumeData: costume = {
+        costumeId: id,
+        name: name,
+        group: group,
+        category: category ? category.split(",").map((cat) => cat.trim().toUpperCase()) : [],
+        colour: colour ? colour.split(",").map((col) => col.trim().toUpperCase()) : [],
+        size: size,
+        quantity: Number(quantity),
+        inStock: Number(quantity),
+        locationCode: locationCode,
+        lastUpdated: null,
+        cost: Number(cost),
+        imageUrl: imageUrl
+    }
 
-            const cfRes = await fetch(uploadUrl, {
-                method: 'POST',
-                body: formData,
-            });
+    const groupData: group = {
+        groupId: groupId,
+        groupName: groupName,
+        groupQuantity: Number(quantity),
+        groupCategory: category ? category.split(",").map((cat) => cat.trim().toUpperCase()) : [],
+        groupColour: colour ? colour.split(",").map((col) => col.trim().toUpperCase()) : [],
+        groupSizes: size ? size.split(",").map((col) => col.trim().toUpperCase()) : [],
+    }
 
-            const cfData = await cfRes.json();
+    const resetAllGroup = async () => {
+        setGroupId("")
+        setGroupName("")
+        setIsGroup(false);
+    }
 
-            const imageId = cfData.result.id;
-            const imageUrl = cfData.result.variants[0]; 
+    const resetAllCostume = async () => {
+        setId("")
+        setName("")
+        setGroup("")
+        setCategory("")
+        setColour("")
+        setSize("")
+        setQuantity("")
+        setLocationCode("")
+        setCost("");
+    }
 
-            if (cfData.success) {
-                console.log('Image hosted successfully at:', cfData.result.variants[0]);
-                alert('Upload successful!');
+    const createCostume = async (costumeData, groupData) => {
+        if (!isGroup) {
+            try {
+                const response = await fetch('http://localhost:8080/api/Costumes/AddCostume', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(costumeData)
+                })
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                resetAllCostume();
+
+            } catch (err) {
+                console.error('Failed to create costume', err)
             }
-        } catch (err) {
-            console.error('Upload failed:', err);
-        } finally {
-            setLoading(false);
         }
-    };
+        else {
+            try {
+                const responseCostume = await fetch('http://localhost:8080/api/Costumes/AddCostume', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(costumeData)
+                })
+
+                if (!responseCostume.ok) {
+                    throw new Error(`HTTP error! Status: ${responseCostume.status}`);
+                }
+
+                try {
+                    const responseGroup = await fetch('http://localhost:8080/api/Groups/AddGroup', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(groupData)
+                    })
+
+                    if (!responseGroup.ok) {
+                        throw new Error(`HTTP error! Status: ${responseGroup.status}`);
+                    }
+
+                    resetAllCostume(),
+                    resetAllGroup();
+
+                } catch (err) {
+                    console.error('Failed to create Group', err)
+                }
+
+            } catch (err) {
+                console.error('Failed to create costume', err)
+            }
+        }   
+    }
 
     return (
         <main className = "flex flex-col p-5 rounded-xl">
@@ -93,11 +189,11 @@ export default function AddCostume() {
                     <input type = "text" value = {name} onChange = {(e) => setName(e.target.value)} placeholder = "Enter the costume name..." className = "bg-[#484848] w-full p-2 rounded-full border-b-2 border-white"/>
                 </div>    
                 <div className = "flex flex-col space-y-0">
-                    <header className = "text-white text-sm lg:text-xl"> Enter the costume group </header>
+                    <header className = "text-white text-sm lg:text-xl"> Enter the costumes group id </header>
                     <input type = "text" value = {group} onChange = {(e) => setGroup(e.target.value)} placeholder = "Enter the costume group..." className = "bg-[#484848] w-full p-2 rounded-full border-b-2 border-white"/>
                 </div>    
                 <div className = "flex flex-col space-y-0">
-                    <header className = "text-white text-sm lg:text-xl"> Enter the costume category </header>
+                    <header className = "text-white text-sm lg:text-xl"> Enter the costume categories </header>
                     <input type = "text" value = {category} onChange = {(e) => setCategory(e.target.value)} placeholder = "Enter the costume category..." className = "bg-[#484848] w-full p-2 rounded-full border-b-2 border-white"/>
                 </div>
                 <div className = "flex flex-col space-y-0">          
@@ -129,7 +225,7 @@ export default function AddCostume() {
                         {file ? file.name : 'No file chosen'}
                     </span>
                 </div>
-                    <button onClick={handleUpload} disabled={loading} className = "bg-[#484848] text-sm p-2 rounded-full border-b-2 border-white">
+                    <button onClick = {() => {}} disabled={loading} className = "bg-[#484848] text-sm p-2 rounded-full border-b-2 border-white">
                         {loading ? 'Uploading...' : 'Upload'}
                     </button>
                 </div>
@@ -144,38 +240,19 @@ export default function AddCostume() {
                     <div className = "flex flex-col w-full lg:w-auto space-y-4 text-white text-left">
                         <div className = "h-[2px] lg:h-[3px] bg-white" />
                         <div className = "flex flex-col w-full lg:w-auto space-y-2">
-                            <div ref={qrRefG} style={{ display: 'none' }}>
-                                {id && <QRCodeCanvas value={id} size={250} />}
-                            </div>
                             <div className = "flex flex-col space-y-0">
                                 <header className = "text-white text-sm lg:text-xl"> Enter the group id </header>
-                                <input type = "text" value = {id} onChange = {(e) => setGroupId(e.target.value)} placeholder = "Enter the group id..." className = "bg-[#484848] w-full p-2 rounded-full border-b-2 border-white"/>
+                                <input type = "text" value = {groupId} onChange = {(e) => setGroupId(e.target.value)} placeholder = "Enter the group id..." className = "bg-[#484848] w-full p-2 rounded-full border-b-2 border-white"/>
                             </div>
                             <div className = "flex flex-col space-y-0">
                                 <header className = "text-white text-sm lg:text-xl"> Enter the group name </header>
-                                <input type = "text" value = {id} onChange = {(e) => setGroupName(e.target.value)} placeholder = "Enter the group name..." className = "bg-[#484848] w-full p-2 rounded-full border-b-2 border-white"/>
-                            </div>
-                            <div className = "flex flex-col space-y-0">
-                                <header className = "text-white text-sm lg:text-xl"> Enter the group quantity </header>
-                                <input type = "text" value = {id} onChange = {(e) => setGroupQuantity(e.target.value)} placeholder = "Enter the group Quantity..." className = "bg-[#484848] w-full p-2 rounded-full border-b-2 border-white"/>
-                            </div>
-                            <div className = "flex flex-col space-y-0">
-                                <header className = "text-white text-sm lg:text-xl"> Enter the group category </header>
-                                <input type = "text" value = {id} onChange = {(e) => setGroupCategory(e.target.value)} placeholder = "Enter the group category..." className = "bg-[#484848] w-full p-2 rounded-full border-b-2 border-white"/>
-                            </div>
-                            <div className = "flex flex-col space-y-0">
-                                <header className = "text-white text-sm lg:text-xl"> Enter the group id </header>
-                                <input type = "text" value = {id} onChange = {(e) => setGroupColour(e.target.value)} placeholder = "Enter the group colour..." className = "bg-[#484848] w-full p-2 rounded-full border-b-2 border-white"/>
-                            </div>
-                            <div className = "flex flex-col space-y-0">
-                                <header className = "text-white text-sm lg:text-xl"> Choose all sizes in the group </header>
-                                <input type = "text" value = {id} onChange = {(e) => setGroupSizes(e.target.value)} placeholder = "Enter the group id..." className = "bg-[#484848] w-full p-2 rounded-full border-b-2 border-white"/>
+                                <input type = "text" value = {groupName} onChange = {(e) => setGroupName(e.target.value)} placeholder = "Enter the group name..." className = "bg-[#484848] w-full p-2 rounded-full border-b-2 border-white"/>
                             </div>
                         </div>
                     </div>
                 )}
                 <div className = "flex flex-col space-y-0">
-                    <button className = "p-2 bg-[#484848] rounded-full touch-manipulation active:bg-[#323232] [@media(hover:hover)]:hover:bg-[#262626] shadow-2xl"> Submit </button>
+                    <button onClick = {() => {createCostume(costumeData, groupData);}} className = "p-2 bg-[#484848] rounded-full touch-manipulation active:bg-[#323232] [@media(hover:hover)]:hover:bg-[#262626] shadow-2xl"> Submit </button>
                 </div>
             </div>
         </main>
