@@ -2,13 +2,37 @@
 
 import AddUser from "./addUser";
 import UserCard from "./cards/usersCard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+interface User {
+    userId: string;
+    userEmail:string;
+    userFName: String;
+    userSName: String;
+    userRole: string;
+}
 
 export default function UsersPage() {
+
+    const [users, setUsers] = useState<User[]>([])
+
+    const loadUsers = async () => {
+        try {
+            fetch('http://localhost:8080/api/Users')
+            .then((data) => data.json())
+            .then((data) => setUsers(data))
+        } catch (err) {
+            console.error("Fetch error", err)
+        }
+    };
 
     const [search, setSearch] = useState('');
 
     const [display, setDisplay] = useState('');
+
+    useEffect(() => {
+        loadUsers();
+    }, [])
     
     const renderContent = () => {
         switch (display) {
@@ -31,7 +55,7 @@ export default function UsersPage() {
                         </div>
                     </div>
                     <div className = "flex flex-col items-center space-y-2 overflow-y-auto bg-[#323232] w-full text-white rounded px-2 lg:p-5">
-                        <UserCard key = "1" userId = "0001" userEmail = "elliothardywork@gmail.com" userFName = "Elliot" userSName = "Hardy" userRole = "ADMINISTRATOR"/>
+                        {users.map((user) => <UserCard key = {user.userId} userId = {user.userId} userEmail = {user.userEmail} userFName = {user.userFName} userSName = {user.userSName} userRole = {user.userRole}/>)}
                     </div>
                 </main>   
             );

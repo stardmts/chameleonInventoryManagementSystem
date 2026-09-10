@@ -31,7 +31,7 @@ export default function TransactionPage() {
     }, [])
 
     return (
-        <main className = "flex flex-col w-full items-center space-y-5 bg-[#323232]">
+        <main className = "flex flex-col w-full items-center space-y-10 bg-[#323232]">
             <header className = "text-center bg-[#484848] w-full p-0.75 border-b-2 text-white text-sm lg:text-2xl border-white">
                 All Transactions:
             </header>

@@ -104,13 +104,12 @@ export default function StockPage() {
     }, []) 
 
     return (
-        <main className = "flex flex-col bg-[#323232] min-h-screen w-full items-center">
-            <div className = "fex flex-col space-y-5">
-                <header className = "text-center bg-[#484848] w-full p-0.5 border-b-2 text-white text-sm lg:text-2xl border-white">
-                    All stock:
-                </header>
-                <div className = "flex flex-col space-y-2 lg:flex-row justify-center lg:justify-between w-full text-sm lg:text-xl">
-                    <div className = "px-2">  
+        <main className = "flex flex-col bg-[#323232] space-y-5 min-h-screen w-full items-center">
+            <header className = "text-center bg-[#484848] w-full p-0.5 border-b-2 text-white text-sm lg:text-2xl border-white">
+                All stock:
+            </header>                
+                <div className = "flex flex-col space-y-2 lg:flex-row justify-center lg:justify-between w-full text-sm lg:text-xl px-5">
+                    <div>  
                         <input type = "text" value = {search} onChange = {(e) => {setSearch(e.target.value), searchCostumes(search);}} placeholder = "Search the costume catalogue..." className = "text-white text-left bg-[#484848] w-full lg:w-100 p-2 rounded-full border-b-2 border-white"/>
                     </div>  
                     <div className = "flex flex-row w-full text-sm lg:text-xl text-white space-x-2 justify-center">
@@ -125,7 +124,6 @@ export default function StockPage() {
                     {props.map((prop) => (<PropCard key = {prop.propId} propId = {prop.propId} name = {prop.name} variant = {prop.variant} quantity = {prop.quantity} locationCode = {prop.locationCode} cost = {prop.cost} imageURL = {prop.imageURL} />))}
                     {tools.map((tool) => (<ToolCard key = {tool.toolId} toolId = {tool.toolId} name = {tool.name} quantity = {tool.quantity} location = {tool.location} condition = {tool.condition} assignedTo = {tool.assignedTo} ownedBy = {tool.ownedBy} category = {tool.category} imageURL = {tool.imageURL} />))}
                 </ul>
-            </div>
         </main>   
     );
 }

@@ -6,16 +6,30 @@ interface user {
     userRole: string;
 }
 
-import { useRouter } from "next/navigation";
 import { useState } from 'react';
 
 export default function UserCard({userId, userEmail, userFName, userSName, userRole} : user) {
 
-    const router = useRouter();
-
-    const removeUser = (userToRemove: string) => {
-
+    const handleRemoveUser = (userTR: string) => {
+        if (remove) {
+            removeUser(userTR)
+        }
     }
+    
+    const removeUser = async (userToRemove: string) => {
+        try {
+            const response = await fetch(`http://localhost:8080/api/Users/Delete/${userToRemove}`, {
+                method: 'DELETE',
+            })
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+        } catch (err) {
+            console.error('Failed to delete user', err)
+        }
+    }
+
 
     const updatePermission = () => {
         if (userRole === "ADMIN") {
@@ -56,7 +70,7 @@ export default function UserCard({userId, userEmail, userFName, userSName, userR
                                 {userFName} {userSName} | {userEmail} | {userRole}
                             </p>
                             <div className = "flex flex-row space-x-1">
-                                <button onClick = {() => {setRemove(!remove); removeUser(userId)}} className = "bg-[#484848] border-2 lg:border-4 border-[#ff1200] p-2 text-white text-sm lg:text-xl rounded-full transition-colors touch-manipulation active:bg-[#ff1200] [@media(hover:hover)]:hover:bg-[#ff1200]"> Remove user </button>
+                                <button onClick = {() => {setRemove(!remove); handleRemoveUser(userId)}} className = "bg-[#484848] border-2 lg:border-4 border-[#ff1200] p-2 text-white text-sm lg:text-xl rounded-full transition-colors touch-manipulation active:bg-[#ff1200] [@media(hover:hover)]:hover:bg-[#ff1200]"> Remove user </button>
                                 <button onClick = {() => {setAdmin(!admin); updatePermission()}} className = "bg-[#484848] border-2 lg:border-4 border-[#ff1200] p-2 text-white text-sm lg:text-xl rounded-full transition-colors touch-manipulation active:bg-[#ff1200] [@media(hover:hover)]:hover:bg-[#ff1200]"> Make user {userRole === "ADMIN" ? "User" : "Admin"} </button>
                                 <button onClick = {() => {setPass(!pass); updatePassword()}} className = "bg-[#484848] border-2 lg:border-4 border-[#ff1200] p-2 text-white text-sm lg:text-xl rounded-full transition-colors touch-manipulation active:bg-[#ff1200] [@media(hover:hover)]:hover:bg-[#ff1200]"> Reset password </button>
                             </div>
@@ -68,7 +82,7 @@ export default function UserCard({userId, userEmail, userFName, userSName, userR
                     <div className = "flex flex-col w-full">
                         <header className = "text-white"> Are you sure? </header>
                         <div className = "flex flex-row space-x-2">
-                            <button onClick = {() => removeUser(userId)} className = "w-full bg-[#0e9729] p-1 w-full rounded-xl"> Yes </button>
+                            <button onClick = {() => {removeUser(userId), setRemove(!remove)}} className = "w-full bg-[#0e9729] p-1 w-full rounded-xl"> Yes </button>
                             <button onClick = {() => setRemove(!remove)} className = "w-full bg-[#ff1200] p-1 w-full rounded-xl"> No </button>
                         </div>
                     </div>

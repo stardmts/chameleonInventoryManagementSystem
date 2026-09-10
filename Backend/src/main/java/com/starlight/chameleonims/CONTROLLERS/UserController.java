@@ -3,6 +3,7 @@ package com.starlight.chameleonims.CONTROLLERS;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.starlight.chameleonims.DTOS.UserDTO;
 import com.starlight.chameleonims.REPOSITORIES.TransactionRepository;
 import com.starlight.chameleonims.REPOSITORIES.UserRepository;
 import com.starlight.chameleonims.Transaction;
@@ -36,9 +38,13 @@ public class UserController {
     private UserRepository userRepository;
 
     @GetMapping
-    public List<User> getAllUsers() 
+    public List<UserDTO> getAllUsers() 
     {
-        return userRepository.findAllByOrderByUserRole();
+        List<User> users = userRepository.findAllByOrderByUserRole();
+
+        return users.stream()
+                    .map(user -> new UserDTO(user.getUserId(), user.getFirstName(), user.getSecondName(), user.getUserEmail(), user.getUserRole()))
+                    .collect(Collectors.toList());
     }
 
     @GetMapping("/{UserId}")
