@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,17 +26,19 @@ import com.starlight.chameleonims.REPOSITORIES.GroupRepository;
 import com.starlight.chameleonims.REPOSITORIES.TransactionRepository;
 import com.starlight.chameleonims.Transaction;
 
-
 @RestController
 @RequestMapping("/api/Groups")
 @CrossOrigin(origins = "http://localhost:3000")
 public class GroupController {
 
-    @Autowired
-    private TransactionRepository transactionRepository;
+    private final TransactionRepository transactionRepository;
+    
+    private final GroupRepository groupRepository;
 
-    @Autowired
-    private GroupRepository groupRepository;
+    public GroupController(TransactionRepository transactionRepository, GroupRepository groupRepository) {
+        this.transactionRepository = transactionRepository;
+        this.groupRepository = groupRepository;
+    }
 
     @GetMapping
     public List<Group> getAllGroups() 

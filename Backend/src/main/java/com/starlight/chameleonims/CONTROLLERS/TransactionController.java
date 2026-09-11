@@ -2,7 +2,6 @@ package com.starlight.chameleonims.CONTROLLERS;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,8 +17,11 @@ import com.starlight.chameleonims.Transaction;
 @CrossOrigin(origins = "http://localhost:3000")
 public class TransactionController {
 
-    @Autowired
-    private TransactionRepository transactionRepository;
+    private final TransactionRepository transactionRepository;
+
+    public TransactionController(TransactionRepository transactionRepository) {
+        this.transactionRepository = transactionRepository;
+    }
 
     @GetMapping
     public List<Transaction> getAllTransactions() 

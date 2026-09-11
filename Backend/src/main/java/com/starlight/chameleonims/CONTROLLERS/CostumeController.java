@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,11 +27,14 @@ import com.starlight.chameleonims.Transaction;
 @CrossOrigin(origins = "http://localhost:3000")
 public class CostumeController {
 
-    @Autowired
-    private TransactionRepository transactionRepository;
+    private final TransactionRepository transactionRepository;
+    
+    private final CostumeRepository costumeRepository;
 
-    @Autowired
-    private CostumeRepository costumeRepository;
+    public CostumeController(TransactionRepository transactionRepository, CostumeRepository costumeRepository) {
+        this.transactionRepository = transactionRepository;
+        this.costumeRepository = costumeRepository;
+    }
 
     @GetMapping
     public List<Costume> getAllCostumes() 
