@@ -18,11 +18,17 @@ public enum CostumeColour {
 
     BLUE,
 
+    NAVY,
+
+    TEAL,
+
     PINK,
 
     PURPLE,
 
     GREY,
+
+    BROWN,
 
     WHITE,
 

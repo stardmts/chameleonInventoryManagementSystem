@@ -14,6 +14,8 @@ public enum CostumeCategory {
     TUTUS("Tutus"),
     
     THEME_NOVELTY("Theme / Novelty"),
+
+    FILM_AND_MUSICALS("Film & Musicals"),
     
     ACROBATICS("Acrobatics"),
     

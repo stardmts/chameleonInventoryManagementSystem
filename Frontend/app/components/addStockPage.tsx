@@ -81,7 +81,7 @@ export default function AddStockPage() {
                   </svg>
                 </button>
                 <div className = "flex flex-col">
-                  <button onClick = {() => {router.push('/staffLandingPage'); setOpen(!open)}} className = "text-white p-1"> DashBoard </button>
+                  <button onClick = {() => {router.push('/homePage'); setOpen(!open)}} className = "text-white p-1"> DashBoard </button>
                   <button onClick = {() => {setDisplay('QR code scanner'); setOpen(!open)}} className = "text-white p-1 border-t-2 border-[#484848]"> QR Scanner </button>
                   <button onClick = {() => {setDisplay('Orders'); setOpen(!open)}} className = "text-white p-1 border-t-2 border-[#484848]"> Orders </button>
                   <button onClick = {() => {setDisplay('Transaction Log'); setOpen(!open)}} className = "text-white p-1 border-t-2 border-[#484848]"> Transaction Log</button>

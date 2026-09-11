@@ -15,7 +15,7 @@ export default function StaffNavBar() {
           </a>
         </div>
         <div className = "flex flex-row text-sm lg:text-xl text-white space-x-5">
-          <a href = '/staffLandingPage' className = "hover:underline"> Home </a>
+          <a href = '/homePage' className = "hover:underline"> Home </a>
           <a href = '/' className = "hover:underline"> Sign out </a>
         </div>
       </div>
