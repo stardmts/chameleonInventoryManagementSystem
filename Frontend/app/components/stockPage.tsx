@@ -119,7 +119,7 @@ export default function StockPage() {
                         <button onClick = {() => loadCostumes()} className = "bg-[#323232] border-2 lg:border-4 border-[#d6de00] p-1 lg:p-2 rounded-full transition-colors touch-manipulation active:bg-[#d6de00] [@media(hover:hover)]:hover:bg-[#d6de00]"> Remove filters </button> {/*display all*/}
                     </div>
                 </div>
-                <ul className = "flex flex-col items-center space-y-2 overflow-y-auto h-auto lg:h-190 w-full text-white rounded px-5 py-5">
+                <ul className = "flex flex-col items-center space-y-2 overflow-y-auto h-auto lg:min-h-screen w-full text-white rounded px-5 py-5">
                     {costumes.map((costume) => (<CostumeCard key = {costume.costumeId} costumeId = {costume.costumeId} name = {costume.name} group = {costume.group} category = {costume.category} colour = {costume.colour} size = {costume.size} quantity = {costume.quantity} locationCode = {costume.locationCode} lastUpdated = {costume.lastUpdated} inStock = {costume.inStock} cost = {costume.cost} imageUrl = {costume.imageUrl}/>))}
                     {props.map((prop) => (<PropCard key = {prop.propId} propId = {prop.propId} name = {prop.name} variant = {prop.variant} quantity = {prop.quantity} locationCode = {prop.locationCode} cost = {prop.cost} imageURL = {prop.imageURL} />))}
                     {tools.map((tool) => (<ToolCard key = {tool.toolId} toolId = {tool.toolId} name = {tool.name} quantity = {tool.quantity} location = {tool.location} condition = {tool.condition} assignedTo = {tool.assignedTo} ownedBy = {tool.ownedBy} category = {tool.category} imageURL = {tool.imageURL} />))}

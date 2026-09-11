@@ -34,4 +34,8 @@ public enum CostumeColour {
 
     BLACK,
 
+    CREAM,
+
+    MULTICOLOUR,
+
 }

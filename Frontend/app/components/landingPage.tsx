@@ -69,7 +69,7 @@ export default function LandingPage() {
         <div className = "lg:hidden bg-[#484848] w-full flex flex-row justify-between px-3 py-4 border-b-2 border-white">
           <button onClick = {() => setDisplay('QR code scanner')} className = "text-white py-1 px-2 rounded-full border-2 border-white shadow-2xl"> Scanner </button>
           <button onClick = {() => setOpen(!open)} className = "text-white"> 
-            { !open && (
+            {!open && (
               <svg
                 className="h-7 w-7"
                 xmlns="http://www.w3.org/2000/svg"

@@ -13,32 +13,32 @@ interface costume {
     imageUrl: string;
 }
 
-export default function IndividualCard({costumeId, name, group, category, colour, size, quantity, locationCode, lastUpdated, inStock, cost, imageUrl
+export default function IndividualStockCard({costumeId, name, group, category, colour, size, quantity, locationCode, lastUpdated, inStock, cost, imageUrl
 } : costume) {
 
     return (
-        <main className = "flex flex-col bg-[#323232] w-full space-y-5 rounded p-5 border-2 border-white rounded-xl">            
-            <div className = "flex flex-row space-x-5 lg:items-center lg:justify-center">              
-                <img src = {imageUrl} className = "h-75 w-56.25 lg:h-100 lg:w-75 rounded-xl"/>
+        <main className = "flex flex-col space-y-2 lg:flex-row bg-[#323232] w-full lg:items-center rounded p-5 border-2 border-white rounded-xl">           
+            <div className = "flex flex-row space-x-5 w-full lg:items-center lg:justify-center">              
+                <img src = {imageUrl} className = "h-50 w-38 lg:h-100 lg:w-75 rounded-xl"/>
                 <div>
                     <p className = "text-white text-sm lg:text-xl">
                         ID: {costumeId}
                         <br />
                         Name: {name}
                         <br />
+                        Group: {group}
+                        <br />
                         Colour: {colour}
                         <br />
                         Size: {size}
                         <br />
-                        Quantity: {quantity}
-                        <br />
                         Category: {category}
                         <br />
-                        Group: {group}
+                        Quantity: {quantity}
                         <br />
                         In stock: {inStock}
                         <br />
-                        Cost: {cost}
+                        Cost: £{cost}
                         <br />
                         Last updated: {lastUpdated}
                         <br />
@@ -46,7 +46,7 @@ export default function IndividualCard({costumeId, name, group, category, colour
                     </p>
                 </div>
             </div>
-            <div className = "flex flex-col w-full text-white items-center text-sm lg:text-2xl space-y-2">
+            <div className = "flex flex-col w-full text-white text-sm lg:text-2xl space-y-2">
                 <button className = "bg-[#484848] rounded-xl shadow-2xl border-b-2 border-white w-full lg:h-15 lg:w-100"> Pick stock. </button>
                 <button className = "bg-[#484848] rounded-xl shadow-2xl border-b-2 border-white w-full lg:h-15 lg:w-100"> Return stock. </button>
                 <button className = "bg-[#484848] rounded-xl shadow-2xl border-b-2 border-white w-full lg:h-15 lg:w-100"> Update stock information. </button>
