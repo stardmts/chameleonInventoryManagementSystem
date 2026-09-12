@@ -24,11 +24,11 @@ export default function CostumeCard({costumeId, name, group, category, colour, s
     return (
         <main className = "flex flex-col lg:flex-row border-b-2 border-white rounded-xl bg-[#484848] lg:items-center w-full px-2 py-2 space-x-5 text-wrap shadow-2xl">
             {(!clicked) && (
-                <div className = "flex flex-row space-x-2 text-white w-full text-sm lg:text-2xl items-center">
+                <div className = "flex flex-row space-x-2 text-white w-full text-sm lg:text-2xl justify-between">
                 <a href = {imageUrl}>
-                    <img src = {imageUrl} className = "h-40 w-140 lg:h-50 lg:w-38 rounded"/>
+                    <img src = {imageUrl} className = "h-40 w-50 lg:h-65 lg:w-60 rounded"/>
                 </a>
-                <button onClick = {() => setClicked(!clicked)}>
+                <button onClick = {() => setClicked(!clicked)} className = "w-full px-5 lg:px-10">
                     <p>
                         {costumeId} | {name} | Group: {group} | Hire cost: £{cost} | Colour: {colour.join(", ")} | Size: {size} |  Category: {category.join(", ")} | Total quantity: {quantity} | Currently in stock: {inStock} | Last updated: {lastUpdated} | {locationCode}
                     </p>
