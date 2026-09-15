@@ -50,8 +50,6 @@ export default function StockPage() {
           return <QrScanner />;
           case 'Transaction Log':
           return <TransactionPage />;
-          case 'Users':
-          return <UsersPage />;
           case 'Account':
           return <UserSettings />;
           default:
@@ -83,7 +81,7 @@ export default function StockPage() {
               <button onClick = {() => window.location.reload()} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Orders </button>
               <button onClick = {() => setDisplay('Transaction Log')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Transaction Log </button>
               <button onClick = {() => router.push('/addStock')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Add stock </button>
-              <button onClick = {() => setDisplay('Users')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Users </button>
+              <button onClick = {() => router.push('/users')} className = "w-full h-10 py-1 border-b-2 border-white text-white hover:bg-[#bfbfbf]"> Users </button>
             </div>
             <button onClick={() => setDisplay('Account')} className="group flex h-10 w-10 items-center justify-bottom rounded-md transition-colors hover:bg-[#bfbfbf]/20">
               <svg 
@@ -143,12 +141,12 @@ export default function StockPage() {
                     </svg>
                   </button>
                   <div className = "flex flex-col">
-                    <button onClick = {() => {router.push('/homePage'); setOpen(!open)}} className = "text-white p-1"> DashBoard </button>
+                    <button onClick = {() => {router.push('/homePage')}} className = "text-white p-1"> DashBoard </button>
                     <button onClick = {() => {setDisplay('QR code scanner'); setOpen(!open)}} className = "text-white p-1 border-t-2 border-[#484848]"> QR Scanner </button>
                     <button onClick = {() => window.location.reload()} className = "text-white p-1 border-t-2 border-[#484848]"> Orders </button>
                     <button onClick = {() => {setDisplay('Transaction Log'); setOpen(!open)}} className = "text-white p-1 border-t-2 border-[#484848]"> Transaction Log</button>
-                    <button onClick = {() => {router.push('/addStock'); setOpen(!open)}} className = "text-white p-1 border-t-2 border-[#484848]"> Add stock </button>
-                    <button onClick = {() => {setDisplay('Users'); setOpen(!open)}} className = "text-white p-1 border-t-2 border-[#484848]"> Users </button>
+                    <button onClick = {() => {router.push('/addStock')}} className = "text-white p-1 border-t-2 border-[#484848]"> Add stock </button>
+                    <button onClick = {() => {router.push('/users')}} className = "text-white p-1 border-t-2 border-[#484848]"> Users </button>
                     <button onClick = {() => {setDisplay('Account'); setOpen(!open)}} className = "text-white p-1 border-t-2 border-[#484848]"> Settings </button>
                   </div>
                 </div>

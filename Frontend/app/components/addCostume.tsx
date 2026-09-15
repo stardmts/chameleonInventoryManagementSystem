@@ -97,13 +97,13 @@ export default function AddCostume() {
         groupSizes: size ? size.split(",").map((col) => col.trim().toUpperCase()) : [],
     }
 
-    const resetAllGroup = async () => {
+    const resetAllGroup = () => {
         setGroupId("")
         setGroupName("")
         setIsGroup(false);
     }
 
-    const resetAllCostume = async () => {
+    const resetAllCostume = () => {
         setId("")
         setName("")
         setGroup("")

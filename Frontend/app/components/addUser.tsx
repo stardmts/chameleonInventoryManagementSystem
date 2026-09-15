@@ -2,6 +2,14 @@
 
 import { useState } from 'react';
 
+interface User {
+    userEmail:string;
+    userFName: string;
+    userSName: string;
+    userPassword: string;
+    userRole: string;
+}
+
 export default function AddUser() {
     
     const [fName, setFName] = useState('');
@@ -10,6 +18,44 @@ export default function AddUser() {
     const [fPswd, setFPswd] = useState('');
     const [sPswd, setSPswd] = useState('');
     const [selectedChoice, setSelectedChoice] = useState('');
+
+    const resetAllUser = () => {
+        setFName(''),
+        setSName(''),
+        setEmail(''),
+        setFPswd(''),
+        setSPswd(''),
+        setSelectedChoice('');
+    }
+
+    const userData: User = {
+        userEmail: email,
+        userFName: fName,
+        userSName: sName,
+        userPassword: sPswd,
+        userRole: selectedChoice,
+    } 
+
+    const createUser = async (userData) => {
+        try {
+            const response = await fetch('http://localhost:8080/api/Users/AddUser', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData)
+            })
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            resetAllUser();
+
+        } catch (err) {
+            console.error('Failed to create user', err)
+        }
+    }
 
     return (
         <main className = "flex flex-col p-10">
@@ -40,12 +86,12 @@ export default function AddUser() {
                         <header> Choose the user role </header>
                         <select value = {selectedChoice} onChange = {(e) => setSelectedChoice(e.target.value)} className = "bg-[#484848] border-b-2 border-white text-left rounded-full block w-full p-1 lg:p-2.5">
                             <option value="" hidden> Choose the user's role </option>
-                            <option value="CA"> Viewer </option>
-                            <option value="FR"> Admin </option>
+                            <option value="USER"> Viewer </option>
+                            <option value="ADMIN"> Admin </option>
                         </select>            
                     </div>
                 </div>
-                <button className = "text-white text-sm lg:text-xl p-1 lg:p-2 bg-[#484848] rounded-full hover:bg-[#262626] shadow-2xl"> Add user </button>
+                <button onClick = {() => {createUser(userData)}} className = "text-white text-sm lg:text-xl p-1 lg:p-2 bg-[#484848] rounded-full hover:bg-[#262626] shadow-2xl"> Add user </button>
             </div>
         </main>
     );
