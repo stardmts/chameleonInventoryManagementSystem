@@ -116,7 +116,6 @@ public class OrderController {
         if (incomingUpdates.getUserEmailAddress() != null) toUpdate.setUserEmailAddress(incomingUpdates.getUserEmailAddress());
         if (incomingUpdates.getStartDate() != null) toUpdate.setStartDate(incomingUpdates.getStartDate());
         if (incomingUpdates.getEndDate() != null) toUpdate.setEndDate(incomingUpdates.getEndDate());
-        if (incomingUpdates.getLoanIds() != null) toUpdate.setLoanIds(incomingUpdates.getLoanIds());
         if (incomingUpdates.getStatus() != null) toUpdate.setStatus(incomingUpdates.getStatus());
         
         orderRepository.save(toUpdate);

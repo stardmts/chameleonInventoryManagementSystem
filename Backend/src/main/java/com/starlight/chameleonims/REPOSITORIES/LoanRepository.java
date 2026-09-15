@@ -10,4 +10,6 @@ public interface LoanRepository extends JpaRepository<Loan, String> {
 
     List<Loan> findAllByOrderByLoanIdAsc();
 
+    List<Loan> findByOrderId(String orderId);
+
 }

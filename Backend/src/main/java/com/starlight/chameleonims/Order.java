@@ -1,19 +1,14 @@
 package com.starlight.chameleonims;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.starlight.chameleonims.ENUMS.OrderStatus;
 
-import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
@@ -33,23 +28,17 @@ public class Order {
     @Column(name = "end_date")
     private LocalDateTime endDate;
 
-    @ElementCollection(targetClass = String.class)
-    @CollectionTable(name = "loan_ids", joinColumns = @JoinColumn(name = "order_id"))
-    @Column(name = "loan_id") 
-    private List<String> loanIds = new ArrayList<>();
-
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private OrderStatus status;
 
     public Order () {}
 
-    public Order (String orderId, String userEmailAddress, LocalDateTime startDate, LocalDateTime endDate, List<String> loanIds, OrderStatus status) {
+    public Order (String orderId, String userEmailAddress, LocalDateTime startDate, LocalDateTime endDate, OrderStatus status) {
         this.orderId = orderId;
         this.userEmailAddress = userEmailAddress;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.loanIds = loanIds;
         this.status = status;
     }
 
@@ -83,14 +72,6 @@ public class Order {
 
     public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
-    }
-
-    public List<String> getLoanIds() {
-        return loanIds;
-    }
-
-    public void setLoanIds(List<String> loanIds) {
-        this.loanIds = loanIds;
     }
 
     public OrderStatus getStatus() {

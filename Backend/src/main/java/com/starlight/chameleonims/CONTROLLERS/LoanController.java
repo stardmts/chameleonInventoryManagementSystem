@@ -39,6 +39,12 @@ public class LoanController {
     {
         return loanRepository.findById(loanId).orElse(null);
     }
+
+    @GetMapping("Order/{orderId}")
+    public List<Loan> getAllLoansByOrder(@PathVariable String orderId) 
+    {
+        return loanRepository.findByOrderId(orderId);
+    }
     
     @DeleteMapping("/Delete/{loanId}")
     public ResponseEntity<?> deleteLoanById(@PathVariable String loanId)
@@ -57,7 +63,7 @@ public class LoanController {
            return loanRepository.save(loan);
     }
 
-    @PatchMapping("/Update/{LoanId}")
+    @PatchMapping("/Update/{loanId}")
     public ResponseEntity<?> updateLoanById(@PathVariable String loanId, @RequestBody Loan incomingUpdates)
     {
         Loan toUpdate = loanRepository.findById(loanId).orElseThrow(() -> new RuntimeException("Loan not found"));
