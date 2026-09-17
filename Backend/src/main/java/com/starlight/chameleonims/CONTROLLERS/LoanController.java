@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.starlight.chameleonims.Loan;
-import com.starlight.chameleonims.REPOSITORIES.CostumeRepository;
 import com.starlight.chameleonims.REPOSITORIES.LoanRepository;
 
 @RestController
@@ -25,11 +24,8 @@ public class LoanController {
 
     private final LoanRepository loanRepository;
 
-    private final CostumeRepository costumeRepository;
-
-    public LoanController(LoanRepository loanRepository, CostumeRepository costumeRepository) {
+    public LoanController(LoanRepository loanRepository) {
         this.loanRepository = loanRepository;
-        this.costumeRepository = costumeRepository;
     }
 
     @GetMapping
