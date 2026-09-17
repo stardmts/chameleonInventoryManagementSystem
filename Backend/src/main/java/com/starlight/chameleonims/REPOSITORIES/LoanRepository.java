@@ -8,6 +8,8 @@ import com.starlight.chameleonims.Loan;
 
 public interface LoanRepository extends JpaRepository<Loan, String> {
 
+    List<Loan> findAllByCostumeId(String costumeId);
+
     List<Loan> findAllByOrderByLoanIdAsc();
 
     List<Loan> findByOrderId(String orderId);

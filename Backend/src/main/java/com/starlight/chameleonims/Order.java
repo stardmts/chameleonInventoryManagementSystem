@@ -1,6 +1,6 @@
 package com.starlight.chameleonims;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import com.starlight.chameleonims.ENUMS.OrderStatus;
 
@@ -23,10 +23,10 @@ public class Order {
     private String userEmailAddress;
 
     @Column(name = "start_date")
-    private LocalDateTime startDate;
+    private LocalDate startDate;
 
     @Column(name = "end_date")
-    private LocalDateTime endDate;
+    private LocalDate endDate;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
@@ -34,7 +34,7 @@ public class Order {
 
     public Order () {}
 
-    public Order (String orderId, String userEmailAddress, LocalDateTime startDate, LocalDateTime endDate, OrderStatus status) {
+    public Order (String orderId, String userEmailAddress, LocalDate startDate, LocalDate endDate, OrderStatus status) {
         this.orderId = orderId;
         this.userEmailAddress = userEmailAddress;
         this.startDate = startDate;
@@ -58,19 +58,19 @@ public class Order {
         this.userEmailAddress = userEmailAddress;
     }
 
-    public LocalDateTime getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDateTime getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 

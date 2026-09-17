@@ -13,10 +13,15 @@ interface User {
 export default function AddUser() {
     
     const [fName, setFName] = useState('');
+
     const [sName, setSName] = useState('');
+
     const [email, setEmail] = useState('');
+
     const [fPswd, setFPswd] = useState('');
+
     const [sPswd, setSPswd] = useState('');
+    
     const [selectedChoice, setSelectedChoice] = useState('');
 
     const resetAllUser = () => {

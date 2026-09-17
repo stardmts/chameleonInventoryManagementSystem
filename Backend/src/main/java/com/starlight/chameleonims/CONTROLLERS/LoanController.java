@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.starlight.chameleonims.Costume;
 import com.starlight.chameleonims.Loan;
+import com.starlight.chameleonims.REPOSITORIES.CostumeRepository;
 import com.starlight.chameleonims.REPOSITORIES.LoanRepository;
 
 @RestController
@@ -24,8 +26,11 @@ public class LoanController {
 
     private final LoanRepository loanRepository;
 
-    public LoanController(LoanRepository loanRepository) {
+    private final CostumeRepository costumeRepository;
+
+    public LoanController(LoanRepository loanRepository, CostumeRepository costumeRepository) {
         this.loanRepository = loanRepository;
+        this.costumeRepository = costumeRepository;
     }
 
     @GetMapping
@@ -60,7 +65,26 @@ public class LoanController {
 
     @PostMapping("/AddLoan")
     public Loan createLoan(@RequestBody Loan loan) {
-           return loanRepository.save(loan);
+        
+        String costumeId = loan.getCostumeId();
+
+        Integer quantity = loan.getQuantity();
+
+        Costume costume = costumeRepository.findById(costumeId).orElse(null);
+
+        if (costume != null) {
+
+            Integer inStock = costume.getInStock();
+
+            Integer newInStock = (quantity - inStock);
+
+            costume.setInStock(newInStock);
+
+            costumeRepository.save(costume);
+            
+        }
+
+        return loanRepository.save(loan);
     }
 
     @PatchMapping("/Update/{loanId}")

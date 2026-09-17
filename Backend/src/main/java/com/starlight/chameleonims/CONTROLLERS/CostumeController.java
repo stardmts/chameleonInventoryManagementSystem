@@ -1,6 +1,7 @@
 package com.starlight.chameleonims.CONTROLLERS;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -17,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.starlight.chameleonims.Costume;
+import com.starlight.chameleonims.ENUMS.CostumeSize;
+import com.starlight.chameleonims.Group;
 import com.starlight.chameleonims.REPOSITORIES.CostumeRepository;
+import com.starlight.chameleonims.REPOSITORIES.GroupRepository;
 import com.starlight.chameleonims.REPOSITORIES.TransactionRepository;
 import com.starlight.chameleonims.Transaction;
 
@@ -31,9 +35,12 @@ public class CostumeController {
     
     private final CostumeRepository costumeRepository;
 
-    public CostumeController(TransactionRepository transactionRepository, CostumeRepository costumeRepository) {
+    private final GroupRepository groupRepository;
+
+    public CostumeController(TransactionRepository transactionRepository, CostumeRepository costumeRepository, GroupRepository groupRepository) {
         this.transactionRepository = transactionRepository;
         this.costumeRepository = costumeRepository;
+        this.groupRepository = groupRepository;
     }
 
     @GetMapping
@@ -112,6 +119,22 @@ public class CostumeController {
         transactionRepository.save(transaction);
 
         costume.setLastUpdated(date);
+
+        String group_id = costume.getGroup();
+
+        Group group = groupRepository.findById(group_id).orElse(null);
+
+        if (group != null) {
+
+            CostumeSize[] currentSizes = group.getGroupSizes();
+
+            CostumeSize[] newSizes = Arrays.copyOf(currentSizes, currentSizes.length + 1);
+
+            newSizes[newSizes.length - 1] = costume.getSize();
+
+            group.setGroupSizes(newSizes);
+        
+        }
 
         return costumeRepository.save(costume);
     }

@@ -1,25 +1,25 @@
 package com.starlight.chameleonims.DTOS;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class AvailabilityCheck {
 
     private String groupId;
     
-    private LocalDateTime startDate;
+    private LocalDate startDate;
 
-    private LocalDateTime endDate;
+    private LocalDate endDate;
 
     public AvailabilityCheck () {}
 
-    public AvailabilityCheck (String groupId, LocalDateTime startDate, LocalDateTime endDate) {
+    public AvailabilityCheck (String groupId, LocalDate startDate, LocalDate endDate) {
 
         this.groupId = groupId;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public String getCostumeId() {
+    public String getGroupId() {
         return groupId;
     }
 
@@ -27,19 +27,19 @@ public class AvailabilityCheck {
         this.groupId = groupId;
     }
 
-    public LocalDateTime getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDateTime getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 

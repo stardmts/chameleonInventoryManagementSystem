@@ -29,9 +29,9 @@ public enum CostumeCategory {
 
     MUSICALS("Musicals"),
 
-    DRESSES("Dresses"),
-    
-    SHOES("Shoes");
+    LEOTARD("Leotards"),
+
+    DRESSES("Dresses");
 
     private final String displayLabel;
 

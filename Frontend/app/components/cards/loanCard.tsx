@@ -45,7 +45,7 @@ export default function loanCard({loanId, orderId, startDate, endDate, costumeId
 
     const handleAutoPick = async () => {
         try {
-            await fetch(`http://localhost:8080/api/Loans/Update/${loanId}`, {
+            fetch(`http://localhost:8080/api/Loans/Update/${loanId}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

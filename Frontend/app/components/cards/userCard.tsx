@@ -30,7 +30,6 @@ export default function UserCard({userId, userEmail, userFName, userSName, userR
         }
     }
 
-
     const updatePermission = () => {
         if (userRole === "ADMIN") {
             {/*set user to USER*/}
@@ -77,8 +76,8 @@ export default function UserCard({userId, userEmail, userFName, userSName, userR
                     <div className = "flex flex-col w-full">
                         <header className = "text-white"> Are you sure? </header>
                         <div className = "flex flex-row space-x-2">
-                            <button onClick = {() => {removeUser(userId), setRemove(!remove)}} className = "w-full bg-[#0e9729] p-1 w-full rounded-xl"> Yes </button>
-                            <button onClick = {() => setRemove(!remove)} className = "w-full bg-[#ff1200] p-1 w-full rounded-xl"> No </button>
+                            <button onClick = {() => {removeUser(userId), setRemove(!remove)}} className = "w-full bg-[#0e9729] p-1 rounded-xl"> Yes </button>
+                            <button onClick = {() => setRemove(!remove)} className = "w-full bg-[#ff1200] p-1 rounded-xl"> No </button>
                         </div>
                     </div>
                 )
@@ -87,8 +86,8 @@ export default function UserCard({userId, userEmail, userFName, userSName, userR
                     <div className = "flex flex-col w-full">
                         <header className = "text-white"> Are you sure? </header>
                         <div className = "flex flex-row space-x-2">
-                            <button onClick = {() => updatePermission()} className = "w-full bg-[#0e9729] p-1 w-full rounded-xl"> Yes </button>
-                            <button onClick = {() => setAdmin(!admin)} className = "w-full bg-[#ff1200] p-1 w-full rounded-xl"> No </button>
+                            <button onClick = {() => updatePermission()} className = "w-full bg-[#0e9729] p-1 rounded-xl"> Yes </button>
+                            <button onClick = {() => setAdmin(!admin)} className = "w-full bg-[#ff1200] p-1rounded-xl"> No </button>
                         </div>
                     </div>
                 )

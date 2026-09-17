@@ -1,6 +1,6 @@
 package com.starlight.chameleonims;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import com.starlight.chameleonims.ENUMS.LoanStatus;
 
@@ -23,10 +23,10 @@ public class Loan {
     private String orderId;
 
     @Column(name = "start_date")
-    private LocalDateTime startDate;
+    private LocalDate startDate;
 
     @Column(name = "end_date")
-    private LocalDateTime endDate;
+    private LocalDate endDate;
 
     @Column(name = "costume_id")
     private String costumeId;
@@ -40,7 +40,7 @@ public class Loan {
 
     public Loan () {}
 
-    public Loan (String loanId, String orderId, LocalDateTime startDate, LocalDateTime endDate, String costumeId, Integer quantity, LoanStatus status) {
+    public Loan (String loanId, String orderId, LocalDate startDate, LocalDate endDate, String costumeId, Integer quantity, LoanStatus status) {
         this.loanId = loanId;
         this.orderId = orderId;
         this.startDate = startDate;
@@ -66,19 +66,19 @@ public class Loan {
         this.orderId = orderId;
     }
 
-    public LocalDateTime getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDateTime getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
