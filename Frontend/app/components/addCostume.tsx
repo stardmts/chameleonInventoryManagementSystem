@@ -323,7 +323,7 @@ export default function AddCostume() {
                 <div className = "flex flex-col space-y-2">
                     <header className = "text-white text-sm lg:text-xl"> Is this a new costume? </header>
                     <div className = "flex flex-row space-x-5">
-                        <header className = "text-white text-sm lg:text-xl"> Yes / No </header>
+                        <header className = "text-white text-sm lg:text-xl"> Yes </header>
                         <input type="checkbox" name="myCheckbox" onChange={(e) => setIsGroup(!isGroup)}/>
                     </div>
                 </div>

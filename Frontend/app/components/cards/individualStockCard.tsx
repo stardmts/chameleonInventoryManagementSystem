@@ -75,8 +75,14 @@ export default function IndividualStockCard({costumeId, name, group, category, c
     const [selectedOrder, setSelectedOrder] = useState('');
 
     const [selectedReturnOrder, setSelectedReturnOrder] = useState('');
+    
+    const [selectedLoan, setSelectedLoan] = useState('');
 
     const [orders, setOrders] = useState<Order[]>([]);
+
+    const [loans, setLoans] = useState<Loan[]>([]);
+
+    const [isNew, setIsNew] = useState(false);
 
     const colourOptions = [
         { value: 'GOLD', label: 'Gold' },
@@ -191,7 +197,17 @@ export default function IndividualStockCard({costumeId, name, group, category, c
         }
     }
 
-    const pickData: Loan = {
+    const getLoans = async () => {
+        try {
+            fetch (`http://localhost:8080/api/Loans/Costume/${costumeId}`)
+            .then((data) => data.json())
+            .then((data) => setLoans(data))
+        } catch (err) {
+            console.log("failed to fetch Loans" + err)
+        }
+    }
+
+    const pickDataNew: Loan = {
         loanId: (selectedOrder + "-" + costumeId),
         orderId: selectedOrder,
         startDate: startDate,
@@ -201,18 +217,58 @@ export default function IndividualStockCard({costumeId, name, group, category, c
         status: "PICKED"
     }
 
-    const submitPick = async (pickData: Loan) => {try {
-        const response = await fetch('http://localhost:8080/api/Loans/AddLoan', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(pickData)
-        });
+    const currentLoan = loans.find(loan => loan.loanId === selectedLoan);
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+    const currentQuantity = currentLoan ? currentLoan.quantity : 0;
+
+    const currentOrder = currentLoan ? currentLoan.orderId : "";
+
+    const pickData: Loan = {
+        loanId: selectedLoan,
+        orderId: currentOrder,
+        startDate: startDate,
+        endDate: endDate,
+        costumeId: costumeId,
+        quantity: currentQuantity,
+        status: "PICKED"
+    }
+
+    const submitPick = async (pickData: Loan) => {
+        try {
+            const response = await fetch(`http://localhost:8080/api/Loans/Update/${pickData?.loanId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(pickData)
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            window.location.reload();
+
+        } catch (err) {
+            console.error("Failed to pick item:", err);
         }
+    };
+
+    const submitPickNew = async (pickDataNew: Loan) => {
+        try {
+            const response = await fetch('http://localhost:8080/api/Loans/AddLoan', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(pickDataNew)
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            window.location.reload();
 
         } catch (err) {
             console.error("Failed to pick item:", err);
@@ -268,7 +324,7 @@ export default function IndividualStockCard({costumeId, name, group, category, c
             </div>
             {((!pick)&&(!returnStock)&&(!update)&&(!remove)) && (
                 <div className = "flex flex-col w-full text-white text-sm lg:text-2xl items-center space-y-2">
-                    <button onClick = {() => {setPick(!pick), getOrders();}} className = "bg-[#484848] rounded-xl shadow-2xl border-b-2 border-white w-full lg:h-15 lg:w-100"> Pick stock. </button>
+                    <button onClick = {() => {setPick(!pick), getOrders(), getLoans();}} className = "bg-[#484848] rounded-xl shadow-2xl border-b-2 border-white w-full lg:h-15 lg:w-100"> Pick stock. </button>
                     <button onClick = {() => {setReturnStock(!returnStock), getOrders();}} className = "bg-[#484848] rounded-xl shadow-2xl border-b-2 border-white w-full lg:h-15 lg:w-100"> Return stock. </button>
                     <button onClick = {() => setUpdate(!update)} className = "bg-[#484848] rounded-xl shadow-2xl border-b-2 border-white w-full lg:h-15 lg:w-100"> Update stock information. </button>
                     <button onClick = {() => setRemove(!remove)} className = "bg-[#484848] rounded-xl shadow-2xl border-b-2 border-white w-full lg:h-15 lg:w-100"> Remove stock. </button>
@@ -276,29 +332,49 @@ export default function IndividualStockCard({costumeId, name, group, category, c
             )}
             {(pick) && (
                 <div className = "flex flex-col w-full items-center text-left text-white text-sm lg:text-2xl space-y-2">
-                    <div className = "flex flex-col bg-[#323232] px-10 py-5 rounded-xl w-full lg:w-auto space-y-3 text-white text-left">
-                        <header className = "lg:hidden text-xl text-white"> Pick Costume: </header>
-                            <div className = "flex flex-col space-y-0">
-                                <header className = "text-white text-sm lg:text-xl"> Type a reason for the pick or choose an order id: </header>
-                                <input type="text" list="order-list" value={selectedOrder} onChange={(e) => setSelectedOrder(e.target.value)} className="bg-[#484848] border-b-2 border-white rounded-full text-left w-full p-1 lg:p-2.5 text-white placeholder-gray-400 outline-none"/>
-                                <datalist id="order-list">
-                                    {orders.map((order) => (<option key = {order.orderId} value = {order.orderId}/>))}
+                    {(!isNew) && (
+                        <div className = "flex flex-col space-y-2">
+                            <div className = "flex flex-col w-full space-y-0">
+                                <header className = "text-white text-sm lg:text-xl"> Choose the loan you are picking for: </header>
+                                <input type="text" list="loan-list" value={selectedLoan} onChange={(e) => setSelectedLoan(e.target.value)} className="bg-[#484848] border-b-2 border-white rounded-full text-left w-full p-1 lg:p-2.5 text-white placeholder-gray-400 outline-none"/>
+                                <datalist id="loan-list">
+                                    {loans.map((loan) => (<option key = {loan.loanId} value = {loan.loanId}> Order ID: {loan.orderId} | Quantity: {loan.quantity} </option>))}
                                 </datalist>
                             </div>
+                            <div className = "flex flex-col w-full space-y-2">
+                                <header className = "text-white text-sm lg:text-xl"> Is this a new loan? </header>
+                                <div className = "flex flex-row space-x-5">
+                                    <header className = "text-white text-sm lg:text-xl"> Yes </header>
+                                    <input type="checkbox" name="myCheckbox" onChange={(e) => setIsNew(!isNew)}/>
+                                </div>
+                            </div>
+                            <button onClick = {() => submitPick(pickData)} className = "p-2 w-50 bg-[#484848] rounded-full touch-manipulation active:bg-[#323232] [@media(hover:hover)]:hover:bg-[#262626] shadow-2xl" > Submit Pick </button>
+                        </div>
+                    )}
+                    {(isNew) && (
+                    <div className = "flex flex-col bg-[#323232] items-center px-10 py-5 rounded-xl w-full lg:w-auto space-y-3 text-white text-left">  
                         <div className = "flex flex-col space-y-0">
+                            <header className = "text-white text-sm lg:text-xl"> Type a reason for the pick or choose an order id: </header>
+                            <input type="text" list="order-list" value={selectedOrder} onChange={(e) => setSelectedOrder(e.target.value)} className="bg-[#484848] border-b-2 border-white rounded-full text-left w-full p-1 lg:p-2.5 text-white placeholder-gray-400 outline-none"/>
+                            <datalist id="order-list">
+                                {orders.map((order) => (<option key = {order.orderId} value = {order.orderId}/>))}
+                            </datalist>
+                        </div>
+                        <div className = "flex flex-col w-full space-y-0">
                             <header className = "text-white text-sm lg:text-xl"> Enter the start date: </header>
                             <input type = "date" value = {startDate} onChange = {(e) => setStartDate(e.target.value)} className = "bg-[#484848] w-full p-2 rounded-full border-b-2 border-white"/>
                         </div>
-                        <div className = "flex flex-col space-y-0">
+                        <div className = "flex flex-col w-full space-y-0">
                             <header className = "text-white text-sm lg:text-xl"> Enter the end date: </header>
                             <input type = "date" value = {endDate} onChange = {(e) => setEndDate(e.target.value)} className = "bg-[#484848] w-full p-2 rounded-full border-b-2 border-white"/>
                         </div>
-                        <div className = "flex flex-col space-y-0">
+                        <div className = "flex flex-col w-full space-y-0">
                             <header className = "text-white text-sm lg:text-xl"> Enter the pick quantity: </header>
                             <input type = "number" min = "1" value = {pickQuantity} onChange = {(e) => setPickQuantity(Number(e.target.value))} className = "bg-[#484848] w-full p-2 rounded-full border-b-2 border-white"/>
                         </div>
-                    </div>
-                    <button onClick = {() => submitPick(pickData)} className = "p-2 w-50 bg-[#484848] rounded-full touch-manipulation active:bg-[#323232] [@media(hover:hover)]:hover:bg-[#262626] shadow-2xl" > Submit Pick </button>
+                        <button onClick = {() => submitPickNew(pickDataNew)} className = "p-2 w-50 bg-[#484848] rounded-full touch-manipulation active:bg-[#323232] [@media(hover:hover)]:hover:bg-[#262626] shadow-2xl" > Submit Pick </button>
+                    </div> 
+                )}
                 </div>
             )}
             {(returnStock) && (

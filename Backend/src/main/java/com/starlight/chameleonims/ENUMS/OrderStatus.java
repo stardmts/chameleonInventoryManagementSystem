@@ -2,12 +2,18 @@ package com.starlight.chameleonims.ENUMS;
 
 public enum OrderStatus {
 
-    COMPLETED,
-
-    IN_PROGRESS,
+    NOT_STARTED,
 
     TO_BE_PICKED,
 
-    NOT_STARTED
+    PICKING_IN_PROGRESS,
+
+    PICKED,
+
+    READY_FOR_COLLECTION,
+
+    OUT_ON_HIRE,
+
+    COMPLETED;
     
 }

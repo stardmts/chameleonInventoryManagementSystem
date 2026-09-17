@@ -52,6 +52,9 @@ export default function loanCard({loanId, orderId, startDate, endDate, costumeId
                 },
                 body: JSON.stringify(loanStatusUpdateData)
             })
+
+            window.location.reload();
+            
         } catch (err) {
             console.error("Fetch error", err)
         }

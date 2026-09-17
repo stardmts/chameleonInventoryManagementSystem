@@ -14,24 +14,36 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.starlight.chameleonims.ENUMS.LoanStatus;
+import com.starlight.chameleonims.ENUMS.OrderStatus;
 import com.starlight.chameleonims.Loan;
+import com.starlight.chameleonims.Order;
 import com.starlight.chameleonims.REPOSITORIES.LoanRepository;
+import com.starlight.chameleonims.REPOSITORIES.OrderRepository;
 
 @RestController
 @RequestMapping("/api/Loans")
 @CrossOrigin(origins = "http://localhost:3000")
 public class LoanController {
 
+    private final OrderRepository orderRepository;
     private final LoanRepository loanRepository;
 
-    public LoanController(LoanRepository loanRepository) {
+    public LoanController(LoanRepository loanRepository, OrderRepository orderRepository) {
         this.loanRepository = loanRepository;
+        this.orderRepository = orderRepository;
     }
 
     @GetMapping
     public List<Loan> getAllLoans() 
     {
         return loanRepository.findAllByOrderByLoanIdAsc();
+    }
+
+    @GetMapping("/Costume/{costumeId}")
+    public List<Loan> getAllLoansByCostumeId(@PathVariable String costumeId) 
+    {
+        return loanRepository.findAllByCostumeId(costumeId);
     }
 
     @GetMapping("/{loanId}")
@@ -92,6 +104,25 @@ public class LoanController {
         if (incomingUpdates.getStatus() != null) toUpdate.setStatus(incomingUpdates.getStatus());
         
         loanRepository.save(toUpdate);
+
+        List<Loan> loans = loanRepository.findByOrderId(toUpdate.getOrderId()).stream().filter(loan -> (loan.getOrderId() != null) && (loan.getOrderId().equals(toUpdate.getOrderId()))).toList();
+
+        Long pickedCount = loans.stream().filter(loan -> loan.getStatus() == LoanStatus.PICKED).count();
+
+        Order order = orderRepository.findById(toUpdate.getOrderId()).orElse(null);
+
+        if (order != null ) {
+            if (pickedCount == loans.size()) {
+                order.setStatus(OrderStatus.PICKED);
+                orderRepository.save(order);
+            }
+            else if (pickedCount > 0) {
+                order.setStatus(OrderStatus.PICKING_IN_PROGRESS);
+                orderRepository.save(order);
+            }
+        }
+
+        //also send update to WordPress
 
         return ResponseEntity.ok("Loan updated successfully");
     }
