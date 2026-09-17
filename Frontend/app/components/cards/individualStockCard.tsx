@@ -15,12 +15,33 @@ interface costume {
     imageUrl: string;
 }
 
+interface Order {
+    orderId: string,
+    userEmailAddress: string,
+    startDate: string,
+    endDate: string,
+    status: string
+}
+
+interface Loan {
+    loanId: string,
+    orderId: string,
+    startDate: string,
+    endDate: string,
+    costumeId: string,
+    quantity: number,
+    status: string
+}
+
 export default function IndividualStockCard({costumeId, name, group, category, colour, size, quantity, locationCode, lastUpdated, inStock, cost, imageUrl
 } : costume) {
 
     const [pick, setPick] = useState(false);
+
     const [returnStock, setReturnStock] = useState(false);
+
     const [update, setUpdate] = useState(false);
+
     const [remove, setRemove] = useState(false);
 
     const [id, setId] = useState(costumeId);
@@ -44,6 +65,18 @@ export default function IndividualStockCard({costumeId, name, group, category, c
     const [file, setFile] = useState(null);
 
     const [loading, setLoading] = useState(false);
+
+    const [startDate, setStartDate] = useState('');
+
+    const [endDate, setEndDate] = useState('');
+
+    const [pickQuantity, setPickQuantity] = useState(0);
+
+    const [selectedOrder, setSelectedOrder] = useState('');
+
+    const [selectedReturnOrder, setSelectedReturnOrder] = useState('');
+
+    const [orders, setOrders] = useState<Order[]>([]);
 
     const colourOptions = [
         { value: 'GOLD', label: 'Gold' },
@@ -101,34 +134,37 @@ export default function IndividualStockCard({costumeId, name, group, category, c
         }
     };
 
-    const costumeData: costume = {
-        costumeId: id,
-        name: name,
-        group: group,
-        category: selectedCategories,
-        colour: selectedColours,
-        size: selectedSize,
-        quantity: Number(quantity),
-        inStock: Number(quantity),
-        locationCode: locationCode,
-        lastUpdated: null,
-        cost: Number(cost),
-        imageUrl: imageUrl
-    }
-
     const removeCostume = async (costumeId) => {
         try {
             fetch (`http://localhost:8080/api/Costumes/Delete/${costumeId}`, {
                 method: 'DELETE'
             })
+
+            window.location.reload();
+
         } catch (err) {
             console.log('Failed to delete costume' + err)
         }
     };
 
+    const costumeData: costume = {
+        costumeId: id,
+        name: costumeName,
+        group: costumeGroup,
+        category: selectedCategories,
+        colour: selectedColours,
+        size: selectedSize,
+        quantity: Number(costumeQuantity),
+        inStock: Number(costumeQuantity),
+        locationCode: costumeLocationCode,
+        lastUpdated: null,
+        cost: Number(costumeCost),
+        imageUrl: imageUrl
+    }
+
     const updateCostume = async (costumeData) => {
         try {
-            const response = await fetch (`http://localhost:8080/api/Costumes/Update${costumeId}`, {
+            const response = await fetch (`http://localhost:8080/api/Costumes/Update/${costumeId}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -140,10 +176,63 @@ export default function IndividualStockCard({costumeId, name, group, category, c
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
+        } catch (err) {
+            console.log("failed to update costume" + err);
+        }
+    }
+
+    const getOrders = async () => {
+        try {
+            fetch ('http://localhost:8080/api/Orders')
+            .then((data) => data.json())
+            .then((data) => setOrders(data))
+        } catch (err) {
+            console.log("failed to fetch orders" + err)
+        }
+    }
+
+    const pickData: Loan = {
+        loanId: (selectedOrder + "-" + costumeId),
+        orderId: selectedOrder,
+        startDate: startDate,
+        endDate: endDate,
+        costumeId: costumeId,
+        quantity: pickQuantity,
+        status: "PICKED"
+    }
+
+    const submitPick = async (pickData: Loan) => {try {
+        const response = await fetch('http://localhost:8080/api/Loans/AddLoan', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(pickData)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        } catch (err) {
+            console.error("Failed to pick item:", err);
+        }
+    };
+
+    const returnCostume = async () => {
+        try {
+            const response = await fetch (`http://localhost:8080/api/Loans/Return/${selectedReturnOrder}/${costumeId}`, {
+                method: "DELETE"
+            })
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
             window.location.reload();
 
         } catch (err) {
-            console.log("failed to update costume" + err);
+            console.log("Failed to return costume" + err)
         }
     }
 
@@ -179,26 +268,60 @@ export default function IndividualStockCard({costumeId, name, group, category, c
             </div>
             {((!pick)&&(!returnStock)&&(!update)&&(!remove)) && (
                 <div className = "flex flex-col w-full text-white text-sm lg:text-2xl items-center space-y-2">
-                    <button onClick = {() => setPick(!pick)} className = "bg-[#484848] rounded-xl shadow-2xl border-b-2 border-white w-full lg:h-15 lg:w-100"> Pick stock. </button>
-                    <button onClick = {() => setReturnStock(!returnStock)} className = "bg-[#484848] rounded-xl shadow-2xl border-b-2 border-white w-full lg:h-15 lg:w-100"> Return stock. </button>
+                    <button onClick = {() => {setPick(!pick), getOrders();}} className = "bg-[#484848] rounded-xl shadow-2xl border-b-2 border-white w-full lg:h-15 lg:w-100"> Pick stock. </button>
+                    <button onClick = {() => {setReturnStock(!returnStock), getOrders();}} className = "bg-[#484848] rounded-xl shadow-2xl border-b-2 border-white w-full lg:h-15 lg:w-100"> Return stock. </button>
                     <button onClick = {() => setUpdate(!update)} className = "bg-[#484848] rounded-xl shadow-2xl border-b-2 border-white w-full lg:h-15 lg:w-100"> Update stock information. </button>
                     <button onClick = {() => setRemove(!remove)} className = "bg-[#484848] rounded-xl shadow-2xl border-b-2 border-white w-full lg:h-15 lg:w-100"> Remove stock. </button>
                 </div>
             )}
             {(pick) && (
-                <div className = "flex flex-col w-full text-white text-sm lg:text-2xl space-y-2">
-
+                <div className = "flex flex-col w-full items-center text-left text-white text-sm lg:text-2xl space-y-2">
+                    <div className = "flex flex-col bg-[#323232] px-10 py-5 rounded-xl w-full lg:w-auto space-y-3 text-white text-left">
+                        <header className = "lg:hidden text-xl text-white"> Pick Costume: </header>
+                            <div className = "flex flex-col space-y-0">
+                                <header className = "text-white text-sm lg:text-xl"> Type a reason for the pick or choose an order id: </header>
+                                <input type="text" list="order-list" value={selectedOrder} onChange={(e) => setSelectedOrder(e.target.value)} className="bg-[#484848] border-b-2 border-white rounded-full text-left w-full p-1 lg:p-2.5 text-white placeholder-gray-400 outline-none"/>
+                                <datalist id="order-list">
+                                    {orders.map((order) => (<option key = {order.orderId} value = {order.orderId}/>))}
+                                </datalist>
+                            </div>
+                        <div className = "flex flex-col space-y-0">
+                            <header className = "text-white text-sm lg:text-xl"> Enter the start date: </header>
+                            <input type = "date" value = {startDate} onChange = {(e) => setStartDate(e.target.value)} className = "bg-[#484848] w-full p-2 rounded-full border-b-2 border-white"/>
+                        </div>
+                        <div className = "flex flex-col space-y-0">
+                            <header className = "text-white text-sm lg:text-xl"> Enter the end date: </header>
+                            <input type = "date" value = {endDate} onChange = {(e) => setEndDate(e.target.value)} className = "bg-[#484848] w-full p-2 rounded-full border-b-2 border-white"/>
+                        </div>
+                        <div className = "flex flex-col space-y-0">
+                            <header className = "text-white text-sm lg:text-xl"> Enter the pick quantity: </header>
+                            <input type = "number" min = "1" value = {pickQuantity} onChange = {(e) => setPickQuantity(Number(e.target.value))} className = "bg-[#484848] w-full p-2 rounded-full border-b-2 border-white"/>
+                        </div>
+                    </div>
+                    <button onClick = {() => submitPick(pickData)} className = "p-2 w-50 bg-[#484848] rounded-full touch-manipulation active:bg-[#323232] [@media(hover:hover)]:hover:bg-[#262626] shadow-2xl" > Submit Pick </button>
                 </div>
             )}
             {(returnStock) && (
-                <div className = "flex flex-col w-full text-white text-sm lg:text-2xl space-y-2">
-                    
+                <div className = "flex flex-col w-full items-center text-left text-white text-sm lg:text-2xl space-y-2">
+                    <div className = "flex flex-col bg-[#323232] px-10 py-5 rounded-xl w-full lg:w-auto space-y-3 text-white text-left">
+                        <header className = "lg:hidden text-xl text-white"> Pick Costume: </header>
+                        <div className = "flex flex-col space-y-0">
+                            <div className = "flex flex-col space-y-0">
+                                <header className = "text-white text-sm lg:text-xl"> Pick the order you are returning this costume for: </header>
+                                <input type="text" list="order-list" value={selectedReturnOrder} onChange={(e) => setSelectedReturnOrder(e.target.value)} className="bg-[#484848] border-b-2 border-white rounded-full text-left w-full p-1 lg:p-2.5 text-white placeholder-gray-400 outline-none"/>
+                                <datalist id="order-list">
+                                    {orders.map((order) => (<option key = {order.orderId} value = {order.orderId}/>))}
+                                </datalist>
+                            </div>
+                        </div>
+                    </div>
+                    <button onClick = {() => returnCostume()} className = "p-2 w-50 bg-[#484848] rounded-full touch-manipulation active:bg-[#323232] [@media(hover:hover)]:hover:bg-[#262626] shadow-2xl" > Return Costume </button>
                 </div>
             )} 
             {(update) && (
                 <main className = "flex flex-col lg:flex-row w-full">
                         <div className = "flex flex-col bg-[#323232] px-10 py-5 rounded-xl w-full lg:w-auto space-y-2 text-white text-left">
-                            <header className = "lg:hidden text-xl text-white"> Add Costume: </header>
+                            <header className = "lg:hidden text-xl text-white"> Update Costume: </header>
                             <div className = "flex flex-col space-y-0">
                                 <header className = "text-white text-sm lg:text-xl"> Enter the costume id </header>
                                 <input type = "text" value = {id} onChange = {(e) => setId(e.target.value)} placeholder = "Enter the costume id..." className = "bg-[#484848] w-full p-2 rounded-full border-b-2 border-white"/>
@@ -295,7 +418,7 @@ export default function IndividualStockCard({costumeId, name, group, category, c
                                 ))}
                             </div>
                             <div className = "flex flex-col space-y-0">
-                                <button onClick = {() => {updateCostume(costumeData);}} className = "p-2 bg-[#484848] rounded-full touch-manipulation active:bg-[#323232] [@media(hover:hover)]:hover:bg-[#262626] shadow-2xl"> Submit </button>
+                                <button onClick = {() => updateCostume(costumeData)} className = "p-2 bg-[#484848] rounded-full touch-manipulation active:bg-[#323232] [@media(hover:hover)]:hover:bg-[#262626] shadow-2xl"> Submit </button>
                             </div>
                         </div>
                         {/*<QRCodeCanvas value = {costumeData?.costumeId}/> */}
@@ -303,8 +426,8 @@ export default function IndividualStockCard({costumeId, name, group, category, c
             )} 
             {(remove) && (
                 <div className = "flex flex-col lg:w-full items-center text-white text-sm lg:text-2xl space-y-2">
-                    <button onClick = {() => {removeCostume(costumeId), setRemove(!remove), window.location.reload()}} className = "lg:h-15 lg:w-100 bg-[#0e9729] p-1 rounded-xl"> Yes </button>
-                    <button onClick = {() => setRemove(!remove)} className = "lg:h-15 lg:w-100 bg-[#ff1200] p-1 rounded-xl"> No </button>
+                    <button onClick = {() => {removeCostume(costumeId), setRemove(!remove), window.location.reload()}} className = "h-10 w-50 lg:h-15 lg:w-100 bg-[#0e9729] p-1 rounded-xl"> Yes </button>
+                    <button onClick = {() => setRemove(!remove)} className = "h-10 w-50 lg:h-15 lg:w-100 bg-[#ff1200] p-1 rounded-xl"> No </button>
                 </div>
             )}    
         </main>

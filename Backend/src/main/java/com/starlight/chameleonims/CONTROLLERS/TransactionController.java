@@ -26,7 +26,7 @@ public class TransactionController {
     @GetMapping
     public List<Transaction> getAllTransactions() 
     {
-        return transactionRepository.findAllByOrderByTransactionIdAsc();
+        return transactionRepository.findAllByOrderByTransactionDateDesc();
     }
 
     @PostMapping("/AddTransaction")

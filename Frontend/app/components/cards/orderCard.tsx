@@ -14,7 +14,7 @@ interface Loan {
     startDate: string,
     endDate: string,
     costumeId: string,
-    quantity: string,
+    quantity: number,
     status: string
 }
 

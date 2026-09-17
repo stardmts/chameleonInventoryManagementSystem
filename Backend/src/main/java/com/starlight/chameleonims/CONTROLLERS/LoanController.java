@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.starlight.chameleonims.Costume;
 import com.starlight.chameleonims.Loan;
 import com.starlight.chameleonims.REPOSITORIES.CostumeRepository;
 import com.starlight.chameleonims.REPOSITORIES.LoanRepository;
@@ -63,27 +62,23 @@ public class LoanController {
         return ResponseEntity.ok("Loan succesfully deleted");
     }
 
-    @PostMapping("/AddLoan")
-    public Loan createLoan(@RequestBody Loan loan) {
-        
-        String costumeId = loan.getCostumeId();
+    @DeleteMapping("/Return/{selectedReturnOrder}/{costumeId}")
+    public ResponseEntity<?> returnLoan(@PathVariable String selectedReturnOrder, @PathVariable String costumeId)
+    {
+        List<Loan> loans = loanRepository.findByOrderId(selectedReturnOrder).stream().filter(loan -> (loan.getCostumeId() != null) && (loan.getCostumeId().equals(costumeId))).toList();
 
-        Integer quantity = loan.getQuantity();
+        for (Loan loan : loans) {
 
-        Costume costume = costumeRepository.findById(costumeId).orElse(null);
+            loanRepository.deleteById(loan.getLoanId());
 
-        if (costume != null) {
-
-            Integer inStock = costume.getInStock();
-
-            Integer newInStock = (quantity - inStock);
-
-            costume.setInStock(newInStock);
-
-            costumeRepository.save(costume);
-            
         }
 
+        return ResponseEntity.ok("Loan succesfully returned");
+    }
+
+    @PostMapping("/AddLoan")
+    public Loan createLoan(@RequestBody Loan loan) 
+    {
         return loanRepository.save(loan);
     }
 
