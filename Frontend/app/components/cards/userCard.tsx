@@ -3,7 +3,6 @@ interface user {
     userEmail:string;
     firstName: string;
     secondName: string;
-    userPassword: string;
     userRole: string;
 }
 

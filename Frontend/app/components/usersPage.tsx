@@ -10,9 +10,9 @@ import UserSettings from "./userSettings";
 
 interface User {
     userId: string;
-    userEmail:string;
-    userFName: String;
-    userSName: String;
+    userEmail: string;
+    firstName: string;
+    secondName: string;
     userRole: string;
 }
 
@@ -91,7 +91,7 @@ export default function UsersPage() {
                         </div>
                     </div>
                     <div className = "flex flex-col items-center space-y-2 overflow-y-auto bg-[#323232] w-full text-white rounded px-2 lg:p-5">
-                        {users.map((user) => <UserCard key = {user.userId} userId = {user.userId} userEmail = {user.userEmail} userFName = {user.userFName} userSName = {user.userSName} userRole = {user.userRole}/>)}
+                        {users.map((user) => <UserCard key = {user.userId} userId = {user.userId} userEmail = {user.userEmail} firstName = {user.firstName} secondName = {user.secondName} userRole = {user.userRole}/>)}
                     </div>
                 </main>   
             );
