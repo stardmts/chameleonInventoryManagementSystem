@@ -1,14 +1,15 @@
 interface user {
-    userId: string;
+    userId: string,
     userEmail:string;
-    userFName: String;
-    userSName: String;
+    firstName: string;
+    secondName: string;
+    userPassword: string;
     userRole: string;
 }
 
 import { useState } from 'react';
 
-export default function UserCard({userId, userEmail, userFName, userSName, userRole} : user) {
+export default function UserCard({userId, userEmail, firstName, secondName, userRole} : user) {
 
     const handleRemoveUser = (userTR: string) => {
         if (remove) {
@@ -25,21 +26,38 @@ export default function UserCard({userId, userEmail, userFName, userSName, userR
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
+
+            window.location.reload(); 
+        
         } catch (err) {
             console.error('Failed to delete user', err)
         }
     }
 
-    const updatePermission = () => {
-        if (userRole === "ADMIN") {
-            {/*set user to USER*/}
+    const updatePermission = async (currentUserRole: string) => {
+
+        const targetRole = currentUserRole === "ADMIN" ? "USER" : "ADMIN";
+        
+        try {
+            const response = await fetch(`http://localhost:8080/api/Users/UpdateRole/${userId}`, {
+            method: "PATCH",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(targetRole)
+            });
+
+            if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            window.location.reload();
+
+        } catch (err) {
+            console.error("Failed to update user role:", err);
         }
-        {/*Else set user to ADMIN*/}
-    }
 
-    const updatePassword = () => {
-
-    }
+    };
 
     const submitPassword = () => {
 
@@ -62,12 +80,12 @@ export default function UserCard({userId, userEmail, userFName, userSName, userR
             { !remove && !admin && !pass && (
                         <div className = "flex flex-row space-x-2 lg:space-x-5 items-center">
                             <p className = "text-white text-sm lg:text-2xl items-center">
-                                {userId} | {userFName} {userSName} | {userEmail} | {userRole}
+                                {userId} | {firstName} {secondName} | {userEmail} | {userRole} 
                             </p>
                             <div className = "flex flex-col space-y-1 lg:flex-row space-x-1">
-                                <button onClick = {() => {setRemove(!remove); handleRemoveUser(userId)}} className = "bg-[#484848] border-2 lg:border-4 border-[#ff1200] p-2 text-white text-sm lg:text-xl rounded-full transition-colors touch-manipulation active:bg-[#ff1200] [@media(hover:hover)]:hover:bg-[#ff1200]"> Remove user </button>
-                                <button onClick = {() => {setAdmin(!admin); updatePermission()}} className = "bg-[#484848] border-2 lg:border-4 border-[#ff1200] p-2 text-white text-sm lg:text-xl rounded-full transition-colors touch-manipulation active:bg-[#ff1200] [@media(hover:hover)]:hover:bg-[#ff1200]"> Make user {userRole === "ADMIN" ? "User" : "Admin"} </button>
-                                <button onClick = {() => {setPass(!pass); updatePassword()}} className = "bg-[#484848] border-2 lg:border-4 border-[#ff1200] p-2 text-white text-sm lg:text-xl rounded-full transition-colors touch-manipulation active:bg-[#ff1200] [@media(hover:hover)]:hover:bg-[#ff1200]"> Reset password </button>
+                                <button onClick = {() => setRemove(!remove)} className = "bg-[#484848] border-2 lg:border-4 border-[#ff1200] p-2 text-white text-sm lg:text-xl rounded-full transition-colors touch-manipulation active:bg-[#ff1200] [@media(hover:hover)]:hover:bg-[#ff1200]"> Remove user </button>
+                                <button onClick = {() => setAdmin(!admin)} className = "bg-[#484848] border-2 lg:border-4 border-[#ff1200] p-2 text-white text-sm lg:text-xl rounded-full transition-colors touch-manipulation active:bg-[#ff1200] [@media(hover:hover)]:hover:bg-[#ff1200]"> Make user {userRole === "ADMIN" ? "User" : "Admin"} </button>
+                                <button onClick = {() => setPass(!pass)} className = "bg-[#484848] border-2 lg:border-4 border-[#ff1200] p-2 text-white text-sm lg:text-xl rounded-full transition-colors touch-manipulation active:bg-[#ff1200] [@media(hover:hover)]:hover:bg-[#ff1200]"> Reset password </button>
                             </div>
                         </div>
                 )
@@ -76,7 +94,7 @@ export default function UserCard({userId, userEmail, userFName, userSName, userR
                     <div className = "flex flex-col w-full">
                         <header className = "text-white"> Are you sure? </header>
                         <div className = "flex flex-row space-x-2">
-                            <button onClick = {() => {removeUser(userId), setRemove(!remove)}} className = "w-full bg-[#0e9729] p-1 rounded-xl"> Yes </button>
+                            <button onClick = {() => removeUser(userId)} className = "w-full bg-[#0e9729] p-1 rounded-xl"> Yes </button>
                             <button onClick = {() => setRemove(!remove)} className = "w-full bg-[#ff1200] p-1 rounded-xl"> No </button>
                         </div>
                     </div>
@@ -86,8 +104,8 @@ export default function UserCard({userId, userEmail, userFName, userSName, userR
                     <div className = "flex flex-col w-full">
                         <header className = "text-white"> Are you sure? </header>
                         <div className = "flex flex-row space-x-2">
-                            <button onClick = {() => updatePermission()} className = "w-full bg-[#0e9729] p-1 rounded-xl"> Yes </button>
-                            <button onClick = {() => setAdmin(!admin)} className = "w-full bg-[#ff1200] p-1rounded-xl"> No </button>
+                            <button onClick = {() => updatePermission(userRole)} className = "w-full bg-[#0e9729] p-1 rounded-xl"> Yes </button>
+                            <button onClick = {() => setAdmin(!admin)} className = "w-full bg-[#ff1200] p-1 rounded-xl"> No </button>
                         </div>
                     </div>
                 )

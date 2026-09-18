@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.starlight.chameleonims.DTOS.UserDTO;
+import com.starlight.chameleonims.ENUMS.UserRole;
 import com.starlight.chameleonims.REPOSITORIES.TransactionRepository;
 import com.starlight.chameleonims.REPOSITORIES.UserRepository;
 import com.starlight.chameleonims.Transaction;
@@ -126,6 +127,22 @@ public class UserController {
         userRepository.save(toUpdate);
 
         return ResponseEntity.ok("User password updated");
+    }
+
+    @PatchMapping("/UpdateRole/{userId}")
+    public ResponseEntity<?> updateUserRole(@PathVariable String userId, @RequestBody UserRole userRole)
+    {
+        User toUpdate = userRepository.findById(userId).orElse(null);
+
+        if (toUpdate == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User doesnt exist");
+        }
+
+        toUpdate.setUserRole(userRole);
+
+        userRepository.save(toUpdate);
+
+        return ResponseEntity.ok("User role updated");
     }
 
     @GetMapping("/Search/{searchString}")

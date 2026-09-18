@@ -4,8 +4,8 @@ import { useState } from 'react';
 
 interface User {
     userEmail:string;
-    userFName: string;
-    userSName: string;
+    firstName: string;
+    secondName: string;
     userPassword: string;
     userRole: string;
 }
@@ -25,18 +25,18 @@ export default function AddUser() {
     const [selectedChoice, setSelectedChoice] = useState('');
 
     const resetAllUser = () => {
-        setFName(''),
-        setSName(''),
-        setEmail(''),
-        setFPswd(''),
-        setSPswd(''),
+        setFName('');
+        setSName('');
+        setEmail('');
+        setFPswd('');
+        setSPswd('');
         setSelectedChoice('');
     }
 
     const userData: User = {
         userEmail: email,
-        userFName: fName,
-        userSName: sName,
+        firstName: fName,
+        secondName: sName,
         userPassword: sPswd,
         userRole: selectedChoice,
     } 
@@ -90,7 +90,6 @@ export default function AddUser() {
                     <div className = "flex flex-col space-y-1">    
                         <header> Choose the user role </header>
                         <select value = {selectedChoice} onChange = {(e) => setSelectedChoice(e.target.value)} className = "bg-[#484848] border-b-2 border-white text-left rounded-full block w-full p-1 lg:p-2.5">
-                            <option value="" hidden> Choose the user's role </option>
                             <option value="USER"> Viewer </option>
                             <option value="ADMIN"> Admin </option>
                         </select>            
