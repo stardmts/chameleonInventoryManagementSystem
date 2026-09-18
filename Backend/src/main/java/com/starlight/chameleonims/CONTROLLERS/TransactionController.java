@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,12 @@ public class TransactionController {
     @PostMapping("/AddTransaction")
     public Transaction createTransaction(@RequestBody Transaction transaction) {
            return transactionRepository.save(transaction);
+    }
+
+    @GetMapping("/Search/{searchString}")
+    public List<Transaction> getTransactionsBySearch(@PathVariable String searchString) 
+    {
+        return transactionRepository.findAll().stream().filter(transaction -> (transaction.getTransactionBody().contains(searchString))).toList();
     }
     
 }

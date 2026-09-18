@@ -143,5 +143,11 @@ public class OrderController {
 
         return ResponseEntity.ok("Order updated successfully");
     }
+
+    @GetMapping("/Search/{searchString}")
+    public List<Order> getOrdersBySearch(@PathVariable String searchString) 
+    {
+        return orderRepository.findAll().stream().filter(order -> ((order.getOrderId().contains(searchString)) || (order.getUserEmailAddress().contains(searchString)))).toList();
+    }
     
 }

@@ -186,7 +186,7 @@ public class CostumeController {
     @GetMapping("/Search/{searchString}")
     public List<Costume> getCostumesBySearch(@PathVariable String searchString) 
     {
-        return costumeRepository.findByNameContainingIgnoreCase(searchString);
+        return costumeRepository.findAll().stream().filter(costume -> ((costume.getCostumeId().contains(searchString)) || (costume.getName().contains(searchString)))).toList();
     }
 
 }

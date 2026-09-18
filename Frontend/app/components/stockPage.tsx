@@ -44,22 +44,37 @@ interface Tool {
 }
 
 export default function StockPage() {
-    
-    const router = useRouter();
-
-    const [search, setSearch ] = useState('');
 
     const [costumes, setCostumes] = useState<Costume[]>([]);
     const [props, setProps] = useState<Prop[]>([]);
     const [tools, setTools] = useState<Tool[]>([]);
 
+    const clearAll = () => {
+        setCostumes([]);
+        setTools([]);
+        setProps([]);
+    }
+
     const searchCostumes = async (search) => {
         try {
-            fetch(`http://localhost:8080/api/Costumes/Search/${search}`)
-            .then((data) => data.json())
-            .then((data) => setCostumes(data))
-            .then(() => setProps([]))
-            .then(() => setTools([]))
+            
+            if (search == "") {
+                clearAll();
+                loadAll();
+                return;
+            }
+
+            const response = await fetch(`http://localhost:8080/api/Costumes/Search/${search}`)
+
+            if(!response.ok) {
+                throw new Error('Http error' + response.status)
+            }
+
+            const data = await response.json();
+            setCostumes(data);
+            setTools([]);
+            setProps([]);
+            
         } catch (err) {
             console.error("Search error", err)
         }
@@ -109,14 +124,15 @@ export default function StockPage() {
                 All stock:
             </header>                
                 <div className = "flex flex-col space-y-2 lg:flex-row justify-center lg:justify-between w-full text-sm lg:text-xl px-5">
-                    <div>  
-                        <input type = "text" value = {search} onChange = {(e) => {setSearch(e.target.value), searchCostumes(search);}} placeholder = "Search the costume catalogue..." className = "text-white text-left bg-[#484848] w-full lg:w-100 p-2 rounded-full border-b-2 border-white"/>
+                    <div className = "flex flex-row space-x-5 w-full">  
+                        <input type = "text" onChange = {(e) => searchCostumes(e.target.value)} placeholder = "Search the costume catalogue..." className = "text-white text-left bg-[#484848] w-full lg:w-100 p-2 rounded-full border-b-2 border-white"/>
+                        <button onClick = {() => {clearAll(), loadAll()}} className = "text-white bg-[#484848] border-2 border-white rounded-full p-1" > Clear Search </button>
                     </div>  
                     <div className = "flex flex-row w-full text-sm lg:text-xl text-white space-x-2 justify-center">
-                        <button onClick = {() => {setTools([]), setProps([]), loadCostumes();}} className = "bg-[#323232] border-2 lg:border-4 border-[#6dabe3] p-1 lg:p-2 rounded-full transition-colors touch-manipulation active:bg-[#6dabe3] [@media(hover:hover)]:hover:bg-[#6dabe3]"> Costumes </button> {/*Filter to only costumes*/}
-                        <button onClick = {() => {setTools([]), loadProps(), setCostumes([]);}}className = "bg-[#323232] border-2 lg:border-4 border-[#ff1200] p-1 lg:p-2 rounded-full transition-colors touch-manipulation active:bg-[#ff1200] [@media(hover:hover)]:hover:bg-[#ff1200]"> Props </button> {/*Filter to only props*/}
-                        <button onClick = {() => {loadTools(), setProps([]), setCostumes([]);}}className = "bg-[#323232] border-2 lg:border-4 border-[#e97187] p-1 lg:p-2 rounded-full transition-colors touch-manipulation active:bg-[#e97187] [@media(hover:hover)]:hover:bg-[#e97187]"> Tools </button> {/*Filter to only tools*/}
-                        <button onClick = {() => loadCostumes()} className = "bg-[#323232] border-2 lg:border-4 border-[#d6de00] p-1 lg:p-2 rounded-full transition-colors touch-manipulation active:bg-[#d6de00] [@media(hover:hover)]:hover:bg-[#d6de00]"> Remove filters </button> {/*display all*/}
+                        <button onClick = {() => {setTools([]), setProps([]), loadCostumes();}} className = "bg-[#323232] border-2 lg:border-4 border-[#6dabe3] p-1 lg:p-2 rounded-full transition-colors touch-manipulation active:bg-[#6dabe3] [@media(hover:hover)]:hover:bg-[#6dabe3]"> Costumes </button>
+                        <button onClick = {() => {setTools([]), loadProps(), setCostumes([]);}}className = "bg-[#323232] border-2 lg:border-4 border-[#ff1200] p-1 lg:p-2 rounded-full transition-colors touch-manipulation active:bg-[#ff1200] [@media(hover:hover)]:hover:bg-[#ff1200]"> Props </button>
+                        <button onClick = {() => {loadTools(), setProps([]), setCostumes([]);}}className = "bg-[#323232] border-2 lg:border-4 border-[#e97187] p-1 lg:p-2 rounded-full transition-colors touch-manipulation active:bg-[#e97187] [@media(hover:hover)]:hover:bg-[#e97187]"> Tools </button>
+                        <button onClick = {() => loadCostumes()} className = "bg-[#323232] border-2 lg:border-4 border-[#d6de00] p-1 lg:p-2 rounded-full transition-colors touch-manipulation active:bg-[#d6de00] [@media(hover:hover)]:hover:bg-[#d6de00]"> Remove filters </button>
                     </div>
                 </div>
                 <ul className = "flex flex-col items-center space-y-2 overflow-y-auto h-auto lg:min-h-screen w-full text-white rounded px-5 py-5">

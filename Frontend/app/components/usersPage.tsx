@@ -36,7 +36,28 @@ export default function UsersPage() {
         }
     };
 
-    const [search, setSearch] = useState('');
+    const search = async (search) => {
+        try {
+            
+            if (search == "") {
+                setUsers([]);
+                loadUsers();
+                return;
+            }
+
+            const response = await fetch(`http://localhost:8080/api/Users/Search/${search}`)
+
+            if(!response.ok) {
+                throw new Error('Http error' + response.status)
+            }
+
+            const data = await response.json();
+            setUsers(data);
+            
+        } catch (err) {
+            console.error("Search error", err)
+        }
+    };
 
     useEffect(() => {
         loadUsers();
@@ -59,9 +80,10 @@ export default function UsersPage() {
                         All users:
                     </header>
                     <div className = "flex flex-col space-y-2 lg:flex-row items-center justify-between w-full px-2 lg:px-10">
-                        <div>  
-                            <input type = "text" value = {search} onChange = {(e) => setSearch(e.target.value)} placeholder = "Search users..." className = "text-white text-left bg-[#484848] w-full lg:w-100 p-2 rounded-full border-b-2 border-white"/>
-                        </div>  
+                    <div className = "flex flex-row space-x-5 w-full">  
+                        <input type = "text" onChange = {(e) => search(e.target.value)} placeholder = "Search the costume catalogue..." className = "text-white text-left bg-[#484848] w-full lg:w-100 p-2 rounded-full border-b-2 border-white"/>
+                        <button onClick = {() => {setUsers([]), loadUsers()}} className = "text-white bg-[#484848] border-2 border-white rounded-full p-1" > Clear Search </button>
+                    </div>   
                         <div className = "flex flex-row space-x-2 px-2">
                             <button  className = "bg-[#323232] border-2 lg:border-4 border-[#6dabe3] p-2 text-white text-sm lg:text-xl rounded-full transition-colors touch-manipulation active:bg-[#6dabe3] [@media(hover:hover)]:hover:bg-[#6dabe3]"> Admin </button> {/*add user page*/}
                             <button  className = "bg-[#323232] border-2 lg:border-4 border-[#ff1200] p-2 text-white text-sm lg:text-xl rounded-full transition-colors touch-manipulation active:bg-[#FF1200] [@media(hover:hover)]:hover:bg-[#ff1200]"> All users </button> {/*remove user page*/}

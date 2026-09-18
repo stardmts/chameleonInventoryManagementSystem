@@ -128,4 +128,10 @@ public class UserController {
         return ResponseEntity.ok("User password updated");
     }
 
+    @GetMapping("/Search/{searchString}")
+    public List<User> getUsersBySearch(@PathVariable String searchString) 
+    {
+        return userRepository.findAll().stream().filter(user -> ((user.getFirstName().contains(searchString)) || (user.getSecondName().contains(searchString)))).toList();
+    }
+
 }
