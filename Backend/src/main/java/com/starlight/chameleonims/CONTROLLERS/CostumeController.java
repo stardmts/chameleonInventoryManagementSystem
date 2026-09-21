@@ -25,7 +25,6 @@ import com.starlight.chameleonims.REPOSITORIES.GroupRepository;
 import com.starlight.chameleonims.REPOSITORIES.TransactionRepository;
 import com.starlight.chameleonims.Transaction;
 
-
 @RestController
 @RequestMapping("/api/Costumes")
 @CrossOrigin(origins = "http://localhost:3000")
@@ -37,10 +36,13 @@ public class CostumeController {
 
     private final GroupRepository groupRepository;
 
+    //private final ImageService imageService;
+
     public CostumeController(TransactionRepository transactionRepository, CostumeRepository costumeRepository, GroupRepository groupRepository) {
         this.transactionRepository = transactionRepository;
         this.costumeRepository = costumeRepository;
         this.groupRepository = groupRepository;
+        //this.imageService = imageService;
     }
 
     @GetMapping
@@ -189,4 +191,11 @@ public class CostumeController {
         return costumeRepository.findAll().stream().filter(costume -> ((costume.getCostumeId().contains(searchString)) || (costume.getName().contains(searchString)))).toList();
     }
 
+    //@PostMapping("/ImageUpload")
+    //public Map<String, Object> getUploadUrl() {
+        
+    //    return imageService.getUploadUrl();
+
+    //}
+    
 }

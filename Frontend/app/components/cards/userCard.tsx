@@ -1,20 +1,18 @@
 interface user {
     userId: string,
-    userEmail:string;
+    userEmail: string;
     firstName: string;
     secondName: string;
     userRole: string;
 }
 
+interface passwordDto {
+    password: string;
+}
+
 import { useState } from 'react';
 
 export default function UserCard({userId, userEmail, firstName, secondName, userRole} : user) {
-
-    const handleRemoveUser = (userTR: string) => {
-        if (remove) {
-            removeUser(userTR)
-        }
-    }
     
     const removeUser = async (userToRemove: string) => {
         try {
@@ -58,10 +56,42 @@ export default function UserCard({userId, userEmail, firstName, secondName, user
 
     };
 
-    const submitPassword = () => {
+    const submitPassword = async () => {
 
-    }
-    
+        if (!pass1 || !pass2) {
+            setPassMessage('Passwords cannot be empty');
+            return;
+        }
+
+        if (pass1 !== pass2) {
+            setPassMessage('Passwords do not match');
+            return;
+        }
+        
+        const payload: passwordDto = {
+            password: pass2
+        };
+        
+        try {
+            const response = await fetch(`http://localhost:8080/api/Users/UpdatePassword/${userId}`, {
+                method: "PATCH",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            window.location.reload();
+
+        } catch (err) {
+            console.error("Failed to update user password:", err);
+        }
+    };
+
     const [remove, setRemove] = useState(false);
 
     const [pass, setPass] = useState(false);

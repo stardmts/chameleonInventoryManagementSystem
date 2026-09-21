@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.starlight.chameleonims.DTOS.PasswordReset;
 import com.starlight.chameleonims.DTOS.UserDTO;
 import com.starlight.chameleonims.ENUMS.UserRole;
 import com.starlight.chameleonims.REPOSITORIES.TransactionRepository;
 import com.starlight.chameleonims.REPOSITORIES.UserRepository;
+import com.starlight.chameleonims.SERVICES.Authentication;
 import com.starlight.chameleonims.Transaction;
 import com.starlight.chameleonims.User;
 
@@ -33,9 +35,12 @@ public class UserController {
     
     private final UserRepository userRepository;
 
-    public UserController(TransactionRepository transactionRepository, UserRepository userRepository) {
+    private final Authentication authenticator;
+
+    public UserController(TransactionRepository transactionRepository, UserRepository userRepository, Authentication authenticator) {
         this.transactionRepository = transactionRepository;
         this.userRepository = userRepository;
+        this.authenticator = authenticator;
     }
     @GetMapping
     public List<UserDTO> getAllUsers() 
@@ -110,21 +115,27 @@ public class UserController {
         
         transactionRepository.save(transaction);
 
+        String hashedPassword = authenticator.hashPassword(user.getPasswordHash());
+
+        user.setPasswordHash(hashedPassword);
+
         return userRepository.save(user);
     }
     
     @PatchMapping("/UpdatePassword/{userId}")
-    public ResponseEntity<?> updateUserPassword(@PathVariable String userId, @RequestBody String passwordHash)
+    public ResponseEntity<?> updateUserPassword(@PathVariable String userId, @RequestBody PasswordReset passwordDTO)
     {
-        User toUpdate = userRepository.findById(userId).orElse(null);
+        User user = userRepository.findById(userId).orElse(null);
 
-        if (toUpdate == null) {
+        if (user == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User doesnt exist");
         }
 
-        toUpdate.setPasswordHash(passwordHash);
+        String hashedPassword = authenticator.hashPassword(passwordDTO.getPassword());
 
-        userRepository.save(toUpdate);
+        user.setPasswordHash(hashedPassword);
+
+        userRepository.save(user);
 
         return ResponseEntity.ok("User password updated");
     }

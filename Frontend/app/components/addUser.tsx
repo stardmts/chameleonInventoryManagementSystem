@@ -6,7 +6,7 @@ interface User {
     userEmail:string;
     firstName: string;
     secondName: string;
-    userPassword: string;
+    passwordHash: string;
     userRole: string;
 }
 
@@ -37,7 +37,7 @@ export default function AddUser() {
         userEmail: email,
         firstName: fName,
         secondName: sName,
-        userPassword: sPswd,
+        passwordHash: sPswd,
         userRole: selectedChoice,
     } 
 

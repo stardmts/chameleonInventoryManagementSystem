@@ -60,10 +60,9 @@ export default function AddCostume() {
 
     const [file, setFile] = useState(null);
 
-    const [loading, setLoading] = useState(false);
+    const [uploading, setUploading] = useState(false);
 
-    {/*imageURL comes from backend after cloudflare rerturns it*/}
-    const imageUrl = "dzvvz";
+    const [uploadedUrl, setUploadedUrl] = useState('');
 
     const costumeData: costume = {
         costumeId: id,
@@ -77,7 +76,7 @@ export default function AddCostume() {
         locationCode: locationCode,
         lastUpdated: null,
         cost: Number(cost),
-        imageUrl: imageUrl
+        imageUrl: uploadedUrl
     }
 
     const groupData: group = {
@@ -129,11 +128,17 @@ export default function AddCostume() {
     ];
 
     const handleCBColourChange = (colourValue) => {
+
         if (selectedColours.includes(colourValue)) {
-        setSelectedColours(selectedColours.filter(c => c !== colourValue));
+
+            setSelectedColours(selectedColours.filter(c => c !== colourValue));
+
         } else {
-        setSelectedColours([...selectedColours, colourValue]);
+
+            setSelectedColours([...selectedColours, colourValue]);
+
         }
+
     };
 
     const categoryOptions = [
@@ -223,6 +228,62 @@ export default function AddCostume() {
         }   
     }
 
+    const handleImageUpload = async () => {
+        if (!file) return alert("Please select an image file first.");
+        setUploading(true);
+
+        try {
+            const response = await fetch('http://localhost:8080/api/Costumes/ImageUpload', {
+                method: "POST"
+            });
+
+            const { uploadURL, id } = await response.json();
+
+            const formData = new FormData();
+            
+            formData.append('file', file);
+
+            const cloudflareResponse = await fetch(uploadURL, {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (cloudflareResponse.ok) {
+
+                console.log("Success! Image ID: ", id);
+            
+                // Format: https://imagedelivery.net<ACCOUNT_HASH>/<IMAGE_ID>/<VARIANT_NAME>
+                const deliveryUrl = `https://imagedelivery.net/hEVa-AzR_-2RoJkhVOtZXg/${id}/chameleonWebsite`;
+                setUploadedUrl(deliveryUrl);
+
+            } else {
+
+                throw new Error("Cloudflare rejected the asset stream");
+
+            }
+
+        } catch (error) {
+
+            console.error("Cloudflare Images upload failed", error);
+
+        } finally {
+
+            setUploading(false);
+
+        }
+
+    };
+
+    const handleFileChange = (e) => {
+
+        if (e.target.files && e.target.files[0]) {
+
+            setFile(e.target.files[0]);
+
+        }
+
+    };
+
     return (
         <main className = "flex flex-col p-5 rounded-xl">
             <div className = "flex flex-col bg-[#323232] px-10 py-5 rounded-xl w-full lg:w-auto space-y-2 text-white text-left border-4 border-[#6dabe3]">
@@ -308,17 +369,22 @@ export default function AddCostume() {
                     <input type = "text" value = {cost} onChange = {(e) => setCost(e.target.value)} placeholder = "Enter the cost per unit..." className = "bg-[#484848] w-full p-2 rounded-full border-b-2 border-white"/>
                 </div>
                 <div className = "flex flex-col space-y-2">
-                    <header className = "text-white text-sm lg:text-xl"> Upload the costume image </header>
-                    <div className="flex flex-col sm:flex-row gap-3">
-                    <input type="file" id="costume-image-upload" accept="image/*" className="hidden" onChange={(e) => setFile(e.target.files ? e.target.files[0] : null)} />
-                    <label htmlFor="costume-image-upload" className="cursor-pointer bg-[#484848] text-white text-center px-5 py-2 rounded-full border-b-2 border-white hover:bg-[#585858] text-sm lg:text-base inline-block" > {file ? 'Change Image' : 'Select Image'} </label>
-                    <span className="text-xs lg:text-sm text-gray-400 max-w-[200px] truncate">
-                        {file ? file.name : 'No file chosen'}
-                    </span>
-                </div>
-                    <button onClick = {() => {}} disabled={loading} className = "bg-[#484848] text-sm p-2 rounded-full border-b-2 border-white">
-                        {loading ? 'Uploading...' : 'Upload'}
-                    </button>
+                    <header className = "text-white text-sm lg:text-xl"> Enter the costume cost </header>
+                    <div style={{ padding: '20px', border: '1px dashed #ccc', borderRadius: '8px' }}>
+
+                        <input type="file" accept="image/*" onChange={handleFileChange} />
+                        
+                        <button onClick={handleImageUpload} disabled={!file || uploading} style={{ marginLeft: '10px', padding: '5px 15px' }}>
+                            {uploading ? "Uploading..." : "Save Image"}
+                        </button>
+
+                        {uploadedUrl && (
+                            <div style={{ marginTop: '15px' }}>
+                                <p> Image Saved Successfully!</p>
+                                <img src={uploadedUrl} alt="Uploaded asset" style={{ maxWidth: '200px', borderRadius: '4px' }} />
+                            </div>
+                        )}
+                    </div>
                 </div>
                 <div className = "flex flex-col space-y-2">
                     <header className = "text-white text-sm lg:text-xl"> Is this a new costume? </header>
