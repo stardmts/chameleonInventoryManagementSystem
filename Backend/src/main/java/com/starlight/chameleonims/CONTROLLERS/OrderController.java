@@ -16,7 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.starlight.chameleonims.ENUMS.LoanStatus;
+import com.starlight.chameleonims.ENUMS.OrderStatus;
+import com.starlight.chameleonims.Loan;
 import com.starlight.chameleonims.Order;
+import com.starlight.chameleonims.REPOSITORIES.LoanRepository;
 import com.starlight.chameleonims.REPOSITORIES.OrderRepository;
 import com.starlight.chameleonims.REPOSITORIES.TransactionRepository;
 import com.starlight.chameleonims.Transaction;
@@ -30,9 +34,12 @@ public class OrderController {
     
     private final TransactionRepository transactionRepository;
 
-    public OrderController(OrderRepository orderRepository, TransactionRepository transactionRepository) {
+    private final LoanRepository loanRepository;
+
+    public OrderController(OrderRepository orderRepository, TransactionRepository transactionRepository, LoanRepository loanRepository) {
         this.orderRepository = orderRepository;
         this.transactionRepository = transactionRepository;
+        this.loanRepository = loanRepository;
     }
 
     @GetMapping
@@ -140,6 +147,18 @@ public class OrderController {
         transaction.setTransactionDate(date);
         
         transactionRepository.save(transaction);
+
+        List<Loan> loans = loanRepository.findByOrderId(orderId);
+
+        if (toUpdate.getStatus().equals(OrderStatus.RETURNED)) {
+            for (Loan loan : loans) {
+                loan.setStatus(LoanStatus.READY_TO_RETURN);
+            }
+        }
+        else if (toUpdate.getStatus().equals(OrderStatus.COMPLETED)) {
+            loanRepository.deleteAllInBatch(loans);
+            orderRepository.delete(toUpdate);
+        }
 
         return ResponseEntity.ok("Order updated successfully");
     }

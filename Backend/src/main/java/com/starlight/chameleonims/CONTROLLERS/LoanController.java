@@ -70,20 +70,6 @@ public class LoanController {
         return ResponseEntity.ok("Loan succesfully deleted");
     }
 
-    @DeleteMapping("/Return/{selectedReturnOrder}/{costumeId}")
-    public ResponseEntity<?> returnLoan(@PathVariable String selectedReturnOrder, @PathVariable String costumeId)
-    {
-        List<Loan> loans = loanRepository.findByOrderId(selectedReturnOrder).stream().filter(loan -> (loan.getCostumeId() != null) && (loan.getCostumeId().equals(costumeId))).toList();
-
-        for (Loan loan : loans) {
-
-            loanRepository.deleteById(loan.getLoanId());
-
-        }
-
-        return ResponseEntity.ok("Loan succesfully returned");
-    }
-
     @PostMapping("/AddLoan")
     public Loan createLoan(@RequestBody Loan loan) 
     {
@@ -102,8 +88,6 @@ public class LoanController {
         if (incomingUpdates.getCostumeId() != null) toUpdate.setCostumeId(incomingUpdates.getCostumeId());
         if (incomingUpdates.getQuantity() != null) toUpdate.setQuantity(incomingUpdates.getQuantity());
         if (incomingUpdates.getStatus() != null) toUpdate.setStatus(incomingUpdates.getStatus());
-        
-        loanRepository.save(toUpdate);
 
         List<Loan> loans = loanRepository.findByOrderId(toUpdate.getOrderId()).stream().filter(loan -> (loan.getOrderId() != null) && (loan.getOrderId().equals(toUpdate.getOrderId()))).toList();
 
@@ -115,14 +99,23 @@ public class LoanController {
             if (pickedCount == loans.size()) {
                 order.setStatus(OrderStatus.PICKED);
                 orderRepository.save(order);
+                //also send update to WordPress
             }
             else if (pickedCount > 0) {
                 order.setStatus(OrderStatus.PICKING_IN_PROGRESS);
                 orderRepository.save(order);
+                //also send update to WordPress
             }
         }
 
-        //also send update to WordPress
+        if (toUpdate.getQuantity() == 0) {
+            loanRepository.delete(toUpdate);
+        }
+        else if (toUpdate.getStatus().equals(LoanStatus.RETURNED)) { 
+            toUpdate.setStatus(LoanStatus.READY_TO_RETURN);
+        }
+
+        loanRepository.save(toUpdate);
 
         return ResponseEntity.ok("Loan updated successfully");
     }

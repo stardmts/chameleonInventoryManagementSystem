@@ -10,7 +10,13 @@ public enum LoanStatus{
 
     OUT_FOR_HIRE,
 
+    READY_TO_RETURN,
+
     REPAIR,
+
+    RETURNED,
+
+    MISSING,
 
     LAUNDRY;
     

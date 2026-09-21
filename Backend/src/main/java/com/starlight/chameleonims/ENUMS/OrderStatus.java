@@ -14,6 +14,8 @@ public enum OrderStatus {
 
     OUT_ON_HIRE,
 
+    RETURNED,
+
     COMPLETED;
     
 }
