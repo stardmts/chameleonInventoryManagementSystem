@@ -109,7 +109,8 @@ public class LoanController {
         }
 
         if (toUpdate.getQuantity() == 0) {
-            loanRepository.delete(toUpdate);
+            loanRepository.deleteById(toUpdate.getLoanId());
+            return ResponseEntity.ok("Loan updated successfully");
         }
         else if (toUpdate.getStatus().equals(LoanStatus.RETURNED)) { 
             toUpdate.setStatus(LoanStatus.READY_TO_RETURN);

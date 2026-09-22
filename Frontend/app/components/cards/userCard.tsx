@@ -107,11 +107,11 @@ export default function UserCard({userId, userEmail, firstName, secondName, user
     return (
         <main className = "flex flex-row border-b-2 border-white rounded-xl bg-[#484848] items-center w-full justify-between px-2 py-2 space-x-2 text-wrap shadow-2xl">
             { !remove && !admin && !pass && (
-                        <div className = "flex flex-row space-x-2 lg:space-x-5 items-center">
+                        <div className = "flex flex-col lg:flex-row space-y-2 space-x-2 lg:space-x-5 items-center">
                             <p className = "text-white text-sm lg:text-2xl items-center">
                                 {userId} | {firstName} {secondName} | {userEmail} | {userRole} 
                             </p>
-                            <div className = "flex flex-col space-y-1 lg:flex-row space-x-1">
+                            <div className = "flex flex-row lg:flex-col space-y-1 lg:flex-row space-x-1">
                                 <button onClick = {() => setRemove(!remove)} className = "bg-[#484848] border-2 lg:border-4 border-[#ff1200] p-2 text-white text-sm lg:text-xl rounded-full transition-colors touch-manipulation active:bg-[#ff1200] [@media(hover:hover)]:hover:bg-[#ff1200]"> Remove user </button>
                                 <button onClick = {() => setAdmin(!admin)} className = "bg-[#484848] border-2 lg:border-4 border-[#ff1200] p-2 text-white text-sm lg:text-xl rounded-full transition-colors touch-manipulation active:bg-[#ff1200] [@media(hover:hover)]:hover:bg-[#ff1200]"> Make user {userRole === "ADMIN" ? "User" : "Admin"} </button>
                                 <button onClick = {() => setPass(!pass)} className = "bg-[#484848] border-2 lg:border-4 border-[#ff1200] p-2 text-white text-sm lg:text-xl rounded-full transition-colors touch-manipulation active:bg-[#ff1200] [@media(hover:hover)]:hover:bg-[#ff1200]"> Reset password </button>

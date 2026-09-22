@@ -80,7 +80,7 @@ export default function StockPage() {
                             All Orders:
                     </header>
                     <div className = "flex flex-row space-x-5 w-full px-5">  
-                        <input type = "text" onChange = {(e) => search(e.target.value)} placeholder = "Search the costume catalogue..." className = "text-white text-left bg-[#484848] w-full lg:w-100 p-2 rounded-full border-b-2 border-white"/>
+                        <input type = "text" onChange = {(e) => search(e.target.value)} placeholder = "Search the orders..." className = "text-white text-left bg-[#484848] w-full lg:w-100 p-2 rounded-full border-b-2 border-white"/>
                         <button onClick = {() => {setOrders([]), loadOrders()}} className = "text-white bg-[#484848] border-2 border-white rounded-full p-1" > Clear Search </button>
                     </div> 
                         <div className = "hidden flex flex-row w-full text-sm lg:text-xl text-white space-x-2 justify-center">

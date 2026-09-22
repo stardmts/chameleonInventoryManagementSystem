@@ -286,7 +286,7 @@ export default function AddCostume() {
 
     return (
         <main className = "flex flex-col p-5 rounded-xl">
-            <div className = "flex flex-col bg-[#323232] px-10 py-5 rounded-xl w-full lg:w-auto space-y-2 text-white text-left border-4 border-[#6dabe3]">
+            <div className = "flex flex-col bg-[#323232] px-5 py-5 rounded-xl w-full lg:w-auto space-y-2 text-white text-left border-4 border-[#6dabe3]">
                 <header className = "lg:hidden text-xl text-white"> Add Costume: </header>
                 <div className = "flex flex-col space-y-0">
                     <header className = "text-white text-sm lg:text-xl"> Enter the costume id </header>
@@ -369,8 +369,8 @@ export default function AddCostume() {
                     <input type = "text" value = {cost} onChange = {(e) => setCost(e.target.value)} placeholder = "Enter the cost per unit..." className = "bg-[#484848] w-full p-2 rounded-full border-b-2 border-white"/>
                 </div>
                 <div className = "flex flex-col space-y-2">
-                    <header className = "text-white text-sm lg:text-xl"> Enter the costume cost </header>
-                    <div style={{ padding: '20px', border: '1px dashed #ccc', borderRadius: '8px' }}>
+                    <header className = "text-white text-sm lg:text-xl"> Upload the costume image </header>
+                    <div style={{border: '1px dashed #ccc', borderRadius: '8px', alignItems: 'center' }}>
 
                         <input type="file" accept="image/*" onChange={handleFileChange} />
                         

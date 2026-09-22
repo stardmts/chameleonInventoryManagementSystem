@@ -81,7 +81,7 @@ export default function UsersPage() {
                     </header>
                     <div className = "flex flex-col space-y-2 lg:flex-row items-center justify-between w-full px-2 lg:px-10">
                     <div className = "flex flex-row space-x-5 w-full">  
-                        <input type = "text" onChange = {(e) => search(e.target.value)} placeholder = "Search the costume catalogue..." className = "text-white text-left bg-[#484848] w-full lg:w-100 p-2 rounded-full border-b-2 border-white"/>
+                        <input type = "text" onChange = {(e) => search(e.target.value)} placeholder = "Search users..." className = "text-white text-left bg-[#484848] w-full lg:w-100 p-2 rounded-full border-b-2 border-white"/>
                         <button onClick = {() => {setUsers([]), loadUsers()}} className = "text-white bg-[#484848] border-2 border-white rounded-full p-1" > Clear Search </button>
                     </div>   
                         <div className = "flex flex-row space-x-2 px-2">

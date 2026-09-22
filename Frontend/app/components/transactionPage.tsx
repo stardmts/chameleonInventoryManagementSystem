@@ -57,7 +57,7 @@ export default function TransactionPage() {
                 All Transactions:
             </header>
             <div className = "flex flex-row space-x-5 w-full px-5">  
-                <input type = "text" onChange = {(e) => search(e.target.value)} placeholder = "Search the costume catalogue..." className = "text-white text-left bg-[#484848] w-full lg:w-100 p-2 rounded-full border-b-2 border-white"/>
+                <input type = "text" onChange = {(e) => search(e.target.value)} placeholder = "Search transactions..." className = "text-white text-left bg-[#484848] w-full lg:w-100 p-2 rounded-full border-b-2 border-white"/>
                 <button onClick = {() => {setTransactions([]), loadTransactions()}} className = "text-white bg-[#484848] border-2 border-white rounded-full p-1" > Clear Search </button>
             </div> 
             <div className = "flex flex-col items-center space-y-2 overflow-y-auto bg-[#323232] lg:h-190 w-full text-white rounded px-5 py-5">
