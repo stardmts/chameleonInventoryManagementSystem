@@ -217,19 +217,23 @@ export default function IndividualStockCard({costumeId, name, group, category, c
         status: "PICKED"
     }
 
-    const currentLoan = loans.find(loan => loan.loanId === selectedLoan);
+    const newOrderData: Order = {
+        orderId: selectedOrder,
+        userEmailAddress: "STARLIGHT_SELF_PICK",
+        startDate: startDate,
+        endDate: endDate,
+        status: "PICKED"
+    }
 
-    const currentQuantity = currentLoan ? currentLoan.quantity : 0;
-
-    const currentOrder = currentLoan ? currentLoan.orderId : "";
+    const [extractedLoanId, extractedQuantity, extractedOrderId] = typeof selectedLoan === 'string' && selectedLoan.includes(',')? selectedLoan.split(','): [selectedLoan, undefined, undefined];
 
     const pickData: Loan = {
-        loanId: selectedLoan,
-        orderId: currentOrder,
+        loanId: extractedLoanId,
+        orderId: extractedOrderId,
         startDate: startDate,
         endDate: endDate,
         costumeId: costumeId,
-        quantity: currentQuantity,
+        quantity: Number(extractedQuantity),
         status: "PICKED"
     }
 
@@ -254,7 +258,7 @@ export default function IndividualStockCard({costumeId, name, group, category, c
         }
     };
 
-    const submitPickNew = async (pickDataNew: Loan) => {
+    const submitPickNew = async (pickDataNew, newOrderData) => {
         try {
             const response = await fetch('http://localhost:8080/api/Loans/AddLoan', {
                 method: 'POST',
@@ -268,7 +272,24 @@ export default function IndividualStockCard({costumeId, name, group, category, c
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
-            window.location.reload();
+            try {
+                const response = await fetch('http://localhost:8080/api/Orders/AddOrder', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(newOrderData)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                window.location.reload();
+
+            } catch (err) {
+                console.error("Failed to add order:", err);
+            }
 
         } catch (err) {
             console.error("Failed to pick item:", err);
@@ -277,8 +298,8 @@ export default function IndividualStockCard({costumeId, name, group, category, c
 
     const returnCostume = async () => {
         try {
-            const response = await fetch (`http://localhost:8080/api/Loans/Return/${selectedReturnOrder}/${costumeId}`, {
-                method: "DELETE"
+            const response = await fetch (`http://localhost:8080/api/Loans/Update/`, {
+                method: "PATCH"
             })
 
             if (!response.ok) {
@@ -338,14 +359,14 @@ export default function IndividualStockCard({costumeId, name, group, category, c
                                 <header className = "text-white text-sm lg:text-xl"> Choose the loan you are picking for: </header>
                                 <input type="text" list="loan-list" value={selectedLoan} onChange={(e) => setSelectedLoan(e.target.value)} className="bg-[#484848] border-b-2 border-white rounded-full text-left w-full p-1 lg:p-2.5 text-white placeholder-gray-400 outline-none"/>
                                 <datalist id="loan-list">
-                                    {loans.map((loan) => (<option key = {loan.loanId} value = {loan.loanId}> Order ID: {loan.orderId} | Quantity: {loan.quantity} </option>))}
+                                    {loans.map((loan) => (<option key = {loan.loanId} value = {[loan.loanId,String(loan.quantity),loan.orderId]}> Order ID: {loan.orderId} | Quantity: {loan.quantity} </option>))}
                                 </datalist>
                             </div>
                             <div className = "flex flex-col w-full space-y-2">
                                 <header className = "text-white text-sm lg:text-xl"> Is this a new loan? </header>
                                 <div className = "flex flex-row space-x-5">
                                     <header className = "text-white text-sm lg:text-xl"> Yes </header>
-                                    <input type="checkbox" name="myCheckbox" onChange={(e) => setIsNew(!isNew)}/>
+                                    <input type="checkbox" name="myCheckbox" onChange={() => setIsNew(!isNew)}/>
                                 </div>
                             </div>
                             <button onClick = {() => submitPick(pickData)} className = "p-2 w-50 bg-[#484848] rounded-full touch-manipulation active:bg-[#323232] [@media(hover:hover)]:hover:bg-[#262626] shadow-2xl" > Submit Pick </button>
@@ -372,7 +393,7 @@ export default function IndividualStockCard({costumeId, name, group, category, c
                             <header className = "text-white text-sm lg:text-xl"> Enter the pick quantity: </header>
                             <input type = "number" min = "1" value = {pickQuantity} onChange = {(e) => setPickQuantity(Number(e.target.value))} className = "bg-[#484848] w-full p-2 rounded-full border-b-2 border-white"/>
                         </div>
-                        <button onClick = {() => submitPickNew(pickDataNew)} className = "p-2 w-50 bg-[#484848] rounded-full touch-manipulation active:bg-[#323232] [@media(hover:hover)]:hover:bg-[#262626] shadow-2xl" > Submit Pick </button>
+                        <button onClick = {() => submitPickNew(pickDataNew, newOrderData)} className = "p-2 w-50 bg-[#484848] rounded-full touch-manipulation active:bg-[#323232] [@media(hover:hover)]:hover:bg-[#262626] shadow-2xl" > Submit Pick </button>
                     </div> 
                 )}
                 </div>

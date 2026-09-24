@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.starlight.chameleonims.Costume;
 import com.starlight.chameleonims.ENUMS.LoanStatus;
 import com.starlight.chameleonims.ENUMS.OrderStatus;
 import com.starlight.chameleonims.Loan;
 import com.starlight.chameleonims.Order;
+import com.starlight.chameleonims.REPOSITORIES.CostumeRepository;
 import com.starlight.chameleonims.REPOSITORIES.LoanRepository;
 import com.starlight.chameleonims.REPOSITORIES.OrderRepository;
 
@@ -27,11 +29,15 @@ import com.starlight.chameleonims.REPOSITORIES.OrderRepository;
 public class LoanController {
 
     private final OrderRepository orderRepository;
+
     private final LoanRepository loanRepository;
 
-    public LoanController(LoanRepository loanRepository, OrderRepository orderRepository) {
+    private final CostumeRepository costumeRepository;
+
+    public LoanController(LoanRepository loanRepository, OrderRepository orderRepository, CostumeRepository costumeRepository) {
         this.loanRepository = loanRepository;
         this.orderRepository = orderRepository;
+        this.costumeRepository = costumeRepository;
     }
 
     @GetMapping
@@ -71,8 +77,14 @@ public class LoanController {
     }
 
     @PostMapping("/AddLoan")
-    public Loan createLoan(@RequestBody Loan loan) 
+    public Loan createLoan(@RequestBody Loan loan)
     {
+        if (loan.getStatus().equals(LoanStatus.PICKED)) {
+            Costume costume = costumeRepository.findById(loan.getCostumeId()).orElse(null);
+            costume.setInStock((costume.getInStock()) - (loan.getQuantity()));
+            costumeRepository.save(costume);
+        }
+
         return loanRepository.save(loan);
     }
 
@@ -80,6 +92,10 @@ public class LoanController {
     public ResponseEntity<?> updateLoanById(@PathVariable String loanId, @RequestBody Loan incomingUpdates)
     {
         Loan toUpdate = loanRepository.findById(loanId).orElseThrow(() -> new RuntimeException("Loan not found"));
+
+        Integer quantity = toUpdate.getQuantity();
+        LoanStatus status = toUpdate.getStatus();
+        String costumeId = toUpdate.getCostumeId();
 
         if (incomingUpdates.getLoanId() != null) toUpdate.setLoanId(incomingUpdates.getLoanId());
         if (incomingUpdates.getOrderId() != null) toUpdate.setOrderId(incomingUpdates.getOrderId());
@@ -89,7 +105,42 @@ public class LoanController {
         if (incomingUpdates.getQuantity() != null) toUpdate.setQuantity(incomingUpdates.getQuantity());
         if (incomingUpdates.getStatus() != null) toUpdate.setStatus(incomingUpdates.getStatus());
 
-        List<Loan> loans = loanRepository.findByOrderId(toUpdate.getOrderId()).stream().filter(loan -> (loan.getOrderId() != null) && (loan.getOrderId().equals(toUpdate.getOrderId()))).toList();
+        Costume costume = costumeRepository.findById(costumeId).orElse(null);
+
+        if (costume != null) {
+
+            if (toUpdate.getQuantity() == 0) {
+
+                costume.setInStock((costume.getInStock()) + (quantity));
+                costumeRepository.save(costume);
+
+                loanRepository.deleteById(toUpdate.getLoanId());
+                return ResponseEntity.ok("Loan updated successfully");
+
+            }
+
+            if (status != LoanStatus.PICKED && toUpdate.getStatus() == LoanStatus.PICKED) {
+
+                costume.setInStock(costume.getInStock() - toUpdate.getQuantity());
+                costumeRepository.save(costume);
+
+            }
+
+            else if (status != LoanStatus.READY_TO_RETURN && toUpdate.getStatus() == LoanStatus.RETURNED) {
+
+                costume.setInStock(costume.getInStock() + quantity);
+                costumeRepository.save(costume);
+                toUpdate.setStatus(LoanStatus.READY_TO_RETURN);
+
+            }
+
+        }
+
+        List<Loan> loans = loanRepository.findByOrderId(toUpdate.getOrderId());
+
+        if (loans.isEmpty()) {
+            orderRepository.deleteById(toUpdate.getOrderId());
+        }
 
         Long pickedCount = loans.stream().filter(loan -> loan.getStatus() == LoanStatus.PICKED).count();
 
@@ -106,14 +157,6 @@ public class LoanController {
                 orderRepository.save(order);
                 //also send update to WordPress
             }
-        }
-
-        if (toUpdate.getQuantity() == 0) {
-            loanRepository.deleteById(toUpdate.getLoanId());
-            return ResponseEntity.ok("Loan updated successfully");
-        }
-        else if (toUpdate.getStatus().equals(LoanStatus.RETURNED)) { 
-            toUpdate.setStatus(LoanStatus.READY_TO_RETURN);
         }
 
         loanRepository.save(toUpdate);
