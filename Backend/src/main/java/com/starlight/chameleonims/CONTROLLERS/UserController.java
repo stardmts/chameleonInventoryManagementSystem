@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -22,26 +21,26 @@ import com.starlight.chameleonims.DTOS.UserDTO;
 import com.starlight.chameleonims.ENUMS.UserRole;
 import com.starlight.chameleonims.REPOSITORIES.TransactionRepository;
 import com.starlight.chameleonims.REPOSITORIES.UserRepository;
-import com.starlight.chameleonims.SERVICES.Authentication;
+import com.starlight.chameleonims.SERVICES.AuthService;
 import com.starlight.chameleonims.Transaction;
 import com.starlight.chameleonims.User;
 
 @RestController
 @RequestMapping("/api/Users")
-@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 
     private final TransactionRepository transactionRepository;
     
     private final UserRepository userRepository;
 
-    private final Authentication authenticator;
+    private final AuthService authService;
 
-    public UserController(TransactionRepository transactionRepository, UserRepository userRepository, Authentication authenticator) {
+    public UserController(TransactionRepository transactionRepository, UserRepository userRepository, AuthService authService) {
         this.transactionRepository = transactionRepository;
         this.userRepository = userRepository;
-        this.authenticator = authenticator;
+        this.authService = authService;
     }
+
     @GetMapping
     public List<UserDTO> getAllUsers() 
     {
@@ -115,7 +114,7 @@ public class UserController {
         
         transactionRepository.save(transaction);
 
-        String hashedPassword = authenticator.hashPassword(user.getPasswordHash());
+        String hashedPassword = authService.hashPassword(user.getPasswordHash());
 
         user.setPasswordHash(hashedPassword);
 
@@ -131,7 +130,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User doesnt exist");
         }
 
-        String hashedPassword = authenticator.hashPassword(passwordDTO.getPassword());
+        String hashedPassword = authService.hashPassword(passwordDTO.getPassword());
 
         user.setPasswordHash(hashedPassword);
 

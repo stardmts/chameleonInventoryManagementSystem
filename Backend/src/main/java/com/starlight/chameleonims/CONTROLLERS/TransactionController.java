@@ -2,7 +2,6 @@ package com.starlight.chameleonims.CONTROLLERS;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +14,6 @@ import com.starlight.chameleonims.Transaction;
 
 @RestController
 @RequestMapping("/api/Transactions")
-@CrossOrigin(origins = "http://localhost:3000")
 public class TransactionController {
 
     private final TransactionRepository transactionRepository;
