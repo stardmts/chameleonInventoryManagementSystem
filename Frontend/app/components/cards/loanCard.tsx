@@ -37,7 +37,7 @@ export default function loanCard({loanId, orderId, startDate, endDate, costumeId
 
     const loadCostume = async () => {
         try {
-            fetch(`http://localhost:8080/api/Costumes/${costumeId}`)
+            fetch(`http://localhost:8080/api/Costumes/${costumeId}`, {credentials: 'include'})
             .then((data) => data.json())
             .then((data) => setCostume(data))
         } catch (err) {
@@ -52,6 +52,7 @@ export default function loanCard({loanId, orderId, startDate, endDate, costumeId
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                credentials: 'include',
                 body: JSON.stringify(loanStatusUpdateData)
             })
 
@@ -101,6 +102,7 @@ export default function loanCard({loanId, orderId, startDate, endDate, costumeId
                     headers: {
                         'Content-Type': 'application/json',
                     },
+                    credentials: 'include',
                     body: JSON.stringify(loanUpdateData)
                 })
 
@@ -115,6 +117,7 @@ export default function loanCard({loanId, orderId, startDate, endDate, costumeId
                         headers: {
                             'Content-Type': 'application/json',
                         },
+                        credentials: 'include',
                         body: JSON.stringify(loanReturnUpdateData)
                     })
 
@@ -135,6 +138,7 @@ export default function loanCard({loanId, orderId, startDate, endDate, costumeId
                     headers: {
                         'Content-Type': 'application/json',
                     },
+                    credentials: 'include',
                     body: JSON.stringify(loanReturnUpdateData)
                 })
 

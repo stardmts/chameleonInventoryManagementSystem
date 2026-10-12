@@ -6,7 +6,6 @@ export default function UserSettings() {
 
     const [password1, setPassword1] = useState('');
     const [password2, setPassword2] = useState('');
-    {/*image, qr are auto generated*/}
 
     return (
         <main className = "flex flex-col items-center w-full min-h-screen py-10">

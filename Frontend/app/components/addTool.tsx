@@ -39,7 +39,7 @@ export default function AddTool() {
         setLoading(true);
 
         try {
-            const response = await fetch('', { method: 'POST' }); {/*API needs to be created and inputted here*/}
+            const response = await fetch('', { method: 'POST', credentials: 'include' }); {/*API needs to be created and inputted here*/}
             const { uploadUrl } = await response.json();
 
             const formData = new FormData();

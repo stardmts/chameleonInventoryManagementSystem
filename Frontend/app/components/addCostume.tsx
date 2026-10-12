@@ -76,7 +76,7 @@ export default function AddCostume() {
         locationCode: locationCode,
         lastUpdated: null,
         cost: Number(cost),
-        imageUrl: uploadedUrl
+        imageUrl: "CHANGE THIS" /* uploadedUrl */
     }
 
     const groupData: group = {
@@ -176,6 +176,7 @@ export default function AddCostume() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
+                    credentials: 'include',
                     body: JSON.stringify(costumeData)
                 })
                 if (!response.ok) {
@@ -195,6 +196,7 @@ export default function AddCostume() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
+                    credentials: 'include',
                     body: JSON.stringify(costumeData)
                 })
 
@@ -208,6 +210,7 @@ export default function AddCostume() {
                         headers: {
                             'Content-Type': 'application/json',
                         },
+                        credentials: 'include',
                         body: JSON.stringify(groupData)
                     })
 
@@ -234,7 +237,8 @@ export default function AddCostume() {
 
         try {
             const response = await fetch('http://localhost:8080/api/Costumes/ImageUpload', {
-                method: "POST"
+                method: "POST",
+                credentials: 'include'
             });
 
             const { uploadURL, id } = await response.json();
@@ -245,6 +249,7 @@ export default function AddCostume() {
 
             const cloudflareResponse = await fetch(uploadURL, {
                 method: 'POST',
+                credentials: 'include',
                 body: formData,
             });
 
@@ -368,7 +373,7 @@ export default function AddCostume() {
                     <header className = "text-white text-sm lg:text-xl"> Enter the costume cost </header>
                     <input type = "text" value = {cost} onChange = {(e) => setCost(e.target.value)} placeholder = "Enter the cost per unit..." className = "bg-[#484848] w-full p-2 rounded-full border-b-2 border-white"/>
                 </div>
-                <div className = "flex flex-col space-y-2">
+                {/* <div className = "flex flex-col space-y-2">
                     <header className = "text-white text-sm lg:text-xl"> Upload the costume image </header>
                     <div style={{border: '1px dashed #ccc', borderRadius: '8px', alignItems: 'center' }}>
 
@@ -385,7 +390,7 @@ export default function AddCostume() {
                             </div>
                         )}
                     </div>
-                </div>
+                </div> */}
                 <div className = "flex flex-col space-y-2">
                     <header className = "text-white text-sm lg:text-xl"> Is this a new costume? </header>
                     <div className = "flex flex-row space-x-5">

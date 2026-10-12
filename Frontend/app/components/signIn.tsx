@@ -1,13 +1,57 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+
+interface SignInDTO {
+  userEmail: string,
+  userPassword: string
+}
 
 export default function SignIn() {
 
   const router = useRouter();
 
+  const [signInMessage, SetSignInMessage] = useState('');
+
   const [forgotten, setForgotten] = useState(false);
+
+  const [email, setEmail] = useState('');
+
+  const [password, setPassword] = useState('');
+
+  const handleSignIn = async (email: string, password: string) => {
+
+    console.log("Sending Payload:", { userEmail: email, userPassword: password });
+
+    const signInDetails: SignInDTO = {
+      userEmail: email,
+      userPassword: password
+    }
+
+    try {
+
+      const response = await fetch('http://localhost:8080/api/Auth/SignIn', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(signInDetails),
+      })
+
+      if (!response.ok) {
+        SetSignInMessage("Failed to sign in")
+      }
+
+      if (response.ok) {
+        router.refresh();
+        router.push("/homePage")
+      }
+      
+    } catch (err) {
+      console.error("Login failed:", err)
+    }
+
+  }
 
   return (
     <main className = "flex flex-col lg:flex-row bg-[#262626] min-h-screen w-full px-5 lg:px-20 py-5 lg:py-20 space-y-5 lg:space-y-15 lg:space-x-20">
@@ -19,13 +63,16 @@ export default function SignIn() {
             </header>
             <div className = "flex flex-col space-y-1 text-white text-1xl">
                 <label htmlFor = "username-input"> E-mail address: </label>
-                <input className = "bg-[#484848] rounded px-2 py-2 rounded border-b-2" placeholder = "Enter your e-mail..." />
+                <input value = {email} onChange = {(e) => setEmail(e.target.value)} className = "bg-[#484848] rounded px-2 py-2 rounded border-b-2" placeholder = "Enter your e-mail..." />
             </div>
             <div className = "flex flex-col space-y-1 text-white text-1xl">
                 <label htmlFor = "username-input"> Password: </label>
-                <input className = "bg-[#484848] rounded px-2 py-2 rounded border-b-2" placeholder = "Enter your e-mail..." />
+                <input type = "password" value = {password} onChange = {(e) => setPassword(e.target.value)} className = "bg-[#484848] rounded px-2 py-2 rounded border-b-2" placeholder = "Enter your password" />
             </div>
-            <button onClick = {() => router.push('/homePage')} className = "bg-[#484848] px-4 w-20 py-0.5 rounded text-white"> Login </button> {/*devlopment use only delete when checkls are in place to verify user*/}
+            <button onClick = {() => handleSignIn(email, password)} className = "bg-[#484848] px-4 w-20 py-0.5 rounded text-white"> Login </button> {/*devlopment use only delete when checkls are in place to verify user*/}
+            <div className = "text-white text-left">
+              {signInMessage}
+            </div>
             <div className = "flex flex-col space-y-1">
                 <button onClick = {() => setForgotten(!forgotten)} className = "text-[#76b8ff] text-left w-85 hover:underline"> forgotten password? request password reset </button>
             </div>

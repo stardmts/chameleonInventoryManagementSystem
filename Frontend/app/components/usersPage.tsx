@@ -28,7 +28,7 @@ export default function UsersPage() {
 
     const loadUsers = async () => {
         try {
-            fetch('http://localhost:8080/api/Users')
+            fetch('http://localhost:8080/api/Users', {credentials: 'include'})
             .then((data) => data.json())
             .then((data) => setUsers(data))
         } catch (err) {
@@ -45,7 +45,7 @@ export default function UsersPage() {
                 return;
             }
 
-            const response = await fetch(`http://localhost:8080/api/Users/Search/${search}`)
+            const response = await fetch(`http://localhost:8080/api/Users/Search/${search}`, {credentials: 'include'})
 
             if(!response.ok) {
                 throw new Error('Http error' + response.status)

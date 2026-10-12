@@ -64,7 +64,7 @@ export default function StockPage() {
                 return;
             }
 
-            const response = await fetch(`http://localhost:8080/api/Costumes/Search/${search}`)
+            const response = await fetch(`http://localhost:8080/api/Costumes/Search/${search}`, {credentials: 'include'})
 
             if(!response.ok) {
                 throw new Error('Http error' + response.status)
@@ -82,7 +82,7 @@ export default function StockPage() {
     
     const loadCostumes = async () => {
         try {
-            fetch('http://localhost:8080/api/Costumes')
+            fetch('http://localhost:8080/api/Costumes', {credentials: 'include'})
             .then((data) => data.json())
             .then((data) => setCostumes(data))
         } catch (err) {
@@ -92,7 +92,7 @@ export default function StockPage() {
     
     const loadProps = async () => {
         try {
-            fetch('http://localhost:8080/api/Props')
+            fetch('http://localhost:8080/api/Props', {credentials: 'include'})
             .then((data) => data.json())
             .then((data) => setProps(data))
         } catch (err) {
@@ -102,7 +102,7 @@ export default function StockPage() {
     
     const loadTools = async () => {
         try {
-            fetch('http://localhost:8080/api/Tools')
+            fetch('http://localhost:8080/api/Tools', {credentials: 'include'})
             .then((data) => data.json())
             .then((data) => setTools(data))
         } catch (err) {

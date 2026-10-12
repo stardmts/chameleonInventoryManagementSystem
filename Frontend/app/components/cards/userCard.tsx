@@ -41,6 +41,7 @@ export default function UserCard({userId, userEmail, firstName, secondName, user
             headers: {
                 'Content-Type': 'application/json',
             },
+            credentials: 'include',
             body: JSON.stringify(targetRole)
             });
 

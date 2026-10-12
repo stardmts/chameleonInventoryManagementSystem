@@ -24,7 +24,7 @@ export default function StockPage() {
 
     const loadOrders = async () => {
         try {
-            fetch('http://localhost:8080/api/Orders')
+            fetch('http://localhost:8080/api/Orders', {credentials: 'include',})
             .then((data) => data.json())
             .then((data) => setOrders(data))
         } catch (err) {
@@ -41,7 +41,7 @@ export default function StockPage() {
                 return;
             }
 
-            const response = await fetch(`http://localhost:8080/api/Orders/Search/${search}`)
+            const response = await fetch(`http://localhost:8080/api/Orders/Search/${search}`, {credentials: 'include'})
 
             if(!response.ok) {
                 throw new Error('Http error' + response.status)
@@ -90,7 +90,7 @@ export default function StockPage() {
                             <button className = "bg-[#323232] border-2 lg:border-4 border-[#d6de00] p-1 lg:p-2 rounded-full transition-colors touch-manipulation active:bg-[#d6de00] [@media(hover:hover)]:hover:bg-[#d6de00]"> Remove filters </button> {/*display all*/}
                         </div>
                         <div className = "flex flex-col items-center space-y-2 overflow-y-auto h-auto lg:h-190 w-full text-white rounded px-5 py-5">
-                            {orders.map((order) => (<OrderCard key = {1} orderId = {order.orderId} userEmailAddress = {order.userEmailAddress} startDate = {order.startDate} endDate = {order.endDate} status = {order.status}/>))}
+                            {orders.map((order) => (<OrderCard key = {order.orderId} orderId = {order.orderId} userEmailAddress = {order.userEmailAddress} startDate = {order.startDate} endDate = {order.endDate} status = {order.status}/>))}
                         </div>
                 </main>   
             );
