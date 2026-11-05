@@ -175,6 +175,7 @@ export default function IndividualStockCard({costumeId, name, group, category, c
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                credentials: 'include',
                 body: JSON.stringify(costumeData)
             })
             
@@ -189,7 +190,7 @@ export default function IndividualStockCard({costumeId, name, group, category, c
 
     const getOrders = async () => {
         try {
-            fetch ('http://localhost:8080/api/Orders')
+            fetch ('http://localhost:8080/api/Orders', {credentials: 'include'})
             .then((data) => data.json())
             .then((data) => setOrders(data))
         } catch (err) {
@@ -199,7 +200,7 @@ export default function IndividualStockCard({costumeId, name, group, category, c
 
     const getLoans = async () => {
         try {
-            fetch (`http://localhost:8080/api/Loans/Costume/${costumeId}`)
+            fetch (`http://localhost:8080/api/Loans/Costume/${costumeId}`, {credentials: 'include'})
             .then((data) => data.json())
             .then((data) => setLoans(data))
         } catch (err) {
@@ -244,6 +245,7 @@ export default function IndividualStockCard({costumeId, name, group, category, c
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                credentials: 'include',
                 body: JSON.stringify(pickData)
             });
 
@@ -265,6 +267,7 @@ export default function IndividualStockCard({costumeId, name, group, category, c
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                credentials: 'include',
                 body: JSON.stringify(pickDataNew)
             });
 
@@ -278,6 +281,7 @@ export default function IndividualStockCard({costumeId, name, group, category, c
                     headers: {
                         'Content-Type': 'application/json',
                     },
+                    credentials: 'include',
                     body: JSON.stringify(newOrderData)
                 });
 
@@ -299,7 +303,8 @@ export default function IndividualStockCard({costumeId, name, group, category, c
     const returnCostume = async () => {
         try {
             const response = await fetch (`http://localhost:8080/api/Loans/Update/`, {
-                method: "PATCH"
+                method: "PATCH",
+                credentials: 'include',
             })
 
             if (!response.ok) {

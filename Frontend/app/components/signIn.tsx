@@ -43,7 +43,6 @@ export default function SignIn() {
       }
 
       if (response.ok) {
-        router.refresh();
         router.push("/homePage")
       }
       

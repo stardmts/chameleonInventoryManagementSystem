@@ -3,7 +3,9 @@ import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
 
-    const token = false;
+    const token = request.cookies.get('AUTH_TOKEN')?.value;
+
+    /*Need to verify token before allowing access*/
 
     const { pathname } = request.nextUrl;
 
