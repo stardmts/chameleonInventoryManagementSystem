@@ -3,7 +3,7 @@
 import { useState, useRef } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
 
-export default function AddTool() {
+export default function AddProp() {
 
     const [id, setId] = useState('');
     const [name, setName] = useState('');

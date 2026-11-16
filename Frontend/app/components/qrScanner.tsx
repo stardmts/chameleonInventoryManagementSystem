@@ -1,3 +1,5 @@
+"use client"
+
 import { IDetectedBarcode, Scanner } from '@yudiel/react-qr-scanner';
 import TransactionPage from './transactionPage';
 import StockPage from './stockPage';
@@ -82,9 +84,9 @@ export default function QrScanner() {
     };
 
     return (
-        <>
+        <main className = "bg-[#262626] w-full">
             {renderContent()}
-        </>
+        </main>
     );
 }
 {/*load item build individual card and and return it | when the qr code detects the item code it will return the itemId to get the information

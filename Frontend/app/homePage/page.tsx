@@ -1,6 +1,7 @@
 import StaffNavBar from "../components/staffNavigationBar";
-import LandingPage from "../components/landingPage";
 import Footer from "../components/footer";
+import SideBar from "../components/sideBar";
+import StockPage from "../components/stockPage";
 
 export default function HomePage() {
   return (
@@ -8,8 +9,9 @@ export default function HomePage() {
       <header>
         <StaffNavBar />
       </header>
-      <div>
-        <LandingPage />
+      <div className = "flex lg:flex-row flex-col">
+        <SideBar />
+        <StockPage />
       </div>
       <footer>
         <Footer />

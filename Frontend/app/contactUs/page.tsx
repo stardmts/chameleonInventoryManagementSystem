@@ -1,6 +1,7 @@
 import NavBar from "../components/navigationBar";
 import Footer from "../components/footer";
 import ContactUs from "../components/contactUs";
+import SideBar from "../components/sideBar";
 
 export default function ContactUsPage() {
   return (
@@ -8,7 +9,8 @@ export default function ContactUsPage() {
       <header>
         <NavBar />
       </header>
-      <div>
+      <div className = "flex flex-row">
+        <SideBar />
         <ContactUs />
       </div>
       <footer>

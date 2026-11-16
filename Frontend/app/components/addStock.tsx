@@ -4,8 +4,6 @@ import { useState } from 'react';
 import AddCostume from './addCostume';
 import AddProp from './addProp';
 import AddTool from './addTool';
-import StockPage from './stockPage';
-import QrScanner from './qrScanner';
 
 
 export default function AddStock() {
@@ -26,7 +24,7 @@ export default function AddStock() {
         };
 
     return (
-        <main className = "flex flex-col w-full min-h-screen items-center space-y-2 lg:space-y-5 py-2 lg:p-10">
+        <main className = "flex flex-col w-full min-h-screen items-center space-y-2 lg:space-y-5 py-2 lg:p-10 bg-[#323232]">
             <header className = "hidden lg:block text-white text-sm lg:text-2xl">
                 Choose the type of item your adding.
             </header>
