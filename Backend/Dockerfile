@@ -1,11 +1,15 @@
-FROM maven:3.9-eclipse-temurin-25 AS build
+FROM eclipse-temurin:25-jdk AS build
 WORKDIR /app
-COPY pom.xml .
-COPY src ./src
-RUN mvn clean package -DskipTests
+COPY .mvn .mvn
+COPY mvnw pom.xml ./
+RUN ./mvnw -B dependency:go-offline
+COPY src src
+RUN ./mvnw -B package -DskipTests
 
-FROM eclipse-temurin:25-jre-alpine
+FROM eclipse-temurin:25-jre
 WORKDIR /app
+RUN useradd -r app
 COPY --from=build /app/target/*.jar app.jar
+USER app
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]

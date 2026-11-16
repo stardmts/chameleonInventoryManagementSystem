@@ -1,48 +1,38 @@
 services:
-  postgres-db:
-    image: postgres:15-alpine
-    container_name: postgres-db
+  db:
+    image: postgres:16
+    restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_HOST_AUTH_METHOD: trust 
+      POSTGRES_PASSWORD: 0MYn$JhG*yeD
       POSTGRES_DB: chameleon
-    ports:
-      - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
-    networks:
-      - app-network
-    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d chameleon"]
+      interval: 5s
+      retries: 10
 
   backend:
     build: ./Backend
-    container_name: backend
-    ports:
-      - "8080:8080"
-    depends_on:
-      - postgres-db
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/chameleon
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=
-    networks:
-      - app-network
     restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/chameleon
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 0MYn$JhG*yeD
+      APP_JWT_SECRET: NB/nGoLVeyR4KSQHPgQyfmfm5TG1I4Yi+Rx7gA9vAoE=
+      SPRING_JPA_SHOW_SQL: "false"
 
   frontend:
     build: ./Frontend
-    container_name: frontend
-    ports:
-      - "80:3000"
+    restart: unless-stopped
     depends_on:
       - backend
-    networks:
-      - app-network
-    restart: unless-stopped
+    ports:
+      - "80:80"
 
 volumes:
   pgdata:
-
-networks:
-  app-network:
-    driver: bridge
