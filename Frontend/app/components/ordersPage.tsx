@@ -54,7 +54,7 @@ export default function OrdersPage() {
     }, [])
     
       return (
-        <main className = "flex flex-col space-y-5 bg-[#323232] min-h-screen min-w-full items-center">
+        <main className = "flex flex-col space-y-5 bg-[#323232] min-h-screen w-full items-center">
           <header className = "text-center bg-[#484848] w-full p-0.5 border-b-2 text-white text-sm lg:text-2xl border-white">
             All Orders:
           </header>
