@@ -25,15 +25,18 @@ interface Costume {
 
 export default function QrScanner() {
 
-    const [id, setId] = useState('');
+    const [costume, setCostume] = useState<Costume>();
 
-    const [costume, setCostume] = useState<Costume[]>([]);
-
-    const getCostume = async () => {
+    const getCostume = async (costumeId: string) => {
         try {
-            fetch(`http://localhost:8080/api/Costumes/${id}`, {credentials: 'include'})
-            .then((data) => data.json())
-            .then((data) => setCostume(data))
+            const response = await fetch(`http://localhost:8080/api/Costumes/${costumeId}`, {credentials: 'include'})
+            
+            const data = await response.json();
+
+            setCostume(data);
+
+            setDisplay("Individual");
+
         } catch (err) {
             console.error("Fetch error", err)
         }
@@ -42,11 +45,9 @@ export default function QrScanner() {
     const handleScan = (result: IDetectedBarcode[]) => {
         if (result.length > 0) {
 
-            setId(result[0].rawValue);
+            const id = (result[0].rawValue);
 
-            getCostume();
-
-            setDisplay("Individual");
+            getCostume(id);
         }
     };
 
@@ -54,21 +55,13 @@ export default function QrScanner() {
 
     const renderContent = () => {
         switch (display) {
-            case 'Transaction Log':
-            return <TransactionPage />;
-            case 'qrScanner':
-            return <QrScanner />;
-            case 'Stock':
-            return <StockPage />;
-            case 'Users':
-            return <UsersPage />;
-            case 'Account':
-            return <UserSettings />;
             case 'Individual':
             return (
                 <main className = "flex flex-col w-full min-h-screen items-center py-5 space-y-5">
-                    {costume.map((costume) => (<IndividualCard key = {costume.costumeId} costumeId = {costume.costumeId} name = {costume.name} group = {costume.group} category = {costume.category} colour = {costume.colour} size = {costume.size} quantity = {costume.quantity} inStock = {costume.inStock} locationCode = {costume.locationCode} lastUpdated = {costume.lastUpdated} cost = {costume.cost} imageUrl = {costume.imageUrl}/>))}
-                    <button onClick = {() => setDisplay('qrScanner')} className = "text-white p-2 bg-[#323232] border-b-2 border-[#FFFFFF] shadow-2xl rounded-[20px]"> Scan again </button>
+                    <IndividualCard key = {costume.costumeId} costumeId = {costume.costumeId} name = {costume.name} group = {costume.group} category = {costume.category} colour = {costume.colour} size = {costume.size} quantity = {costume.quantity} inStock = {costume.inStock} locationCode = {costume.locationCode} lastUpdated = {costume.lastUpdated} cost = {costume.cost} imageUrl = {costume.imageUrl}/>
+                    <button onClick = {() => setDisplay('qrScanner')} className = "text-white p-2 bg-[#323232] border-b-2 border-[#FFFFFF] shadow-2xl rounded-[20px]"> 
+                        Scan again 
+                    </button>
                 </main>
             );
             default:
@@ -89,6 +82,3 @@ export default function QrScanner() {
         </main>
     );
 }
-{/*load item build individual card and and return it | when the qr code detects the item code it will return the itemId to get the information
-use switch case to return either the scanner or the individual page    
-*/}
