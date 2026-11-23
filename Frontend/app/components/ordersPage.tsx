@@ -18,7 +18,7 @@ export default function OrdersPage() {
 
     const loadOrders = async () => {
         try {
-            fetch('http://localhost:8080/api/Orders', {credentials: 'include',})
+            fetch('/api/Orders', {credentials: 'include',})
             .then((data) => data.json())
             .then((data) => setOrders(data))
         } catch (err) {
@@ -35,7 +35,7 @@ export default function OrdersPage() {
                 return;
             }
 
-            const response = await fetch(`http://localhost:8080/api/Orders/Search/${search}`, {credentials: 'include'})
+            const response = await fetch(`/api/Orders/Search/${search}`, {credentials: 'include'})
 
             if(!response.ok) {
                 throw new Error('Http error' + response.status)

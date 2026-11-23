@@ -29,7 +29,7 @@ export default function orderCard({orderId, userEmailAddress, startDate, endDate
 
     const loadLoans = async () => {
         try {
-            fetch(`http://localhost:8080/api/Loans/Order/${orderId}`, {credentials: 'include'})
+            fetch(`/api/Loans/Order/${orderId}`, {credentials: 'include'})
             .then((data) => data.json())
             .then((data) => setLoans(data))
         } catch (err) {
@@ -55,7 +55,7 @@ export default function orderCard({orderId, userEmailAddress, startDate, endDate
 
     const submitNewLoan = async (NewPick) => {
         try {
-            const response = await fetch('http://localhost:8080/api/Loans/AddLoan', {
+            const response = await fetch('/api/Loans/AddLoan', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

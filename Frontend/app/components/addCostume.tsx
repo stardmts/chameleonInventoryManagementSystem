@@ -171,7 +171,7 @@ export default function AddCostume() {
     const createCostume = async (costumeData, groupData) => {
         if (!isGroup) {
             try {
-                const response = await fetch('http://localhost:8080/api/Costumes/AddCostume', {
+                const response = await fetch('/api/Costumes/AddCostume', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -191,7 +191,7 @@ export default function AddCostume() {
         }
         else {
             try {
-                const responseCostume = await fetch('http://localhost:8080/api/Costumes/AddCostume', {
+                const responseCostume = await fetch('/api/Costumes/AddCostume', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -205,7 +205,7 @@ export default function AddCostume() {
                 }
 
                 try {
-                    const responseGroup = await fetch('http://localhost:8080/api/Groups/AddGroup', {
+                    const responseGroup = await fetch('/api/Groups/AddGroup', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -236,7 +236,7 @@ export default function AddCostume() {
         setUploading(true);
 
         try {
-            const response = await fetch('http://localhost:8080/api/Costumes/ImageUpload', {
+            const response = await fetch('/api/Costumes/ImageUpload', {
                 method: "POST",
                 credentials: 'include'
             });
