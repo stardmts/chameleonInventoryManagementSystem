@@ -47,10 +47,16 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
+
+                .requestMatchers(
+                    org.springframework.http.HttpMethod.POST,
+                    "/api/Auth/SignIn"
+                ).permitAll()
+
                 .requestMatchers("/api/Auth/**").permitAll()
+
                 .anyRequest().authenticated()
             );
-
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
