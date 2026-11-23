@@ -1,12 +1,8 @@
 "use client"
 
 import { IDetectedBarcode, Scanner } from '@yudiel/react-qr-scanner';
-import TransactionPage from './transactionPage';
-import StockPage from './stockPage';
-import UsersPage from './usersPage';
 import { useState } from 'react';
 import IndividualCard from './cards/individualCard';
-import UserSettings from './userSettings';
 
 interface Costume {
     costumeId: string;
