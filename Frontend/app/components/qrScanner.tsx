@@ -29,7 +29,7 @@ export default function QrScanner() {
 
     const getCostume = async (costumeId: string) => {
         try {
-            const response = await fetch(`http://localhost:8080/api/Costumes/${costumeId}`, {credentials: 'include'})
+            const response = await fetch(`/api/Costumes/${costumeId}`, {credentials: 'include'})
             
             const data = await response.json();
 
