@@ -29,6 +29,7 @@ public class AuthController {
 
     @PostMapping("/SignIn")
     public ResponseEntity<?> signIn(@RequestBody SignInDTO signInDTO) {
+        System.out.println("========== SIGN IN CONTROLLER REACHED ==========");
 
         try {
 

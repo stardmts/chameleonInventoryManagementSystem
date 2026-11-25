@@ -16,7 +16,7 @@ export default function TransactionPage() {
 
     const loadTransactions = async () => {
         try {
-            fetch('http://localhost:8080/api/Transactions', {credentials: 'include',})
+            fetch('/api/Transactions', {credentials: 'include',})
             .then((data) => data.json())
             .then((data) => setTransactions(data))
         } catch (err) {
@@ -33,7 +33,7 @@ export default function TransactionPage() {
                 return;
             }
 
-            const response = await fetch(`http://localhost:8080/api/Transactions/Search/${search}`, {credentials: 'include'})
+            const response = await fetch(`/api/Transactions/Search/${search}`, {credentials: 'include'})
 
             if(!response.ok) {
                 throw new Error('Http error' + response.status)

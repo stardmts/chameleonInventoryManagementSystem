@@ -16,7 +16,7 @@ export default function UserCard({userId, userEmail, firstName, secondName, user
     
     const removeUser = async (userToRemove: string) => {
         try {
-            const response = await fetch(`http://localhost:8080/api/Users/Delete/${userToRemove}`, {
+            const response = await fetch(`/api/Users/Delete/${userToRemove}`, {
                 method: 'DELETE',
             })
 
@@ -36,7 +36,7 @@ export default function UserCard({userId, userEmail, firstName, secondName, user
         const targetRole = currentUserRole === "ADMIN" ? "USER" : "ADMIN";
         
         try {
-            const response = await fetch(`http://localhost:8080/api/Users/UpdateRole/${userId}`, {
+            const response = await fetch(`/api/Users/UpdateRole/${userId}`, {
             method: "PATCH",
             headers: {
                 'Content-Type': 'application/json',
@@ -74,7 +74,7 @@ export default function UserCard({userId, userEmail, firstName, secondName, user
         };
         
         try {
-            const response = await fetch(`http://localhost:8080/api/Users/UpdatePassword/${userId}`, {
+            const response = await fetch(`/api/Users/UpdatePassword/${userId}`, {
                 method: "PATCH",
                 headers: {
                     'Content-Type': 'application/json',

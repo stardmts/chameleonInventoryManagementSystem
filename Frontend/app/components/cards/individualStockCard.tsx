@@ -142,7 +142,7 @@ export default function IndividualStockCard({costumeId, name, group, category, c
 
     const removeCostume = async (costumeId) => {
         try {
-            fetch (`http://localhost:8080/api/Costumes/Delete/${costumeId}`, {
+            fetch (`/api/Costumes/Delete/${costumeId}`, {
                 method: 'DELETE'
             })
 
@@ -170,7 +170,7 @@ export default function IndividualStockCard({costumeId, name, group, category, c
 
     const updateCostume = async (costumeData) => {
         try {
-            const response = await fetch (`http://localhost:8080/api/Costumes/Update/${costumeId}`, {
+            const response = await fetch (`/api/Costumes/Update/${costumeId}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -190,7 +190,7 @@ export default function IndividualStockCard({costumeId, name, group, category, c
 
     const getOrders = async () => {
         try {
-            fetch ('http://localhost:8080/api/Orders', {credentials: 'include'})
+            fetch ('/api/Orders', {credentials: 'include'})
             .then((data) => data.json())
             .then((data) => setOrders(data))
         } catch (err) {
@@ -200,7 +200,7 @@ export default function IndividualStockCard({costumeId, name, group, category, c
 
     const getLoans = async () => {
         try {
-            fetch (`http://localhost:8080/api/Loans/Costume/${costumeId}`, {credentials: 'include'})
+            fetch (`/api/Loans/Costume/${costumeId}`, {credentials: 'include'})
             .then((data) => data.json())
             .then((data) => setLoans(data))
         } catch (err) {
@@ -240,7 +240,7 @@ export default function IndividualStockCard({costumeId, name, group, category, c
 
     const submitPick = async (pickData: Loan) => {
         try {
-            const response = await fetch(`http://localhost:8080/api/Loans/Update/${pickData?.loanId}`, {
+            const response = await fetch(`/api/Loans/Update/${pickData?.loanId}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -262,7 +262,7 @@ export default function IndividualStockCard({costumeId, name, group, category, c
 
     const submitPickNew = async (pickDataNew, newOrderData) => {
         try {
-            const response = await fetch('http://localhost:8080/api/Loans/AddLoan', {
+            const response = await fetch('/api/Loans/AddLoan', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -276,7 +276,7 @@ export default function IndividualStockCard({costumeId, name, group, category, c
             }
 
             try {
-                const response = await fetch('http://localhost:8080/api/Orders/AddOrder', {
+                const response = await fetch('/api/Orders/AddOrder', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -302,7 +302,7 @@ export default function IndividualStockCard({costumeId, name, group, category, c
 
     const returnCostume = async () => {
         try {
-            const response = await fetch (`http://localhost:8080/api/Loans/Update/`, {
+            const response = await fetch (`/api/Loans/Update/`, {
                 method: "PATCH",
                 credentials: 'include',
             })

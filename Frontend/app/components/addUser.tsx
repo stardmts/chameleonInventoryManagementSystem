@@ -43,7 +43,7 @@ export default function AddUser() {
 
     const createUser = async (userData) => {
         try {
-            const response = await fetch('http://localhost:8080/api/Users/AddUser', {
+            const response = await fetch('/api/Users/AddUser', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

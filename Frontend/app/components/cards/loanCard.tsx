@@ -37,7 +37,7 @@ export default function loanCard({loanId, orderId, startDate, endDate, costumeId
 
     const loadCostume = async () => {
         try {
-            fetch(`http://localhost:8080/api/Costumes/${costumeId}`, {credentials: 'include'})
+            fetch(`/api/Costumes/${costumeId}`, {credentials: 'include'})
             .then((data) => data.json())
             .then((data) => setCostume(data))
         } catch (err) {
@@ -47,7 +47,7 @@ export default function loanCard({loanId, orderId, startDate, endDate, costumeId
 
     const handleAutoPick = async () => {
         try {
-            fetch(`http://localhost:8080/api/Loans/Update/${loanId}`, {
+            fetch(`/api/Loans/Update/${loanId}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -97,7 +97,7 @@ export default function loanCard({loanId, orderId, startDate, endDate, costumeId
 
         if (["REPAIR","LAUNDRY","MISSING"].includes(selectedStatus)) {
             try {
-                const response = await fetch('http://localhost:8080/api/Loans/AddLoan', {
+                const response = await fetch('/api/Loans/AddLoan', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -112,7 +112,7 @@ export default function loanCard({loanId, orderId, startDate, endDate, costumeId
 
                 try {
                     
-                    fetch(`http://localhost:8080/api/Loans/Update/${loanId}`, {
+                    fetch(`/api/Loans/Update/${loanId}`, {
                         method: 'PATCH',
                         headers: {
                             'Content-Type': 'application/json',
@@ -133,7 +133,7 @@ export default function loanCard({loanId, orderId, startDate, endDate, costumeId
         }
         else {
             try {
-                fetch(`http://localhost:8080/api/Loans/Update/${loanId}`, {
+                fetch(`/api/Loans/Update/${loanId}`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',

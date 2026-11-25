@@ -1,12 +1,8 @@
 "use client"
 
 import { IDetectedBarcode, Scanner } from '@yudiel/react-qr-scanner';
-import TransactionPage from './transactionPage';
-import StockPage from './stockPage';
-import UsersPage from './usersPage';
 import { useState } from 'react';
 import IndividualCard from './cards/individualCard';
-import UserSettings from './userSettings';
 
 interface Costume {
     costumeId: string;
@@ -29,7 +25,7 @@ export default function QrScanner() {
 
     const getCostume = async (costumeId: string) => {
         try {
-            const response = await fetch(`http://localhost:8080/api/Costumes/${costumeId}`, {credentials: 'include'})
+            const response = await fetch(`/api/Costumes/${costumeId}`, {credentials: 'include'})
             
             const data = await response.json();
 
