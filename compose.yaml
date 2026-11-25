@@ -1,0 +1,38 @@
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 0MYn$JhG*yeJ
+      POSTGRES_DB: chameleon
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d chameleon"]
+      interval: 5s
+      retries: 10
+
+  backend:
+    build: ./Backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/chameleon
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 0MYn$JhG*yeJ
+      APP_JWT_SECRET: 7LRkqLtKUi08LeIaDPGPG55HOv0KYjLppf0YOp/0cKE=
+      SPRING_JPA_SHOW_SQL: "false"
+
+  frontend:
+    build: ./Frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+
+volumes:
+  pgdata:

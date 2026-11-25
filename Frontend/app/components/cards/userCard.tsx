@@ -110,7 +110,7 @@ export default function UserCard({userId, userEmail, firstName, secondName, user
             { !remove && !admin && !pass && (
                         <div className = "flex flex-col lg:flex-row space-y-2 space-x-2 lg:space-x-5 items-center">
                             <p className = "text-white text-sm lg:text-2xl items-center">
-                                {userId} | {firstName} {secondName} | {userEmail} | {userRole} 
+                                {firstName} {secondName} | {userEmail} | {userRole} 
                             </p>
                             <div className = "flex flex-row lg:flex-col space-y-1 lg:flex-row space-x-1">
                                 <button onClick = {() => setRemove(!remove)} className = "bg-[#484848] border-2 lg:border-4 border-[#ff1200] p-2 text-white text-sm lg:text-xl rounded-full transition-colors touch-manipulation active:bg-[#ff1200] [@media(hover:hover)]:hover:bg-[#ff1200]"> Remove user </button>
